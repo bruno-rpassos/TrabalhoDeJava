@@ -34,7 +34,8 @@ public class ProdutosController {
 	}
 
 	public static void update(ProdutoVO vo) {
-	}
+	}							:wq
+	wq
 
 	public static void destroy() {
 	}
@@ -44,7 +45,7 @@ public class ProdutosController {
 		view.setVisible(true);
 	}
 	
-	public static List<ProdutoVO> getAllProdutos() {
-		return ProdutoDAO.getInstance().list();
-	}
+
+
+
 }

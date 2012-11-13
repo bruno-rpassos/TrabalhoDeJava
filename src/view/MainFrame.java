@@ -8,8 +8,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import view.produto.Edit;
-
 import controller.ProdutosController;
 
 @SuppressWarnings("serial")

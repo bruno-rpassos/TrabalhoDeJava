@@ -21,7 +21,7 @@ public class ProdutoRepository {
 	}
 
 	public void add(Produto produto) {
-		produto.setId(id);
+		produto.setId(new Integer(id));
 		id++;
 		this.produtos.add(produto);
 	}
@@ -32,7 +32,7 @@ public class ProdutoRepository {
 
 	public Produto getById(Integer id) throws Exception {
 		for(Produto p : this.produtos) {
-			if(p.getId() == id) {
+			if(p.getId().equals(id)) {
 				return p;
 			}
 		}

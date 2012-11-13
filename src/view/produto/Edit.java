@@ -11,18 +11,24 @@ import controller.ProdutosController;
 
 @SuppressWarnings("serial")
 public class Edit extends Form {
-	public Edit() {
+	public Edit(ProdutoVO vo) {
 		jbSalvar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				salvarProduto();
+				alterarProduto();
 			}
 
 		});
+		
+		if(vo != null) {
+			this.jtfDescricao.setText(vo.getDescricao());
+			this.jtfQuantidade.setText(vo.getQuantidade().toString());
+			this.jtfValor.setText(vo.getValor().toString());
+		}
 	}
 	
-	private void salvarProduto() {
+	private void alterarProduto() {
 		ProdutoVO vo = new ProdutoVO();
 		vo.setDescricao(jtfDescricao.getText());
 		vo.setQuantidade(new Integer(jtfQuantidade.getText()));

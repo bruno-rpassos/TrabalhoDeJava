@@ -20,6 +20,8 @@ public class ProdutosController {
 		ProdutoDAO dao = ProdutoDAO.getInstance();
 		try {
 			ProdutoVO vo = dao.getById(new Integer(id));
+			JDialog view = new view.produto.Edit(vo);
+			view.setVisible(true);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

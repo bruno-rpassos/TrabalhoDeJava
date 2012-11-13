@@ -5,13 +5,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import controller.ProdutosController;
-
 import view.produto.model.JListaDeProdutosTableModel;
+import controller.ProdutosController;
 
 @SuppressWarnings("serial")
 public class Lista extends JDialog {

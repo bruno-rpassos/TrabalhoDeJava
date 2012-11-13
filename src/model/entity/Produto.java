@@ -7,10 +7,13 @@ public class Produto {
 	private String descricao;
 	private BigDecimal valor;
 	private Integer quantidade;
+        private INteger EAE GERMANO LOCAO;
+	private String TesteEmSala;
+	private Integer Estudo;
+
+
+
 	
-	public Integer getId() {
-		return id;
-	}
 	public void setId(Integer id) {
 		this.id = id;
 	}

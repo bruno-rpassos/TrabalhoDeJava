@@ -7,7 +7,7 @@ public class Produto {
 	private String descricao;
 	private BigDecimal valor;
 	private Integer quantidade;
-	
+	private String novaString;
 	public Integer getId() {
 		return id;
 	}

@@ -31,6 +31,6 @@ public class New extends Form {
 		JOptionPane.showMessageDialog(this, "Produto cadastrado!");
 		jtfDescricao.setText("");
 		jtfQuantidade.setText("");
-		jtfValor.setText("");
+	
 	}
 }

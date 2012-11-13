@@ -1,18 +1,15 @@
 package controller;
-
 import java.util.List;
-
 import javax.swing.JDialog;
 
 import model.entity.Produto;
 import model.factories.ProdutoFactory;
 import view.vo.ProdutoVO;
-import dao.ProdutoDAO;
 
 public class ProdutosController {
-
+	// WTF?
 	public static void newResource() {
-		JDialog view = new view.produto.New();
+		JDialog view = new view.produto();
 		view.setVisible(true);
 	}
 
@@ -25,12 +22,6 @@ public class ProdutosController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void create(ProdutoVO vo) {
-		Produto novoProduto = ProdutoFactory.getProdutoByVO(vo);
-		ProdutoDAO dao = ProdutoDAO.getInstance();
-		dao.save(novoProduto);
 	}
 
 	public static void update(ProdutoVO vo) {

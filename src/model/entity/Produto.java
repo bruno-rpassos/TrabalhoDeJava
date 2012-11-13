@@ -7,6 +7,7 @@ public class Produto {
 	private String descricao;
 	private BigDecimal valor;
 	private Integer quantidade;
+	String atributoInutil;
 	
 	public Integer getId() {
 		return id;

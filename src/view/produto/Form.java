@@ -1,9 +1,6 @@
 package view.produto;
 
 import java.awt.FlowLayout;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -12,19 +9,23 @@ import view.vo.ProdutoVO;
 
 @SuppressWarnings("serial")
 public class Form extends JDialog {
-	private final Map<String, Panel> cPanels;
+	private final Panel cDescricao;
+	private final Panel cQuantidade;
+	private final Panel cValor;
+
 	protected JButton jbSalvar;
 
-	public Form(List<String> componentes) {
-		this.cPanels = new HashMap<String, Panel>();
-		getContentPane().setLayout(new FlowLayout());
-		
-		for (String comp : componentes) {
-			this.cPanels.put(comp, new Panel(comp));
-			getContentPane().add(this.cPanels.get(comp).getPanel());
-		}
-		
+	public Form() {
+		this.cDescricao = new Panel("Descrição");
+		this.cQuantidade = new Panel("Quantidade");
+		this.cValor = new Panel("Valor");
+
 		jbSalvar = new JButton("Salvar");
+
+		getContentPane().setLayout(new FlowLayout());
+		getContentPane().add(cDescricao.getPanel());
+		getContentPane().add(cQuantidade.getPanel());
+		getContentPane().add(cValor.getPanel());
 		getContentPane().add(jbSalvar);
 
 		setSize(500, 300);
@@ -34,9 +35,9 @@ public class Form extends JDialog {
 	}
 
 	protected void atualizaTextFieldsComVO(ProdutoVO vo) {
-		this.cPanels.get("Descricao").setText(vo.getDescricao());
-		this.cPanels.get("Quantidade").setText(vo.getQuantidade().toString());
-		this.cPanels.get("Valor").setText(vo.getValor().toString());
+		this.cDescricao.setText(vo.getDescricao());
+		this.cQuantidade.setText(vo.getQuantidade().toString());
+		this.cValor.setText(vo.getValor().toString());
 	}
 
 	protected ProdutoVO atualizaVO(ProdutoVO vo) {
@@ -47,21 +48,16 @@ public class Form extends JDialog {
 
 	protected ProdutoVO getVO() {
 		ProdutoVO vo = new ProdutoVO();
-		vo.setDescricao(this.cPanels.get("Descricao").getText());
-		vo.setQuantidade(this.cPanels.get("Quantidade").getInteger());
-		vo.setValor(this.cPanels.get("Valor").getBigDecimal());
+		vo.setDescricao(this.cDescricao.getText());
+		vo.setQuantidade(this.cQuantidade.getInteger());
+		vo.setValor(this.cValor.getBigDecimal());
 		return vo;
 	}
 
 	protected void limpar() {
-		boolean focused = false;
-		
-		for (String panel : this.cPanels.keySet()) {
-			this.cPanels.get(panel).setText("");
-			if (!focused) {
-				this.cPanels.get(panel).requestFocus();
-				focused = true;
-			}
-		}
+		this.cDescricao.setText("");
+		this.cQuantidade.setText("");
+		this.cValor.setText("");
+		this.cDescricao.requestFocus();
 	}
 }

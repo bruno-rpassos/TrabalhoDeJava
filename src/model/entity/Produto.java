@@ -3,7 +3,6 @@ package model.entity;
 import java.math.BigDecimal;
 
 public class Produto {
-	// TESTE COMMIT
 	private Integer id;
 	private String descricao;
 	private BigDecimal valor;

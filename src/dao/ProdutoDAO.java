@@ -18,7 +18,7 @@ public class ProdutoDAO {
 		return instance;
 	}
 
-	public void save(Produto produto) {
+	public void saveOrUpdate(Produto produto) throws Exception {
 		ProdutoRepository.getInstance().add(produto);		
 	}
 	

@@ -31,11 +31,20 @@ public class ProdutosController {
 
 	public static void create(ProdutoVO vo) {
 		Produto novoProduto = ProdutoFactory.getProdutoByVO(vo);
-		ProdutoDAO dao = ProdutoDAO.getInstance();
-		dao.save(novoProduto);
+		try {
+			ProdutoDAO.getInstance().saveOrUpdate(novoProduto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void update(ProdutoVO vo) {
+		Produto produto = ProdutoFactory.getProdutoByVO(vo);
+		try {
+			ProdutoDAO.getInstance().saveOrUpdate(produto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void destroy() {

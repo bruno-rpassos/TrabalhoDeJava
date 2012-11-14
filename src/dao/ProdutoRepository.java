@@ -20,9 +20,15 @@ public class ProdutoRepository {
 		return repo;
 	}
 
-	public void add(Produto produto) {
-		produto.setId(new Integer(id));
-		id++;
+	public void add(Produto produto) throws Exception {
+		if(produto.getId() == null) {
+			produto.setId(new Integer(id++));
+		} else {
+			Produto existente = getById(produto.getId());
+			if(existente != null) {
+				this.produtos.remove(existente);
+			}
+		}
 		this.produtos.add(produto);
 	}
 

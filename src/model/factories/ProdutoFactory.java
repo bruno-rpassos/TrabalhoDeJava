@@ -13,7 +13,7 @@ public class ProdutoFactory {
 		p.setValor(vo.getValor());
 		return p;
 	}
-	
+
 	public static ProdutoVO beanToVO(Produto p) {
 		ProdutoVO vo = new ProdutoVO();
 		vo.setId(p.getId());

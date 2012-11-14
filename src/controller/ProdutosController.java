@@ -54,7 +54,7 @@ public class ProdutosController {
 		JDialog view = new view.produto.Lista();
 		view.setVisible(true);
 	}
-	
+
 	public static List<ProdutoVO> getAllProdutos() {
 		return ProdutoDAO.getInstance().list();
 	}

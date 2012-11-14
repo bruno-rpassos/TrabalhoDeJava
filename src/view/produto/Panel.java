@@ -40,12 +40,12 @@ public class Panel {
 	public BigDecimal getBigDecimal() {
 		return new BigDecimal(getTextField());
 	}
-	
+
 	private String getTextField() {
 		return this.jTextField.getText();
 	}
 
 	public void requestFocus() {
-		this.jTextField.requestFocus();		
+		this.jTextField.requestFocus();
 	}
 }

@@ -3,10 +3,10 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.vo.ProdutoVO;
 import model.entity.Produto;
 import model.factories.ProdutoFactory;
 import model.listener.Listener;
+import view.vo.ProdutoVO;
 
 public class ProdutoDAO {
 	private static ProdutoDAO instance;
@@ -15,9 +15,9 @@ public class ProdutoDAO {
 	private ProdutoDAO() {
 		this.listeners = new ArrayList<Listener>();
 	}
-	
+
 	public static ProdutoDAO getInstance() {
-		if(instance == null)
+		if (instance == null)
 			instance = new ProdutoDAO();
 		return instance;
 	}
@@ -26,27 +26,28 @@ public class ProdutoDAO {
 		ProdutoRepository.getInstance().add(produto);
 		dataChanged();
 	}
-	
+
 	public ProdutoVO getById(Integer id) throws Exception {
-		return ProdutoFactory.beanToVO(ProdutoRepository.getInstance().getById(id));
+		return ProdutoFactory.beanToVO(ProdutoRepository.getInstance().getById(
+				id));
 	}
 
 	public List<ProdutoVO> list() {
 		List<Produto> produtos = ProdutoRepository.getInstance().getAll();
 		List<ProdutoVO> produtosVO = new ArrayList<ProdutoVO>();
-		
-		for(Produto p : produtos) {
+
+		for (Produto p : produtos) {
 			produtosVO.add(ProdutoFactory.beanToVO(p));
 		}
 		return produtosVO;
 	}
-	
+
 	public void addListener(Listener l) {
 		this.listeners.add(l);
 	}
-	
+
 	private void dataChanged() {
-		for(Listener l : this.listeners) {
+		for (Listener l : this.listeners) {
 			l.actionPerformed();
 		}
 	}

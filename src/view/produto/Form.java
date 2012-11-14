@@ -39,7 +39,7 @@ public class Form extends JDialog {
 		this.cQuantidade.setText(vo.getQuantidade().toString());
 		this.cValor.setText(vo.getValor().toString());
 	}
-	
+
 	protected ProdutoVO atualizaVO(ProdutoVO vo) {
 		ProdutoVO alterado = getVO();
 		alterado.setId(vo.getId());
@@ -53,7 +53,7 @@ public class Form extends JDialog {
 		vo.setValor(this.cValor.getBigDecimal());
 		return vo;
 	}
-	
+
 	protected void limpar() {
 		this.cDescricao.setText("");
 		this.cQuantidade.setText("");

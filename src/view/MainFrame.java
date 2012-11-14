@@ -17,7 +17,8 @@ public class MainFrame extends JFrame {
 
 	private MainFrame() {
 		menuBar = new JMenuBar();
-		menuBar.add(CriadorDeMenu.criaMenuComSubMenu("Cadastro", subMenuCadastro()));
+		menuBar.add(CriadorDeMenu.criaMenuComSubMenu("Cadastro",
+				subMenuCadastro()));
 		menuBar.add(CriadorDeMenu.criaMenuComSubMenu("Listar", subMenuListar()));
 
 		setJMenuBar(menuBar);

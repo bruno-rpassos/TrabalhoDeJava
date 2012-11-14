@@ -21,11 +21,11 @@ public class ProdutoRepository {
 	}
 
 	public void add(Produto produto) throws Exception {
-		if(produto.getId() == null) {
+		if (produto.getId() == null) {
 			produto.setId(new Integer(id++));
 		} else {
 			Produto existente = getById(produto.getId());
-			if(existente != null) {
+			if (existente != null) {
 				this.produtos.remove(existente);
 			}
 		}
@@ -37,8 +37,8 @@ public class ProdutoRepository {
 	}
 
 	public Produto getById(Integer id) throws Exception {
-		for(Produto p : this.produtos) {
-			if(p.getId().equals(id)) {
+		for (Produto p : this.produtos) {
+			if (p.getId().equals(id)) {
 				return p;
 			}
 		}

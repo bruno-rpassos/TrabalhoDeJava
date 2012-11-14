@@ -10,7 +10,7 @@ import view.vo.ProdutoVO;
 import dao.ProdutoDAO;
 
 public class ProdutosController {
-
+	private Strinv DnvEssaString
 	public static void newResource() {
 		JDialog view = new view.produto.New();
 		view.setVisible(true);

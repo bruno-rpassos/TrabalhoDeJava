@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
+import model.listener.Listener;
+
 import view.vo.ProdutoVO;
 import controller.ProdutosController;
+import dao.ProdutoDAO;
 
 public class JListaDeProdutosTableModel extends DefaultTableModel {
 	private static final long serialVersionUID = 1L;
@@ -14,6 +17,11 @@ public class JListaDeProdutosTableModel extends DefaultTableModel {
 	private List<ProdutoVO> listaDeProdutos;
 	
 	public JListaDeProdutosTableModel() {
+		ProdutoDAO.getInstance().addListener(new Listener() {
+			public void actionPerformed() {
+				atualizarDados();
+			}
+		});
 		atualizarDados();
 	}
 	

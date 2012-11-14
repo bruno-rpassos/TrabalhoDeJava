@@ -6,11 +6,15 @@ import java.util.List;
 import view.vo.ProdutoVO;
 import model.entity.Produto;
 import model.factories.ProdutoFactory;
+import model.listener.Listener;
 
 public class ProdutoDAO {
 	private static ProdutoDAO instance;
+	private List<Listener> listeners;
 	
-	private ProdutoDAO() {}
+	private ProdutoDAO() {
+		this.listeners = new ArrayList<Listener>();
+	}
 	
 	public static ProdutoDAO getInstance() {
 		if(instance == null)
@@ -19,7 +23,8 @@ public class ProdutoDAO {
 	}
 
 	public void saveOrUpdate(Produto produto) throws Exception {
-		ProdutoRepository.getInstance().add(produto);		
+		ProdutoRepository.getInstance().add(produto);
+		dataChanged();
 	}
 	
 	public ProdutoVO getById(Integer id) throws Exception {
@@ -34,6 +39,16 @@ public class ProdutoDAO {
 			produtosVO.add(ProdutoFactory.beanToVO(p));
 		}
 		return produtosVO;
+	}
+	
+	public void addListener(Listener l) {
+		this.listeners.add(l);
+	}
+	
+	private void dataChanged() {
+		for(Listener l : this.listeners) {
+			l.actionPerformed();
+		}
 	}
 
 }

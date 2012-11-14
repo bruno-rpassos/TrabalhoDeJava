@@ -2,11 +2,11 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 import controller.ProdutosController;
 
@@ -15,42 +15,42 @@ public class MainFrame extends JFrame {
 	private static MainFrame instance;
 	private JMenuBar menuBar;
 
-	private JMenu jmCadastro;
-	private JMenuItem jmiCadastroProduto;
-
-	private JMenu jmListagem;
-	private JMenuItem jmiListarProduto;
-
 	private MainFrame() {
 		menuBar = new JMenuBar();
+		menuBar.add(CriadorDeMenu.criaMenuComSubMenu("Cadastro", subMenuCadastro()));
+		menuBar.add(CriadorDeMenu.criaMenuComSubMenu("Listar", subMenuListar()));
 
-		jmCadastro = new JMenu("Cadastro");
-		jmiCadastroProduto = new JMenuItem("Produto");
-		jmiCadastroProduto.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				ProdutosController.newResource();
-			}
-		});
+		setJMenuBar(menuBar);
 
-		jmListagem = new JMenu("Listar");
-		jmiListarProduto = new JMenuItem("Produto");
-		jmiListarProduto.addActionListener(new ActionListener() {
+		setSize(200, 400);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+	}
+
+	private Map<String, ActionListener> subMenuListar() {
+		Map<String, ActionListener> subMenu = new HashMap<String, ActionListener>();
+
+		subMenu.put("Produto", new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ProdutosController.list();
 			}
 		});
 
-		jmCadastro.add(jmiCadastroProduto);
-		jmListagem.add(jmiListarProduto);
-		menuBar.add(jmCadastro);
-		menuBar.add(jmListagem);
-		setJMenuBar(menuBar);
+		return subMenu;
+	}
 
-		setSize(200, 400);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+	private Map<String, ActionListener> subMenuCadastro() {
+		Map<String, ActionListener> subMenu = new HashMap<String, ActionListener>();
+
+		subMenu.put("Produto", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ProdutosController.newResource();
+			}
+		});
+
+		return subMenu;
 	}
 
 	public static void main(String[] args) {
@@ -59,9 +59,8 @@ public class MainFrame extends JFrame {
 	}
 
 	public static MainFrame getInstance() {
-		if (instance == null) {
+		if (instance == null)
 			instance = new MainFrame();
-		}
 		return instance;
 	}
 }

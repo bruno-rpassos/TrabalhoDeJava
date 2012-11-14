@@ -11,7 +11,7 @@ import model.listener.Listener;
 public class ProdutoDAO {
 	private static ProdutoDAO instance;
 	private List<Listener> listeners;
-	
+
 	private ProdutoDAO() {
 		this.listeners = new ArrayList<Listener>();
 	}

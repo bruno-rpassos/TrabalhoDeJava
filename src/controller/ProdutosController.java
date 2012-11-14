@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -10,9 +11,24 @@ import view.vo.ProdutoVO;
 import dao.ProdutoDAO;
 
 public class ProdutosController {
+	
+	private List<String> componentes;
+	private static ProdutosController instance;
+	
+	private ProdutosController() {
+		componentes = new ArrayList<String>();
+		componentes.add("Descricao");
+		componentes.add("Quantidade");
+		componentes.add("Valor");
+	}
+	
+	public static ProdutosController getInstance() {
+		if (instance == null) instance = new ProdutosController();
+		return instance;
+	}
 
 	public static void newResource() {
-		JDialog view = new view.produto.New();
+		JDialog view = new view.produto.New(componentes);
 		view.setVisible(true);
 	}
 
@@ -20,7 +36,7 @@ public class ProdutosController {
 		ProdutoDAO dao = ProdutoDAO.getInstance();
 		try {
 			ProdutoVO vo = dao.getById(new Integer(id));
-			JDialog view = new view.produto.Edit(vo);
+			JDialog view = new view.produto.Edit(componentes, vo);
 			view.setVisible(true);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

@@ -2,6 +2,7 @@ package view.produto;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -10,7 +11,9 @@ import controller.ProdutosController;
 
 @SuppressWarnings("serial")
 public class Edit extends Form {
-	public Edit(final ProdutoVO vo) {
+	public Edit(List<String> componentes, final ProdutoVO vo) {
+		super(componentes);
+
 		jbSalvar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

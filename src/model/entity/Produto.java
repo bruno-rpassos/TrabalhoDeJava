@@ -7,6 +7,8 @@ public class Produto {
 	private String descricao;
 	private BigDecimal valor;
 	private Integer quantidade;
+	private String tipo;
+	//testando gitHub
 	
 	public Integer getId() {
 		return id;

@@ -51,7 +51,7 @@ public class ProdutosController {
 	}
 
 	public static void list() {
-		JDialog view = new view.produto.Lista();
+		JDialog view = new view.produto.Listaa();
 		view.setVisible(true);
 	}
 

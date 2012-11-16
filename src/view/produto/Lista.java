@@ -7,16 +7,16 @@ import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import view.produto.model.JListaDeProdutosTableModel;
+import view.produto.model.ProdutosTableModel;
 import controller.ProdutosController;
 
 @SuppressWarnings("serial")
 public class Lista extends JDialog {
 	private JTable jtLista;
-	private JListaDeProdutosTableModel jtmListaDeProdutos;
+	private ProdutosTableModel jtmListaDeProdutos;
 
 	public Lista() {
-		jtmListaDeProdutos = new JListaDeProdutosTableModel();
+		jtmListaDeProdutos = new ProdutosTableModel();
 		jtLista = new JTable(jtmListaDeProdutos);
 
 		getContentPane().add(new JScrollPane(jtLista));

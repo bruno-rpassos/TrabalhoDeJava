@@ -10,19 +10,31 @@ import view.vo.ProdutoVO;
 import controller.ProdutosController;
 import dao.ProdutoDAO;
 
-public class JListaDeProdutosTableModel extends DefaultTableModel {
-	private static final long serialVersionUID = 1L;
-	private static final String[] nomesDasColunas = new String[] { "Id",
-			"Descricao", "Quantidade", "Valor" };
+@SuppressWarnings("serial")
+public class ProdutosTableModel extends DefaultTableModel {
+	
+	private static final String[] COLUNAS = new String[] { "Id", "Descricao",
+			"Quantidade", "Valor" };
+	private static final int ID = 0;
+	private static final int DESCRICAO = 1;
+	private static final int QUANTIDADE = 2;
+	private static final int VALOR = 3;
+
 	private List<ProdutoVO> listaDeProdutos;
 
-	public JListaDeProdutosTableModel() {
+	public ProdutosTableModel() {
 		ProdutoDAO.getInstance().addListener(new Listener() {
 			public void actionPerformed() {
 				atualizarDados();
 			}
 		});
+
 		atualizarDados();
+	}
+
+	private void atualizarDados() {
+		this.listaDeProdutos = ProdutosController.getAllProdutos();
+		fireTableDataChanged();
 	}
 
 	@Override
@@ -32,50 +44,51 @@ public class JListaDeProdutosTableModel extends DefaultTableModel {
 		return listaDeProdutos.size();
 	}
 
+	@Override
 	public int getColumnCount() {
-		return nomesDasColunas.length;
+		return COLUNAS.length;
 	}
 
-	private void atualizarDados() {
-		this.listaDeProdutos = ProdutosController.getAllProdutos();
-		fireTableDataChanged();
-	}
-
+	@Override
 	public Object getValueAt(int row, int column) {
-		ProdutoVO p = this.listaDeProdutos.get(row);
+		ProdutoVO vo = this.listaDeProdutos.get(row);
+		
 		switch (column) {
-		case 0:
-			return p.getId();
-		case 1:
-			return p.getDescricao();
-		case 2:
-			return p.getQuantidade();
-		case 3:
-			return p.getValor();
+		case ID:
+			return vo.getId();
+		case DESCRICAO:
+			return vo.getDescricao();
+		case QUANTIDADE:
+			return vo.getQuantidade();
+		case VALOR:
+			return vo.getValor();
 		default:
 			return "";
 		}
 	}
 
+	@Override
 	public String getColumnName(int column) {
-		return nomesDasColunas[column];
+		return COLUNAS[column];
 	}
 
+	@Override
 	public Class<?> getColumnClass(int column) {
 		switch (column) {
-		case 0:
+		case ID:
 			return Integer.class;
-		case 1:
+		case DESCRICAO:
 			return String.class;
-		case 2:
+		case QUANTIDADE:
 			return Integer.class;
-		case 3:
+		case VALOR:
 			return BigDecimal.class;
 		default:
 			return Object.class;
 		}
 	}
 
+	@Override
 	public boolean isCellEditable(int row, int column) {
 		return false;
 	}

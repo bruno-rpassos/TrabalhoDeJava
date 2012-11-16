@@ -26,12 +26,11 @@ public class Edit extends Form {
 
 	private void alterarProduto(ProdutoVO vo) {
 		try {
-		ProdutosController.update(this.atualizaVO(vo));
+			ProdutosController.update(this.atualizaVO(vo));
+			JOptionPane.showMessageDialog(this, "Produto atualizado!");
+			this.dispose();
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(this, ">> ERRO AO ATUALIZAR PRODUTO");
 		}
-
-		JOptionPane.showMessageDialog(this, "Produto atualizado!");
-		this.dispose();
 	}
 }

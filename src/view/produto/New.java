@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import view.vo.ProdutoVO;
 import controller.ProdutosController;
 
 @SuppressWarnings("serial")
 public class New extends Form {
 	public New() {
-		jbSalvar.addActionListener(new ActionListener() {
+		setTitle("NOVO PRODUTO");
+		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				salvarProduto();
@@ -20,11 +20,14 @@ public class New extends Form {
 	}
 
 	private void salvarProduto() {
-		ProdutoVO vo = this.getVO();
+		try {
+			ProdutosController.create(this.getVO());
+			JOptionPane.showMessageDialog(this, "Produto cadastrado!");
 
-		ProdutosController.create(vo);
-		JOptionPane.showMessageDialog(this, "Produto cadastrado!");
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this, ">> ERRO AO CADASTRAR PRODUTO");
+		}
 
-		this.limpar();
+		this.clear();
 	}
 }

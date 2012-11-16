@@ -11,7 +11,8 @@ import controller.ProdutosController;
 @SuppressWarnings("serial")
 public class Edit extends Form {
 	public Edit(final ProdutoVO vo) {
-		jbSalvar.addActionListener(new ActionListener() {
+		setTitle("ATUALIZAR PRODUTO");
+		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				alterarProduto(vo);
@@ -24,9 +25,13 @@ public class Edit extends Form {
 	}
 
 	private void alterarProduto(ProdutoVO vo) {
+		try {
 		ProdutosController.update(this.atualizaVO(vo));
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this, ">> ERRO AO ATUALIZAR PRODUTO");
+		}
 
-		JOptionPane.showMessageDialog(this, "Produto alterado!");
+		JOptionPane.showMessageDialog(this, "Produto atualizado!");
 		this.dispose();
 	}
 }

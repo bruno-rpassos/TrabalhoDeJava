@@ -1,0 +1,12 @@
+﻿TODO:
+	> PERSISTENCIA :
+		° Criar superclasse ENTIDADE
+		° ENTIDADE possui o método isConsistente() que será chamado antes do objeto ser persistido no banco
+		° Tudo que será persistido no banco deve extender ENTIDADE
+		° DAO só permite receber uma ENTIDADE
+
+	> REFACTORING
+		° Abstrair
+			. DAO
+			. CONTROLLER
+			. VIEW

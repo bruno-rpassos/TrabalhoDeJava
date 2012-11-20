@@ -1,4 +1,4 @@
-﻿TODO:
+TODO:
 	> PERSISTENCIA :
 		° Criar superclasse ENTIDADE
 		° ENTIDADE possui o método isConsistente() que será chamado antes do objeto ser persistido no banco
@@ -10,3 +10,18 @@
 			. DAO
 			. CONTROLLER
 			. VIEW
+			
+	> DESIGN
+		º Adicionar icones nos botões
+		º Adicionar imagem a tela de inicio
+		º Criar LOADING SCREEN
+		
+		
+/*
+ *	KEYBOARD_LISTENER
+ *	Chamar fução de CANCEL no FORM quando for precionado ESC
+ *
+ *	TABLE FILTER
+ *	http://docs.oracle.com/javase/tutorial/uiswing/examples/components/TableFilterDemoProject/src/components/TableFilterDemo.java
+ *
+ */

@@ -18,6 +18,10 @@ TODO:
 		
 		
 /*
+ *
+ *	LOGIN WINDOW
+ *	Acesso com USER e PASS verificado em banco de dados
+ *
  *	KEYBOARD_LISTENER
  *	Chamar fução de CANCEL no FORM quando for precionado ESC
  *

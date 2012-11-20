@@ -25,7 +25,10 @@ TODO:
  *	KEYBOARD_LISTENER
  *	Chamar fução de CANCEL no FORM quando for precionado ESC
  *
- *	TABLE FILTER
- *	http://docs.oracle.com/javase/tutorial/uiswing/examples/components/TableFilterDemoProject/src/components/TableFilterDemo.java
+ *	TABLE 
+ *		FILTER
+ *		. http://docs.oracle.com/javase/tutorial/uiswing/examples/components/TableFilterDemoProject/src/components/TableFilterDemo.java
+ *		ORDER
+ *		. table.setAutoCreateRowSorter(true);
  *
  */

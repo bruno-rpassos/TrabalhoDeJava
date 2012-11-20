@@ -20,16 +20,17 @@ import view.vo.ProdutoVO;
 @SuppressWarnings("serial")
 public class Form extends JDialog {
 
-	private final JPanel contentPanel;
-	protected JTextField tfDescricao;
-	protected JTextField tfQuantidade;
-	protected JTextField tfValor;
+	private final JPanel	contentPanel;
+	protected JTextField	tfDescricao;
+	protected JTextField	tfQuantidade;
+	protected JTextField	tfValor;
 
-	protected JButton saveButton;
-	protected JButton cancelButton;
+	protected JButton		saveButton;
+	protected JButton		cancelButton;
 
 	public Form() {
 		setTitle("PRODUTO");
+		setResizable(false);
 
 		// INICIO >> PANEL PRINCIPAL
 		{
@@ -130,8 +131,7 @@ public class Form extends JDialog {
 			// INICIO >> BOTAO SALVAR
 			{
 				saveButton = new JButton("SALVAR");
-				saveButton.setCursor(Cursor
-						.getPredefinedCursor(Cursor.HAND_CURSOR));
+				saveButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				buttonPane.add(saveButton);
 				getRootPane().setDefaultButton(saveButton);
 			}
@@ -147,8 +147,7 @@ public class Form extends JDialog {
 					}
 				});
 
-				cancelButton.setCursor(Cursor
-						.getPredefinedCursor(Cursor.HAND_CURSOR));
+				cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				buttonPane.add(cancelButton);
 			}
 			// FIM << BOTAO CANCELAR
@@ -173,7 +172,7 @@ public class Form extends JDialog {
 		vo.setDescricao(new String(this.tfDescricao.getText()));
 		vo.setQuantidade(new Integer(this.tfQuantidade.getText()));
 		vo.setValor(new BigDecimal(this.tfValor.getText()));
-		
+
 		return vo;
 	}
 
@@ -185,7 +184,7 @@ public class Form extends JDialog {
 
 	protected void atualizaTextFieldsComVO(ProdutoVO vo) {
 		this.tfDescricao.setText(vo.getDescricao());
-		this.tfDescricao.setText(vo.getQuantidade().toString());
+		this.tfQuantidade.setText(vo.getQuantidade().toString());
 		this.tfValor.setText(vo.getValor().toString());
 	}
 }

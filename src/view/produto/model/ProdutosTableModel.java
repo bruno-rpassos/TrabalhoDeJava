@@ -1,6 +1,7 @@
 package view.produto.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -12,15 +13,10 @@ import dao.ProdutoDAO;
 
 @SuppressWarnings("serial")
 public class ProdutosTableModel extends DefaultTableModel {
-	
-	private static final String[] COLUNAS = new String[] { "Id", "Descricao",
-			"Quantidade", "Valor" };
-	private static final int ID = 0;
-	private static final int DESCRICAO = 1;
-	private static final int QUANTIDADE = 2;
-	private static final int VALOR = 3;
 
-	private List<ProdutoVO> listaDeProdutos;
+	private static final String[]	COLUNAS	= new String[] { "Id", "Descricao", "Quantidade", "Valor" };
+
+	private List<ProdutoVO>			listaDeProdutos;
 
 	public ProdutosTableModel() {
 		ProdutoDAO.getInstance().addListener(new Listener() {
@@ -33,7 +29,7 @@ public class ProdutosTableModel extends DefaultTableModel {
 	}
 
 	private void atualizarDados() {
-		this.listaDeProdutos = ProdutosController.getAllProdutos();
+		this.listaDeProdutos = new ArrayList<ProdutoVO>(ProdutosController.getAllProdutos());
 		fireTableDataChanged();
 	}
 
@@ -52,15 +48,15 @@ public class ProdutosTableModel extends DefaultTableModel {
 	@Override
 	public Object getValueAt(int row, int column) {
 		ProdutoVO vo = this.listaDeProdutos.get(row);
-		
+
 		switch (column) {
-		case ID:
+		case ProdutoVO.ID:
 			return vo.getId();
-		case DESCRICAO:
+		case ProdutoVO.DESCRICAO:
 			return vo.getDescricao();
-		case QUANTIDADE:
+		case ProdutoVO.QUANTIDADE:
 			return vo.getQuantidade();
-		case VALOR:
+		case ProdutoVO.VALOR:
 			return vo.getValor();
 		default:
 			return "";
@@ -75,13 +71,13 @@ public class ProdutosTableModel extends DefaultTableModel {
 	@Override
 	public Class<?> getColumnClass(int column) {
 		switch (column) {
-		case ID:
+		case ProdutoVO.ID:
 			return Integer.class;
-		case DESCRICAO:
+		case ProdutoVO.DESCRICAO:
 			return String.class;
-		case QUANTIDADE:
+		case ProdutoVO.QUANTIDADE:
 			return Integer.class;
-		case VALOR:
+		case ProdutoVO.VALOR:
 			return BigDecimal.class;
 		default:
 			return Object.class;

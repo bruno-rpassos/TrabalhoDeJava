@@ -6,7 +6,7 @@ import java.util.List;
 import model.entity.Produto;
 
 public class ProdutoRepository {
-	private static Integer id = 67;
+	private static Integer id = 1;
 	private static ProdutoRepository repo;
 	private List<Produto> produtos;
 
@@ -42,7 +42,7 @@ public class ProdutoRepository {
 				return p;
 			}
 		}
-		throw new Exception("Produto não encontrado");
+		throw new Exception("Produto nao encontrado");
 	}
 
 }

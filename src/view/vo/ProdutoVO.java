@@ -7,6 +7,11 @@ public class ProdutoVO {
 	private String descricao;
 	private BigDecimal valor;
 	private Integer quantidade;
+	
+	public static final int ID = 0;
+	public static final int DESCRICAO = 1;
+	public static final int QUANTIDADE = 2;
+	public static final int VALOR = 3;
 
 	public String getDescricao() {
 		return descricao;

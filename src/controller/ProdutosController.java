@@ -31,6 +31,7 @@ public class ProdutosController {
 
 	public static void create(ProdutoVO vo) {
 		Produto novoProduto = ProdutoFactory.getProdutoByVO(vo);
+		novoProduto.setDescricao(novoProduto.getDescricao().toUpperCase());
 		try {
 			ProdutoDAO.getInstance().saveOrUpdate(novoProduto);
 		} catch (Exception e) {
@@ -51,7 +52,7 @@ public class ProdutosController {
 	}
 
 	public static void list() {
-		JDialog view = new view.produto.Listaa();
+		JDialog view = new view.produto.Lista();
 		view.setVisible(true);
 	}
 

@@ -6,17 +6,19 @@ import java.awt.EventQueue;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import view.vo.ProdutoVO;
 import controller.ProdutosController;
 
 public class MainFrame {
 
-	private JFrame frmMain;
+	private JFrame	frmMain;
 
 	/**
 	 * Launch the application.
@@ -39,6 +41,17 @@ public class MainFrame {
 	 */
 	public MainFrame() {
 		initialize();
+		initializeRepositoryTest();
+	}
+
+	private void initializeRepositoryTest() {
+		for (int i = 1; i <= 50; i++) {
+			ProdutoVO vo = new ProdutoVO();
+			vo.setDescricao("PRODUTO#" + i);
+			vo.setQuantidade(i * 10);
+			vo.setValor(new BigDecimal(i * 20));
+			ProdutosController.create(vo);
+		}
 	}
 
 	/**
@@ -63,22 +76,21 @@ public class MainFrame {
 				JMenu mnNovo = new JMenu("NOVO");
 				mnNovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				mnNovo.setBackground(Color.DARK_GRAY);
+				mnNovo.setForeground(Color.WHITE);
 				menuBar.add(mnNovo);
 
 				// INICIO >> MENUITEM VENDA
 				{
 					JMenuItem mntmVenda = new JMenuItem("Venda");
-					mntmVenda.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
+					mntmVenda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 					mnNovo.add(mntmVenda);
 				}
-				// FIM    << MENUITEM VENDA
+				// FIM << MENUITEM VENDA
 
 				// INICIO >> MENUITEM PRODUTO
 				{
 					JMenuItem mntmProduto = new JMenuItem("Produto");
-					mntmProduto.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
+					mntmProduto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 					mntmProduto.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -87,33 +99,31 @@ public class MainFrame {
 					});
 					mnNovo.add(mntmProduto);
 				}
-				// FIM    << MENUITEM PRODUTO
-				
+				// FIM << MENUITEM PRODUTO
+
 			}
-			// FIM    << MENU NOVO
+			// FIM << MENU NOVO
 
 			// INICIO >> MENU RELATORIO
 			{
 				JMenu mnRelatorio = new JMenu("RELATORIO");
-				mnRelatorio.setCursor(Cursor
-						.getPredefinedCursor(Cursor.HAND_CURSOR));
+				mnRelatorio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				mnRelatorio.setBackground(Color.DARK_GRAY);
+				mnRelatorio.setForeground(Color.WHITE);
 				menuBar.add(mnRelatorio);
 
 				// INICIO >> MENUITEM VENDAS
 				{
 					JMenuItem mntmVendas = new JMenuItem("Vendas");
-					mntmVendas.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
+					mntmVendas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 					mnRelatorio.add(mntmVendas);
 				}
-				// FIM    << MENUITEM VENDAS
+				// FIM << MENUITEM VENDAS
 
 				// INICIO >> MENUITEM PRODUTOS
 				{
 					JMenuItem mntmProdutos = new JMenuItem("Produtos");
-					mntmProdutos.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
+					mntmProdutos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 					mntmProdutos.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -122,13 +132,13 @@ public class MainFrame {
 					});
 					mnRelatorio.add(mntmProdutos);
 				}
-				// FIM    << MENUITEM VENDAS
-				
+				// FIM << MENUITEM VENDAS
+
 			}
-			// FIM    << MENU RELATORIO
-			
+			// FIM << MENU RELATORIO
+
 		}
-		// FIM    << MENUBAR
-		
+		// FIM << MENUBAR
+
 	}
 }

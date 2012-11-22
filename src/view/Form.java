@@ -4,11 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import annotation.Input;
+
 import view.vo.ProdutoVO;
 import view.vo.UserVO;
 import view.vo.VO;
@@ -25,12 +26,45 @@ import view.vo.VO;
 @SuppressWarnings("serial")
 public class Form<T extends VO> extends JDialog {
 
-	private final JPanel contentPanel;
+	protected final JPanel contentPanel;
 	protected List<JTextField> fields;
 	protected JButton saveButton;
 	protected JButton cancelButton;
+	
+	@SuppressWarnings("rawtypes")
+	protected Class classe;
 
-	public Form(String title) {
+	public void parse() throws Exception {
+		Field[] fields = this.classe.getFields();
+
+		for (Field f : fields) {
+			if (f.isAnnotationPresent(Input.class)) {
+				Input in = f.getAnnotation(Input.class);
+				
+				{
+					JPanel panel = new JPanel();
+					panel.setBackground(Color.DARK_GRAY);
+					panel.setPreferredSize(new Dimension(400, 40));
+					panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+					contentPanel.add(panel);
+					
+					{
+						JLabel label = new JLabel(in.label());
+						label.setForeground(Color.WHITE);
+						panel.add(label);
+					}
+					
+					{
+						JTextField textField = new JTextField(25);
+						panel.add(textField);
+					}
+				}
+			}
+		}
+	}
+
+	public Form(Class classe, String title) {
+		this.classe = classe;
 		setTitle(title);
 
 		// INICIO >> PANEL PRINCIPAL
@@ -47,32 +81,8 @@ public class Form<T extends VO> extends JDialog {
 				getContentPane().add(contentPanel, BorderLayout.CENTER);
 			}
 
+			parse();
 			
-			
-			// INICIO >> PANEL DESCRICAO
-			{
-				JPanel pDescricao = new JPanel();
-				pDescricao.setBackground(Color.DARK_GRAY);
-				pDescricao.setPreferredSize(new Dimension(400, 40));
-				pDescricao.setLayout(new FlowLayout(FlowLayout.RIGHT));
-				contentPanel.add(pDescricao);
-				// INICIO >> LABEL
-				{
-					JLabel lblDescricao = new JLabel("Descricao");
-					lblDescricao.setForeground(Color.WHITE);
-					pDescricao.add(lblDescricao);
-				}
-				// FIM << LABEL
-
-				// INICIO >> TEXTFIELD
-				{
-					tfDescricao = new JTextField();
-					tfDescricao.setColumns(25);
-					pDescricao.add(tfDescricao);
-				}
-				// FIM << TEXTFIELD
-			}
-			// FIM << PANEL DESCRICAO
 		}
 		// FIM << PANEL PRINCIPAL
 

@@ -1,18 +1,20 @@
 package view.vo;
 
-public class UserVO {
+import annotation.Input;
+
+public class UserVO implements VO {
+
+	@Input(label = "Nome")
+	private String nome;
+	
+	private Integer id;
+	
 	public static final int ID = 0;
 	public static final int NOME = 1;
-	
-	private String	nome;
-	private Integer id;
 
-	public UserVO(String nome) {
-		this.nome = nome;
+	public UserVO() {
 	}
 
-	public UserVO() {}
-	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

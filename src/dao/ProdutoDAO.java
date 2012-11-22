@@ -3,9 +3,10 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.entity.Produto;
-import model.listener.Listener;
-import dao.repository.ProdutoRepository;
+import repository.ProdutoRepository;
+
+import model.Listener;
+import model.Produto;
 
 public class ProdutoDAO implements DAO<Produto> {
 	private static ProdutoDAO	instance;

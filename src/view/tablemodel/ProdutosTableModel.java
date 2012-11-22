@@ -1,4 +1,4 @@
-package view.produto.model;
+package view.tablemodel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -6,9 +6,9 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-import model.listener.Listener;
+import model.Listener;
 import view.vo.ProdutoVO;
-import controller.produto.ProdutosController;
+import controller.ProdutosController;
 import dao.ProdutoDAO;
 
 @SuppressWarnings("serial")

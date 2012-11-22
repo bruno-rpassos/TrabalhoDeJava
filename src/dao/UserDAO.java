@@ -2,14 +2,20 @@ package dao;
 
 import java.util.List;
 
-import model.entity.User;
-import model.listener.Listener;
+import model.Listener;
+import model.User;
 
 public class UserDAO implements DAO<User> {
+	public static UserDAO instance;
+	
+	public static UserDAO getInstance() {
+		if (instance == null)
+			instance = new UserDAO();
+		return instance;
+	}
 
 	@Override
 	public void saveOrUpdate(User obj) throws Exception {
-
 	}
 
 	@Override
@@ -26,5 +32,4 @@ public class UserDAO implements DAO<User> {
 	public void addListener(Listener l) {
 
 	}
-
 }

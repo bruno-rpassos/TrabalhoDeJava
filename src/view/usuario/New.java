@@ -1,4 +1,4 @@
-package view.venda;
+package view.usuario;
 
 public class New {
 

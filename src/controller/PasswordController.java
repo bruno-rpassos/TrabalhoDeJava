@@ -1,7 +1,7 @@
-package controller.login;
+package controller;
 
-import model.entity.User;
-import dao.repository.PasswordRepository;
+import repository.PasswordRepository;
+import model.User;
 
 public class PasswordController {
 

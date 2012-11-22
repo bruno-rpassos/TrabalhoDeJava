@@ -1,11 +1,11 @@
-package dao.repository;
+package repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import exception.ProdutoNotFoundException;
 
-import model.entity.Produto;
+import model.Produto;
 
 public class ProdutoRepository {
 	private static Integer				id	= 1;

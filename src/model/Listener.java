@@ -1,4 +1,4 @@
-package model.listener;
+package model;
 
 public interface Listener {
 	public void actionPerformed();

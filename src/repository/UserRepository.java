@@ -1,9 +1,9 @@
-package dao.repository;
+package repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import model.entity.User;
+import model.User;
 import exception.UserNotFoundException;
 
 public class UserRepository {
@@ -23,7 +23,7 @@ public class UserRepository {
 
 	public User getUser(String name) throws UserNotFoundException {
 		for (User u : this.users) {
-			if (u.getName().equals(name))
+			if (u.getNome().equals(name))
 				return u;
 		}
 

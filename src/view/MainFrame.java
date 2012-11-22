@@ -1,4 +1,4 @@
-package view.main;
+package view;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -11,7 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import controller.produto.ProdutosController;
+import controller.ProdutosController;
 
 public class MainFrame {
 

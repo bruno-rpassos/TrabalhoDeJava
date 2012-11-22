@@ -1,4 +1,4 @@
-package view.produto;
+package view.usuario;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import view.vo.ProdutoVO;
+import view.vo.UserVO;
 
 @SuppressWarnings("serial")
 public class Form extends JDialog {
@@ -31,7 +32,7 @@ public class Form extends JDialog {
 	protected JButton cancelButton;
 
 	public Form() {
-		setTitle("PRODUTO");
+		setTitle("USUARIO");
 		setResizable(false);
 
 		// INICIO >> PANEL PRINCIPAL
@@ -180,7 +181,7 @@ public class Form extends JDialog {
 
 	// PODE NAO HAVER NUMEROS NO CAMPO QUANTIDADE E VALOR
 	protected ProdutoVO getVO() throws Exception {
-		ProdutoVO vo = new ProdutoVO();
+		UserVO vo = new UserVO();
 
 		vo.setDescricao(new String(this.tfDescricao.getText()));
 		vo.setQuantidade(new Integer(this.tfQuantidade.getText()));
@@ -189,13 +190,13 @@ public class Form extends JDialog {
 		return vo;
 	}
 
-	protected ProdutoVO atualizaVO(ProdutoVO vo) throws Exception {
+	protected ProdutoVO atualizaVO(UserVO vo) throws Exception {
 		ProdutoVO alterado = getVO();
 		alterado.setId(vo.getId());
 		return alterado;
 	}
 
-	protected void atualizaTextFieldsComVO(ProdutoVO vo) {
+	protected void atualizaTextFieldsComVO(UserVO vo) {
 		this.tfDescricao.setText(vo.getDescricao());
 		this.tfQuantidade.setText(vo.getQuantidade().toString());
 		this.tfValor.setText(vo.getValor().toString());

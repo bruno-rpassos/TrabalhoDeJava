@@ -1,4 +1,4 @@
-package model.entity;
+package model;
 
 public abstract class Entity {
 	private Integer	id;

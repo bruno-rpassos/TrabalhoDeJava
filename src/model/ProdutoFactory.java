@@ -1,6 +1,5 @@
-package model.factories;
+package model;
 
-import model.entity.Produto;
 import view.vo.ProdutoVO;
 
 public class ProdutoFactory {

@@ -1,21 +1,21 @@
-package view.produto;
+package view.usuario;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import view.vo.ProdutoVO;
-import controller.ProdutosController;
+import view.vo.UserVO;
+import controller.UserController;
 
 @SuppressWarnings("serial")
 public class Edit extends Form {
-	public Edit(final ProdutoVO vo) {
-		setTitle("ATUALIZAR PRODUTO");
+	public Edit(final UserVO vo) {
+		setTitle("ATUALIZAR USER");
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				alterarProduto(vo);
+				alterarUser(vo);
 			}
 		});
 
@@ -24,13 +24,13 @@ public class Edit extends Form {
 		}
 	}
 
-	private void alterarProduto(ProdutoVO vo) {
+	private void alterarUser(UserVO vo) {
 		try {
-			ProdutosController.update(this.atualizaVO(vo));
-			JOptionPane.showMessageDialog(this, "Produto atualizado!");
+			UserController.update(this.atualizaVO(vo));
+			JOptionPane.showMessageDialog(this, "User atualizado!");
 			this.dispose();
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, ">> ERRO AO ATUALIZAR PRODUTO");
+			JOptionPane.showMessageDialog(this, ">> ERRO AO ATUALIZAR USER");
 		}
 	}
 }

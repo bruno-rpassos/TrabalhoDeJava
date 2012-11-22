@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 import javax.swing.JDialog;
 
-import model.entity.User;
-import view.login.Login;
+import model.User;
+import view.Login;
 import view.vo.ProdutoVO;
-import controller.login.UserController;
-import controller.produto.ProdutosController;
+import controller.ProdutosController;
+import controller.UserController;
 
 public class Main {
 

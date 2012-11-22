@@ -1,9 +1,9 @@
-package dao.repository;
+package repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import model.entity.User;
+import model.User;
 import exception.PassNotFoundException;
 
 public class PasswordRepository {

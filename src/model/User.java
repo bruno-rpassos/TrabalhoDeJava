@@ -1,17 +1,14 @@
-package view.vo;
+package model;
 
-public class UserVO {
-	public static final int ID = 0;
-	public static final int NOME = 1;
-	
+public class User extends Entity {
 	private String	nome;
 	private Integer id;
 
-	public UserVO(String nome) {
+	public User(String nome) {
 		this.nome = nome;
 	}
 
-	public UserVO() {}
+	public User() {}
 	
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -28,4 +25,5 @@ public class UserVO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 }

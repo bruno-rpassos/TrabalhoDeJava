@@ -1,4 +1,4 @@
-package view.login;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,8 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import view.main.MainFrame;
-import controller.login.UserController;
+import controller.UserController;
 import exception.PassNotFoundException;
 import exception.UserNotFoundException;
 

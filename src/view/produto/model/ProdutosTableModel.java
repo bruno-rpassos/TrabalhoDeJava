@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.listener.Listener;
 import view.vo.ProdutoVO;
-import controller.ProdutosController;
+import controller.produto.ProdutosController;
 import dao.ProdutoDAO;
 
 @SuppressWarnings("serial")
@@ -29,7 +29,7 @@ public class ProdutosTableModel extends DefaultTableModel {
 	}
 
 	private void atualizarDados() {
-		this.listaDeProdutos = new ArrayList<ProdutoVO>(ProdutosController.getAllProdutos());
+		this.listaDeProdutos = new ArrayList<ProdutoVO>(ProdutosController.getAllProdutosVO());
 		fireTableDataChanged();
 	}
 

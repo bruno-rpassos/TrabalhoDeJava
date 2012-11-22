@@ -2,19 +2,10 @@ package model.entity;
 
 import java.math.BigDecimal;
 
-public class Produto {
-	private Integer id;
-	private String descricao;
-	private BigDecimal valor;
-	private Integer quantidade;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+public class Produto extends Entity {
+	private String		descricao;
+	private BigDecimal	valor;
+	private Integer		quantidade;
 
 	public String getDescricao() {
 		return descricao;

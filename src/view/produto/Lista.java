@@ -16,7 +16,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableRowSorter;
 
 import view.produto.model.ProdutosTableModel;
-import controller.ProdutosController;
+import controller.produto.ProdutosController;
 
 @SuppressWarnings("serial")
 public class Lista extends JDialog {
@@ -31,8 +31,8 @@ public class Lista extends JDialog {
 		table = new JTable(produtosTable);
 		table.setAutoCreateRowSorter(true);
 		table.setLayout(new FlowLayout());
-		setResizable(true);
-		setBounds(100, 100, 600, 470);
+		setResizable(false);
+		setBounds(100, 100, 800, 470);
 		getContentPane().setLayout(new BorderLayout());
 
 		// INICIO >> PANEL BUSCA

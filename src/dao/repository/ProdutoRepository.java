@@ -1,14 +1,16 @@
-package dao;
+package dao.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.ProdutoNotFoundException;
+
 import model.entity.Produto;
 
 public class ProdutoRepository {
-	private static Integer id = 1;
-	private static ProdutoRepository repo;
-	private List<Produto> produtos;
+	private static Integer				id	= 1;
+	private static ProdutoRepository	repo;
+	private List<Produto>				produtos;
 
 	private ProdutoRepository() {
 		this.produtos = new ArrayList<Produto>();
@@ -29,6 +31,7 @@ public class ProdutoRepository {
 				this.produtos.remove(existente);
 			}
 		}
+		
 		this.produtos.add(produto);
 	}
 
@@ -42,7 +45,7 @@ public class ProdutoRepository {
 				return p;
 			}
 		}
-		throw new Exception("Produto nao encontrado");
+		throw new ProdutoNotFoundException();
 	}
 
 }

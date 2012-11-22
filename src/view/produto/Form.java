@@ -2,6 +2,8 @@ package view.produto;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -158,11 +160,21 @@ public class Form extends JDialog {
 	}
 
 	protected void clear() {
-		this.tfDescricao.setText("");
-		this.tfQuantidade.setText("");
-		this.tfValor.setText("");
-
+		clearAllTextFields(getContentPane());
 		this.tfDescricao.requestFocus();
+	}
+
+	private void clearAllTextFields(Container pane) {
+		for (int i = 0; i < pane.getComponentCount(); i++) {
+			Component c = contentPanel.getComponent(i);
+			
+			if (c instanceof Container)
+				clearAllTextFields((Container)c);
+			
+			if (c instanceof JTextField) {
+				((JTextField)c).setText(null);
+			}
+		}		
 	}
 
 	// PODE NAO HAVER NUMEROS NO CAMPO QUANTIDADE E VALOR

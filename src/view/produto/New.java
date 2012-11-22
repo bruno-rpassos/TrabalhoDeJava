@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import controller.ProdutosController;
+import controller.produto.ProdutosController;
 
 @SuppressWarnings("serial")
 public class New extends Form {

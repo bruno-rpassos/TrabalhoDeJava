@@ -1,5 +1,6 @@
-package controller;
+package controller.produto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -19,8 +20,8 @@ public class ProdutosController {
 	public static void edit(String id) {
 		ProdutoDAO dao = ProdutoDAO.getInstance();
 		try {
-			ProdutoVO vo = dao.getById(new Integer(id));
-			JDialog view = new view.produto.Edit(vo);
+			Produto produto = dao.getById(new Integer(id));
+			JDialog view = new view.produto.Edit(ProdutoFactory.beanToVO(produto));
 			view.setVisible(true);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -30,10 +31,9 @@ public class ProdutosController {
 	}
 
 	public static void create(ProdutoVO vo) {
-		Produto novoProduto = ProdutoFactory.getProdutoByVO(vo);
-		novoProduto.setDescricao(novoProduto.getDescricao().toUpperCase());
+		Produto produto = ProdutoFactory.getProdutoByVO(vo);
 		try {
-			ProdutoDAO.getInstance().saveOrUpdate(novoProduto);
+			ProdutoDAO.getInstance().saveOrUpdate(produto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,7 +56,14 @@ public class ProdutosController {
 		view.setVisible(true);
 	}
 
-	public static List<ProdutoVO> getAllProdutos() {
-		return ProdutoDAO.getInstance().list();
+	public static List<ProdutoVO> getAllProdutosVO() {
+		List<Produto> produtos = ProdutoDAO.getInstance().list();
+		List<ProdutoVO> vo = new ArrayList<ProdutoVO>();
+
+		for (Produto produto : produtos) {			
+			vo.add(ProdutoFactory.beanToVO(produto));
+		}
+		
+		return vo;
 	}
 }

@@ -1,57 +1,27 @@
-package view;
+package view.main;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.EventQueue;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import view.vo.ProdutoVO;
-import controller.ProdutosController;
+import controller.produto.ProdutosController;
 
 public class MainFrame {
 
-	private JFrame	frmMain;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame window = new MainFrame();
-					window.frmMain.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	public JFrame	frmMain;
 
 	/**
 	 * Create the application.
 	 */
 	public MainFrame() {
 		initialize();
-		initializeRepositoryTest();
-	}
-
-	private void initializeRepositoryTest() {
-		for (int i = 1; i <= 50; i++) {
-			ProdutoVO vo = new ProdutoVO();
-			vo.setDescricao("PRODUTO#" + i);
-			vo.setQuantidade(i * 10);
-			vo.setValor(new BigDecimal(i * 20));
-			ProdutosController.create(vo);
-		}
 	}
 
 	/**

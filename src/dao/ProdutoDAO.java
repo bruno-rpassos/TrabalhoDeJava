@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.entity.Produto;
-import model.factories.ProdutoFactory;
 import model.listener.Listener;
-import view.vo.ProdutoVO;
+import dao.repository.ProdutoRepository;
 
-public class ProdutoDAO {
-	private static ProdutoDAO instance;
-	private List<Listener> listeners;
+public class ProdutoDAO implements DAO<Produto> {
+	private static ProdutoDAO	instance;
+	private List<Listener>		listeners;
 
 	private ProdutoDAO() {
 		this.listeners = new ArrayList<Listener>();
@@ -23,23 +22,19 @@ public class ProdutoDAO {
 	}
 
 	public void saveOrUpdate(Produto produto) throws Exception {
+		System.out.println(produto);
+		
 		ProdutoRepository.getInstance().add(produto);
 		dataChanged();
 	}
 
-	public ProdutoVO getById(Integer id) throws Exception {
-		return ProdutoFactory.beanToVO(ProdutoRepository.getInstance().getById(
-				id));
+	public Produto getById(Integer id) throws Exception {
+		return ProdutoRepository.getInstance().getById(id);
 	}
 
-	public List<ProdutoVO> list() {
+	public List<Produto> list() {
 		List<Produto> produtos = ProdutoRepository.getInstance().getAll();
-		List<ProdutoVO> produtosVO = new ArrayList<ProdutoVO>();
-
-		for (Produto p : produtos) {
-			produtosVO.add(ProdutoFactory.beanToVO(p));
-		}
-		return produtosVO;
+		return produtos;
 	}
 
 	public void addListener(Listener l) {

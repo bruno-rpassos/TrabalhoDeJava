@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import view.vo.ProdutoVO;
-import controller.ProdutosController;
+import controller.produto.ProdutosController;
 
 @SuppressWarnings("serial")
 public class Edit extends Form {

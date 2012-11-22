@@ -3,9 +3,8 @@ package repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import exception.ProdutoNotFoundException;
-
 import model.Produto;
+import exception.ProdutoNotFoundException;
 
 public class ProdutoRepository {
 	private static Integer				id	= 1;

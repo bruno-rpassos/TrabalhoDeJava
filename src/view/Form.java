@@ -27,7 +27,6 @@ public class Form<T extends VO> extends JDialog {
 
 	private final JPanel contentPanel;
 	protected List<JTextField> fields;
-
 	protected JButton saveButton;
 	protected JButton cancelButton;
 

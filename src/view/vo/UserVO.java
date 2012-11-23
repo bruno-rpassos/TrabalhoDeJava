@@ -4,10 +4,10 @@ import annotation.Input;
 
 public class UserVO extends VO {
 
-	@Input(label = "Nome")
+	@Input(label = "Nome", name = "nome")
 	private String nome;
 
-	@Input(label = "Senha")
+	@Input(label = "Senha", name = "senha")
 	private String senha;
 
 	public static final int ID = 0;

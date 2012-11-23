@@ -32,8 +32,7 @@ public class ProdutoDAO implements DAO<Produto> {
 	}
 
 	public List<Produto> list() {
-		List<Produto> produtos = ProdutoRepository.getInstance().getAll();
-		return produtos;
+		return ProdutoRepository.getInstance().getAll();
 	}
 
 	public void addListener(Listener l) {

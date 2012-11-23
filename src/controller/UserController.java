@@ -17,7 +17,15 @@ public class UserController {
 
 	public static void validarLogin(String user, String pass)
 			throws PassNotFoundException, UserNotFoundException {
+		System.out.println("looking for : " + user);
+		System.out.println("   with pass : " + pass);
+		
 		User u = UserRepository.getInstance().getUser(user);
+		System.out.println("user found > " + u.getNome());
+		System.out.println("   pass > " + u.getSenha());
+		
+		System.out.println("   user.pass equals pass ? " + u.getSenha().equals(pass));
+		
 		if (!u.getSenha().equals(pass))
 			throw new PassNotFoundException();
 	}

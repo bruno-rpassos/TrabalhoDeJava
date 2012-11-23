@@ -1,7 +1,7 @@
 package repository;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.User;
 import exception.UserNotFoundException;
@@ -9,10 +9,10 @@ import exception.UserNotFoundException;
 public class UserRepository {
 
 	private static UserRepository instance;
-	private Set<User> users;
+	private List<User> users;
 
 	private UserRepository() {
-		users = new HashSet<User>();
+		users = new ArrayList<User>();
 	}
 
 	public static UserRepository getInstance() {
@@ -41,6 +41,10 @@ public class UserRepository {
 			}
 		}
 		throw new UserNotFoundException();
+	}
+
+	public List<User> getAll() {
+		return this.users;
 	}
 
 }

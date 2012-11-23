@@ -23,8 +23,8 @@ import exception.UserNotFoundException;
 
 @SuppressWarnings("serial")
 public class Login extends JDialog {
-	private JTextField		userTf;
-	private JPasswordField	passTf;
+	private JTextField userTf;
+	private JPasswordField passTf;
 
 	/**
 	 * Create the dialog.
@@ -32,9 +32,10 @@ public class Login extends JDialog {
 
 	private void doLogin(String user, char[] pass) {
 		try {
+			System.out.println("trying to login [" + user + ", " + new String(pass) + " ]");
 			UserController.validarLogin(user, new String(pass));
 			System.out.println(" >> LOGOU com " + user);
-			
+
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
@@ -50,7 +51,8 @@ public class Login extends JDialog {
 		} catch (UserNotFoundException ex) {
 			JOptionPane.showMessageDialog(this, ">> USER INVALIDO!");
 		} catch (PassNotFoundException ex) {
-			JOptionPane.showMessageDialog(this, ">> " + user + ": SENHA INVALIDA!");
+			JOptionPane.showMessageDialog(this, ">> " + user
+					+ ": SENHA INVALIDA!");
 		}
 	}
 

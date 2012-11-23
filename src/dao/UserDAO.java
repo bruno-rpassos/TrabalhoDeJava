@@ -43,7 +43,7 @@ public class UserDAO implements DAO<User> {
 
 	@Override
 	public List<User> list() {
-		return null;
+		return UserRepository.getInstance().getAll();
 	}
 
 	@Override

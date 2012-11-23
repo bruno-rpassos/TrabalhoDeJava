@@ -2,7 +2,7 @@ package view.vo;
 
 import annotation.Input;
 
-public class ProdutoVO implements VO {
+public class ProdutoVO extends VO {
 
 	@Input(label = "Descrição", name = "descricao")
 	private String descricao;
@@ -12,8 +12,6 @@ public class ProdutoVO implements VO {
 
 	@Input(label = "Quantidade", name = "quantidade")
 	private Integer quantidade;
-
-	private Integer id;
 
 	public static final int ID = 0;
 	public static final int DESCRICAO = 1;
@@ -42,13 +40,5 @@ public class ProdutoVO implements VO {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 }

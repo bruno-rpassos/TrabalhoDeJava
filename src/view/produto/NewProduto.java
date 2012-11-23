@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 import controller.ProdutosController;
 
 @SuppressWarnings("serial")
-public class New extends FormProduto {
-	public New() throws Exception  {
+public class NewProduto extends FormProduto {
+	public NewProduto() throws Exception  {
 		super();
 		setTitle("NOVO PRODUTO");
 		saveButton.addActionListener(new ActionListener() {

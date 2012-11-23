@@ -3,14 +3,16 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JDialog;
+
 import model.User;
-import model.UserFactory;
 import repository.PasswordRepository;
 import repository.UserRepository;
 import view.vo.UserVO;
 import dao.UserDAO;
 import exception.PassNotFoundException;
 import exception.UserNotFoundException;
+import factory.UserFactory;
 
 public class UserController {
 
@@ -36,9 +38,31 @@ public class UserController {
 		return vo;
 	}
 
-	public static void update(UserVO atualizaVO) {
-		// TODO Auto-generated method stub
+	public static void create(UserVO vo) {
+		User user = UserFactory.getUserByVO(vo);
+		try {
+			UserDAO.getInstance().saveOrUpdate(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	public static void update(UserVO vo) {
+		User user = UserFactory.getUserByVO(vo);
+		try {
+			UserDAO.getInstance().saveOrUpdate(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void newResource() {
+		try {
+			JDialog view = new view.usuario.NewUser();
+			view.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 
 }

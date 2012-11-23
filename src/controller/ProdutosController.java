@@ -6,15 +6,15 @@ import java.util.List;
 import javax.swing.JDialog;
 
 import model.Produto;
-import model.ProdutoFactory;
 import view.vo.ProdutoVO;
 import dao.ProdutoDAO;
+import factory.ProdutoFactory;
 
 public class ProdutosController {
 
 	public static void newResource() {
 		try {
-			JDialog view = new view.produto.New();
+			JDialog view = new view.produto.NewProduto();
 			view.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -25,7 +25,7 @@ public class ProdutosController {
 		ProdutoDAO dao = ProdutoDAO.getInstance();
 		try {
 			Produto produto = dao.getById(new Integer(id));
-			JDialog view = new view.produto.Edit(
+			JDialog view = new view.produto.EditProduto(
 					ProdutoFactory.beanToVO(produto));
 			view.setVisible(true);
 		} catch (NumberFormatException e) {
@@ -51,9 +51,6 @@ public class ProdutosController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void destroy() {
 	}
 
 	public static void list() {

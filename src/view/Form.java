@@ -38,9 +38,9 @@ public class Form<T extends VO> extends DialogPadrao {
 	}
 
 	protected void updateTextFieldsWithVO(T vo) {
-		
+
 	}
-	
+
 	protected T generateVO() {
 		T vo = null;
 
@@ -62,14 +62,24 @@ public class Form<T extends VO> extends DialogPadrao {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		
+
 		return vo;
 	}
-	
+
 	protected void clear() {
 		clearAllTextFields(getContentPane());
 	}
-	
+
+	protected T parseVO() throws Exception {
+		return generateVO();
+	}
+
+	protected T update(T vo) throws Exception {
+		T alterado = parseVO();
+		alterado.setId(vo.getId());
+		return alterado;
+	}
+
 	private void parseFields() throws Exception {
 		Field[] fields = this.classe.getDeclaredFields();
 
@@ -139,7 +149,7 @@ public class Form<T extends VO> extends DialogPadrao {
 					((JTextField) c).requestFocus();
 					didRequestedFocus = true;
 				}
-				
+
 				((JTextField) c).setText(null);
 			}
 
@@ -149,7 +159,7 @@ public class Form<T extends VO> extends DialogPadrao {
 
 		didRequestedFocus = false;
 	}
-	
+
 	private Object getTextFieldValueOnPane(String tf, Container pane) {
 
 		for (int i = 0; i < pane.getComponentCount(); i++) {
@@ -161,13 +171,13 @@ public class Form<T extends VO> extends DialogPadrao {
 			}
 
 			else if (c instanceof Container) {
-				Object result = getTextFieldValueOnPane(tf, (Container) c); 
+				Object result = getTextFieldValueOnPane(tf, (Container) c);
 				if (result != null)
 					return result;
 			}
 		}
 
-		return null;		
+		return null;
 	}
 
 	private Object getTextFieldValue(String txtName) {
@@ -184,11 +194,11 @@ public class Form<T extends VO> extends DialogPadrao {
 
 		if (type.equals(java.lang.Integer.class)) {
 			System.out.println(" integer << ");
-			return Integer.parseInt((String)object);
+			return Integer.parseInt((String) object);
 		}
 
 		if (type.equals(java.lang.Double.class)) {
-			System.out.println(" double << ");			
+			System.out.println(" double << ");
 			return Double.parseDouble((String) object);
 		}
 

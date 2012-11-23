@@ -2,12 +2,10 @@ package view.vo;
 
 import annotation.Input;
 
-public class UserVO implements VO {
+public class UserVO extends VO {
 
 	@Input(label = "Nome")
 	private String nome;
-	
-	private Integer id;
 	
 	public static final int ID = 0;
 	public static final int NOME = 1;
@@ -21,13 +19,5 @@ public class UserVO implements VO {
 
 	public String getNome() {
 		return this.nome;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 }

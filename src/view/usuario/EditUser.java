@@ -9,8 +9,10 @@ import view.vo.UserVO;
 import controller.UserController;
 
 @SuppressWarnings("serial")
-public class Edit extends FormUser {
-	public Edit(final UserVO vo) {
+public class EditUser extends FormUser {
+	
+	public EditUser(final UserVO vo) throws Exception {
+		super();
 		setTitle("ATUALIZAR USER");
 		saveButton.addActionListener(new ActionListener() {
 			@Override
@@ -20,13 +22,13 @@ public class Edit extends FormUser {
 		});
 
 		if (vo != null) {
-			this.atualizaTextFieldsComVO(vo);
+			this.updateTextFieldsWithVO(vo);
 		}
 	}
 
 	private void alterarUser(UserVO vo) {
 		try {
-			UserController.update(this.atualizaVO(vo));
+			UserController.update(this.update(vo));
 			JOptionPane.showMessageDialog(this, "User atualizado!");
 			this.dispose();
 		} catch (Exception ex) {

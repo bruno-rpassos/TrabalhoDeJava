@@ -12,10 +12,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import controller.ProdutosController;
+import controller.UserController;
 
 public class MainFrame {
 
-	public JFrame	frmMain;
+	public JFrame frmMain;
 
 	/**
 	 * Create the application.
@@ -52,7 +53,8 @@ public class MainFrame {
 				// INICIO >> MENUITEM VENDA
 				{
 					JMenuItem mntmVenda = new JMenuItem("Venda");
-					mntmVenda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+					mntmVenda.setCursor(Cursor
+							.getPredefinedCursor(Cursor.HAND_CURSOR));
 					mnNovo.add(mntmVenda);
 				}
 				// FIM << MENUITEM VENDA
@@ -60,7 +62,8 @@ public class MainFrame {
 				// INICIO >> MENUITEM PRODUTO
 				{
 					JMenuItem mntmProduto = new JMenuItem("Produto");
-					mntmProduto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+					mntmProduto.setCursor(Cursor
+							.getPredefinedCursor(Cursor.HAND_CURSOR));
 					mntmProduto.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -71,13 +74,28 @@ public class MainFrame {
 				}
 				// FIM << MENUITEM PRODUTO
 
+				// INICIO >> MENUITEM USER
+				{
+					JMenuItem mntmProduto = new JMenuItem("Usuario");
+					mntmProduto.setCursor(Cursor
+							.getPredefinedCursor(Cursor.HAND_CURSOR));
+					mntmProduto.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							UserController.newResource();
+						}
+					});
+					mnNovo.add(mntmProduto);
+				}
+				// FIM << MENUITEM USER
 			}
 			// FIM << MENU NOVO
 
 			// INICIO >> MENU RELATORIO
 			{
 				JMenu mnRelatorio = new JMenu("RELATORIO");
-				mnRelatorio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				mnRelatorio.setCursor(Cursor
+						.getPredefinedCursor(Cursor.HAND_CURSOR));
 				mnRelatorio.setBackground(Color.DARK_GRAY);
 				mnRelatorio.setForeground(Color.WHITE);
 				menuBar.add(mnRelatorio);
@@ -85,7 +103,8 @@ public class MainFrame {
 				// INICIO >> MENUITEM VENDAS
 				{
 					JMenuItem mntmVendas = new JMenuItem("Vendas");
-					mntmVendas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+					mntmVendas.setCursor(Cursor
+							.getPredefinedCursor(Cursor.HAND_CURSOR));
 					mnRelatorio.add(mntmVendas);
 				}
 				// FIM << MENUITEM VENDAS
@@ -93,7 +112,8 @@ public class MainFrame {
 				// INICIO >> MENUITEM PRODUTOS
 				{
 					JMenuItem mntmProdutos = new JMenuItem("Produtos");
-					mntmProdutos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+					mntmProdutos.setCursor(Cursor
+							.getPredefinedCursor(Cursor.HAND_CURSOR));
 					mntmProdutos.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {

@@ -1,4 +1,4 @@
-package dao.repository;
+package repository;
 
 import model.User;
 

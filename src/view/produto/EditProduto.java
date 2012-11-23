@@ -9,8 +9,8 @@ import view.vo.ProdutoVO;
 import controller.ProdutosController;
 
 @SuppressWarnings("serial")
-public class Edit extends FormProduto {
-	public Edit(final ProdutoVO vo) throws Exception {
+public class EditProduto extends FormProduto {
+	public EditProduto(final ProdutoVO vo) throws Exception {
 		super();
 		setTitle("ATUALIZAR PRODUTO");
 		saveButton.addActionListener(new ActionListener() {

@@ -9,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import view.vo.ProdutoVO;
 import view.vo.UserVO;
 
 @SuppressWarnings("serial")
@@ -170,35 +168,35 @@ public class Form extends JDialog {
 	private void clearAllTextFields(Container pane) {
 		for (int i = 0; i < pane.getComponentCount(); i++) {
 			Component c = pane.getComponent(i);
-			
+
 			if (c instanceof JTextField)
 				((JTextField) c).setText(null);
-			
+
 			else if (c instanceof Container)
-				clearAllTextFields((Container)c);
+				clearAllTextFields((Container) c);
 		}
 	}
 
 	// PODE NAO HAVER NUMEROS NO CAMPO QUANTIDADE E VALOR
-	protected ProdutoVO getVO() throws Exception {
+	protected UserVO getVO() throws Exception {
 		UserVO vo = new UserVO();
 
-		vo.setDescricao(new String(this.tfDescricao.getText()));
-		vo.setQuantidade(new Integer(this.tfQuantidade.getText()));
-		vo.setValor(new BigDecimal(this.tfValor.getText()));
+		// vo.setDescricao(new String(this.tfDescricao.getText()));
+		// vo.setQuantidade(new Integer(this.tfQuantidade.getText()));
+		// vo.setValor(new BigDecimal(this.tfValor.getText()));
 
 		return vo;
 	}
 
-	protected ProdutoVO atualizaVO(UserVO vo) throws Exception {
-		ProdutoVO alterado = getVO();
+	protected UserVO atualizaVO(UserVO vo) throws Exception {
+		UserVO alterado = getVO();
 		alterado.setId(vo.getId());
 		return alterado;
 	}
 
 	protected void atualizaTextFieldsComVO(UserVO vo) {
-		this.tfDescricao.setText(vo.getDescricao());
-		this.tfQuantidade.setText(vo.getQuantidade().toString());
-		this.tfValor.setText(vo.getValor().toString());
+		// this.tfDescricao.setText(vo.getDescricao());
+		// this.tfQuantidade.setText(vo.getQuantidade().toString());
+		// this.tfValor.setText(vo.getValor().toString());
 	}
 }

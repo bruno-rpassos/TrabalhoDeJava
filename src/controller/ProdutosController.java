@@ -13,8 +13,12 @@ import dao.ProdutoDAO;
 public class ProdutosController {
 
 	public static void newResource() {
-		JDialog view = new view.produto.New();
-		view.setVisible(true);
+		try {
+			JDialog view = new view.produto.New();
+			view.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void edit(String id) {

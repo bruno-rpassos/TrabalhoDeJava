@@ -36,4 +36,9 @@ public class UserController {
 		return vo;
 	}
 
+	public static void update(UserVO atualizaVO) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

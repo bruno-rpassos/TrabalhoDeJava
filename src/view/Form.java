@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import javax.swing.JButton;
@@ -38,9 +39,15 @@ public class Form<T extends VO> extends DialogPadrao {
 	}
 
 	public void parseFields() throws Exception {
-		Field[] fields = this.classe.getFields();
+		Field[] fields = this.classe.getDeclaredFields();
 
 		for (Field f : fields) {
+			
+			System.out.println("NAME: " + f.getName());
+			System.out.println("Annotation<INPUT> ? " + f.isAnnotationPresent(Input.class));
+			for (Annotation a : f.getAnnotations()) 
+				System.out.println(" > annotation : " + a);
+			
 			if (f.isAnnotationPresent(Input.class)) {
 				Input in = f.getAnnotation(Input.class);
 
@@ -66,7 +73,7 @@ public class Form<T extends VO> extends DialogPadrao {
 			}
 		}
 	}
-
+	
 	protected void buildButtons() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBackground(Color.DARK_GRAY);

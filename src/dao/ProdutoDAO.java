@@ -23,8 +23,6 @@ public class ProdutoDAO implements DAO<Produto> {
 	}
 
 	public void saveOrUpdate(Produto produto) throws Exception {
-		System.out.println(produto);
-		
 		ProdutoRepository.getInstance().add(produto);
 		dataChanged();
 	}

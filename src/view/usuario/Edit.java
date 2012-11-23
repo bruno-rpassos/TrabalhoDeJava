@@ -9,7 +9,7 @@ import view.vo.UserVO;
 import controller.UserController;
 
 @SuppressWarnings("serial")
-public class Edit extends Form {
+public class Edit extends FormUser {
 	public Edit(final UserVO vo) {
 		setTitle("ATUALIZAR USER");
 		saveButton.addActionListener(new ActionListener() {

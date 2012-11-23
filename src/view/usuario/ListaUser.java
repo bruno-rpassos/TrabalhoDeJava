@@ -1,13 +1,13 @@
 package view.usuario;
 
 import controller.ProdutosController;
-import view.tablemodel.UsuarioTableModel;
+import view.tablemodel.UserTableModel;
 
 @SuppressWarnings("serial")
-public class ListaUser extends view.Lista<UsuarioTableModel> {
+public class ListaUser extends view.Lista<UserTableModel> {
 
 	public ListaUser() throws InstantiationException, IllegalAccessException {
-		super(UsuarioTableModel.class);
+		super(UserTableModel.class);
 	}
 
 	@Override

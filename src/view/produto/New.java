@@ -10,6 +10,7 @@ import controller.ProdutosController;
 @SuppressWarnings("serial")
 public class New extends FormProduto {
 	public New() throws Exception  {
+		super();
 		setTitle("NOVO PRODUTO");
 		saveButton.addActionListener(new ActionListener() {
 			@Override

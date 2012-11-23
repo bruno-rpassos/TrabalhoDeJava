@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 import view.vo.UserVO;
 
 @SuppressWarnings("serial")
-public class Form extends JDialog {
+public class FormUser extends JDialog {
 
 	private final JPanel contentPanel;
 	protected JTextField tfDescricao;
@@ -29,7 +29,7 @@ public class Form extends JDialog {
 	protected JButton saveButton;
 	protected JButton cancelButton;
 
-	public Form() {
+	public FormUser() {
 		setTitle("USUARIO");
 		setResizable(false);
 

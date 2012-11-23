@@ -11,13 +11,13 @@ import controller.UserController;
 import dao.UserDAO;
 
 @SuppressWarnings("serial")
-public class UsuarioTableModel extends DefaultTableModel {
+public class UserTableModel extends DefaultTableModel {
 	private static final String[] COLUNAS = new String[] { "Id", "Descricao",
 			"Quantidade", "Valor" };
 
 	private List<UserVO> listaDeUsers;
 
-	public UsuarioTableModel() {
+	public UserTableModel() {
 		UserDAO.getInstance().addListener(new Listener() {
 			public void actionPerformed() {
 				atualizarDados();

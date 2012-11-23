@@ -20,11 +20,4 @@ public class FormProduto extends Form<ProdutoVO> {
 		alterado.setId(vo.getId());
 		return alterado;
 	}
-
-	protected void atualizaTextFieldsComVO(ProdutoVO vo) {
-		// - > REFLECTION
-		// this.tfDescricao.setText(vo.getDescricao());
-		// this.tfQuantidade.setText(vo.getQuantidade().toString());
-		// this.tfValor.setText(vo.getValor().toString());
-	}
 }

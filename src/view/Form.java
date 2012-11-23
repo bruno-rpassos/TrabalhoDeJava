@@ -28,7 +28,7 @@ public class Form<T extends VO> extends DialogPadrao {
 	private Class<T> classe;
 	private boolean didRequestedFocus;
 
-	public Form(Class<T> VOClass, String title) throws Exception {
+	protected Form(Class<T> VOClass, String title) throws Exception {
 		super(title);
 		this.classe = VOClass;
 
@@ -37,6 +37,39 @@ public class Form<T extends VO> extends DialogPadrao {
 		didRequestedFocus = false;
 	}
 
+	protected void updateTextFieldsWithVO(T vo) {
+		
+	}
+	
+	protected T generateVO() {
+		T vo = null;
+
+		try {
+			vo = this.classe.newInstance();
+
+			for (Field f : this.classe.getDeclaredFields()) {
+				if (f.isAnnotationPresent(Input.class)) {
+					Input in = f.getAnnotation(Input.class);
+
+					f.setAccessible(true);
+					Object txtField = getTextFieldValue(in.name());
+					f.set(vo, parseToType(txtField, f.getType()));
+				}
+			}
+
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
+	
+	protected void clear() {
+		clearAllTextFields(getContentPane());
+	}
+	
 	private void parseFields() throws Exception {
 		Field[] fields = this.classe.getDeclaredFields();
 
@@ -97,10 +130,6 @@ public class Form<T extends VO> extends DialogPadrao {
 		getRootPane().setDefaultButton(saveButton);
 	}
 
-	protected void clear() {
-		clearAllTextFields(getContentPane());
-	}
-
 	private void clearAllTextFields(Container pane) {
 		for (int i = 0; i < pane.getComponentCount(); i++) {
 			Component c = pane.getComponent(i);
@@ -127,10 +156,6 @@ public class Form<T extends VO> extends DialogPadrao {
 			Component c = pane.getComponent(i);
 
 			if (c instanceof JTextField) {
-				System.out.println(" getName : " + ((JTextField) c).getName());
-				System.out.println(" name : " + tf);
-				System.out.println(" == ? : " + (((JTextField) c).getName().equals(tf) ? "SIM" : "NAO"));
-				
 				if (((JTextField) c).getName().equals(tf))
 					return ((JTextField) c).getText();
 			}
@@ -159,54 +184,15 @@ public class Form<T extends VO> extends DialogPadrao {
 
 		if (type.equals(java.lang.Integer.class)) {
 			System.out.println(" integer << ");
-			return (Integer) object;
+			return Integer.parseInt((String)object);
 		}
 
 		if (type.equals(java.lang.Double.class)) {
 			System.out.println(" double << ");			
-			return (Double) object;
+			return Double.parseDouble((String) object);
 		}
 
-		if (type.equals(java.math.BigDecimal.class)) {
-			System.out.println(" bigdecimal << ");
-			return (java.math.BigDecimal) object;
-		}
-
-		System.out.println(" object << ? ");
 		return object;
 	}
 
-	public T generateVO() {
-		T vo = null;
-
-		try {
-			vo = this.classe.newInstance();
-
-			for (Field f : this.classe.getDeclaredFields()) {
-				if (f.isAnnotationPresent(Input.class)) {
-					Input in = f.getAnnotation(Input.class);
-
-					f.setAccessible(true);
-					Object txtField = getTextFieldValue(in.name());
-					System.out.println("[[[[[[[[ get : " + txtField + " ]]]]]]]]");
-					f.set(vo, parseToType(txtField, f.getType()));
-					System.out.println("[[[[[[[[ F VALUE : " + f.get(vo) + " ]]]]]]]]");
-				}
-			}
-
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-
-		// - > REFLECTION
-		// vo.setDescricao(new String(this.tfDescricao.getText()));
-		// vo.setQuantidade(new Integer(this.tfQuantidade.getText()));
-		// vo.setValor(new BigDecimal(this.tfValor.getText()));
-
-		// /////////////////////////////////////////////////////////////
-		System.out.println("RETURN VO <");
-		return vo;
-	}
 }

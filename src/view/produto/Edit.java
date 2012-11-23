@@ -21,7 +21,7 @@ public class Edit extends FormProduto {
 		});
 
 		if (vo != null) {
-			this.atualizaTextFieldsComVO(vo);
+			this.updateTextFieldsWithVO(vo);
 		}
 	}
 

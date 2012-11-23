@@ -9,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import javax.swing.JButton;
@@ -26,7 +25,7 @@ public class Form<T extends VO> extends DialogPadrao {
 	protected JButton saveButton;
 	protected JButton cancelButton;
 
-	protected Class<T> classe;
+	private Class<T> classe;
 	private boolean didRequestedFocus;
 
 	public Form(Class<T> VOClass, String title) throws Exception {
@@ -38,16 +37,10 @@ public class Form<T extends VO> extends DialogPadrao {
 		didRequestedFocus = false;
 	}
 
-	public void parseFields() throws Exception {
+	private void parseFields() throws Exception {
 		Field[] fields = this.classe.getDeclaredFields();
 
 		for (Field f : fields) {
-			
-			System.out.println("NAME: " + f.getName());
-			System.out.println("Annotation<INPUT> ? " + f.isAnnotationPresent(Input.class));
-			for (Annotation a : f.getAnnotations()) 
-				System.out.println(" > annotation : " + a);
-			
 			if (f.isAnnotationPresent(Input.class)) {
 				Input in = f.getAnnotation(Input.class);
 
@@ -73,8 +66,8 @@ public class Form<T extends VO> extends DialogPadrao {
 			}
 		}
 	}
-	
-	protected void buildButtons() {
+
+	private void buildButtons() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBackground(Color.DARK_GRAY);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -117,6 +110,7 @@ public class Form<T extends VO> extends DialogPadrao {
 					((JTextField) c).requestFocus();
 					didRequestedFocus = true;
 				}
+				
 				((JTextField) c).setText(null);
 			}
 
@@ -125,5 +119,94 @@ public class Form<T extends VO> extends DialogPadrao {
 		}
 
 		didRequestedFocus = false;
+	}
+	
+	private Object getTextFieldValueOnPane(String tf, Container pane) {
+
+		for (int i = 0; i < pane.getComponentCount(); i++) {
+			Component c = pane.getComponent(i);
+
+			if (c instanceof JTextField) {
+				System.out.println(" getName : " + ((JTextField) c).getName());
+				System.out.println(" name : " + tf);
+				System.out.println(" == ? : " + (((JTextField) c).getName().equals(tf) ? "SIM" : "NAO"));
+				
+				if (((JTextField) c).getName().equals(tf))
+					return ((JTextField) c).getText();
+			}
+
+			else if (c instanceof Container) {
+				Object result = getTextFieldValueOnPane(tf, (Container) c); 
+				if (result != null)
+					return result;
+			}
+		}
+
+		return null;		
+	}
+
+	private Object getTextFieldValue(String txtName) {
+		Object result = getTextFieldValueOnPane(txtName, getContentPane());
+		return result;
+	}
+
+	private Object parseToType(Object object, Class<?> type) {
+		System.out.println(" >> parsing : ");
+		if (type.equals(java.lang.String.class)) {
+			System.out.println(" string << ");
+			return (String) object;
+		}
+
+		if (type.equals(java.lang.Integer.class)) {
+			System.out.println(" integer << ");
+			return (Integer) object;
+		}
+
+		if (type.equals(java.lang.Double.class)) {
+			System.out.println(" double << ");			
+			return (Double) object;
+		}
+
+		if (type.equals(java.math.BigDecimal.class)) {
+			System.out.println(" bigdecimal << ");
+			return (java.math.BigDecimal) object;
+		}
+
+		System.out.println(" object << ? ");
+		return object;
+	}
+
+	public T generateVO() {
+		T vo = null;
+
+		try {
+			vo = this.classe.newInstance();
+
+			for (Field f : this.classe.getDeclaredFields()) {
+				if (f.isAnnotationPresent(Input.class)) {
+					Input in = f.getAnnotation(Input.class);
+
+					f.setAccessible(true);
+					Object txtField = getTextFieldValue(in.name());
+					System.out.println("[[[[[[[[ get : " + txtField + " ]]]]]]]]");
+					f.set(vo, parseToType(txtField, f.getType()));
+					System.out.println("[[[[[[[[ F VALUE : " + f.get(vo) + " ]]]]]]]]");
+				}
+			}
+
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+		// - > REFLECTION
+		// vo.setDescricao(new String(this.tfDescricao.getText()));
+		// vo.setQuantidade(new Integer(this.tfQuantidade.getText()));
+		// vo.setValor(new BigDecimal(this.tfValor.getText()));
+
+		// /////////////////////////////////////////////////////////////
+		System.out.println("RETURN VO <");
+		return vo;
 	}
 }

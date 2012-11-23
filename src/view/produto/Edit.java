@@ -11,6 +11,7 @@ import controller.ProdutosController;
 @SuppressWarnings("serial")
 public class Edit extends FormProduto {
 	public Edit(final ProdutoVO vo) throws Exception {
+		super();
 		setTitle("ATUALIZAR PRODUTO");
 		saveButton.addActionListener(new ActionListener() {
 			@Override
@@ -26,7 +27,7 @@ public class Edit extends FormProduto {
 
 	private void alterarProduto(ProdutoVO vo) {
 		try {
-			ProdutosController.update(this.atualizaVO(vo));
+			ProdutosController.update(this.update(vo));
 			JOptionPane.showMessageDialog(this, "Produto atualizado!");
 			this.dispose();
 		} catch (Exception ex) {

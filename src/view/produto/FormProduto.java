@@ -10,19 +10,13 @@ public class FormProduto extends Form<ProdutoVO> {
 		super(ProdutoVO.class, "PRODUTO");
 	}
 
-	protected ProdutoVO getVO() throws Exception {
-		ProdutoVO vo = new ProdutoVO();
-
-		// - > REFLECTION
-		// vo.setDescricao(new String(this.tfDescricao.getText()));
-		// vo.setQuantidade(new Integer(this.tfQuantidade.getText()));
-		// vo.setValor(new BigDecimal(this.tfValor.getText()));
-
+	protected ProdutoVO parseVO() throws Exception {
+		ProdutoVO vo = super.generateVO();
 		return vo;
 	}
 
-	protected ProdutoVO atualizaVO(ProdutoVO vo) throws Exception {
-		ProdutoVO alterado = getVO();
+	protected ProdutoVO update(ProdutoVO vo) throws Exception {
+		ProdutoVO alterado = parseVO();
 		alterado.setId(vo.getId());
 		return alterado;
 	}

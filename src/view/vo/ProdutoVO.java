@@ -1,7 +1,5 @@
 package view.vo;
 
-import java.math.BigDecimal;
-
 import annotation.Input;
 
 public class ProdutoVO implements VO {
@@ -10,7 +8,7 @@ public class ProdutoVO implements VO {
 	private String descricao;
 
 	@Input(label = "Valor", name = "valor")
-	private BigDecimal valor;
+	private Double valor;
 
 	@Input(label = "Quantidade", name = "quantidade")
 	private Integer quantidade;
@@ -30,11 +28,11 @@ public class ProdutoVO implements VO {
 		this.descricao = descricao;
 	}
 
-	public BigDecimal getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(BigDecimal valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 

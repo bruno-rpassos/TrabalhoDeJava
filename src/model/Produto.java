@@ -1,11 +1,9 @@
 package model;
 
-import java.math.BigDecimal;
-
 public class Produto extends Entity {
-	private String		descricao;
-	private BigDecimal	valor;
-	private Integer		quantidade;
+	private String descricao;
+	private Double valor;
+	private Integer quantidade;
 
 	public String getDescricao() {
 		return descricao;
@@ -15,11 +13,11 @@ public class Produto extends Entity {
 		this.descricao = descricao;
 	}
 
-	public BigDecimal getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(BigDecimal valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 

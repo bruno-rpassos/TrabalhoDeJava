@@ -1,7 +1,5 @@
 package main;
 
-import java.math.BigDecimal;
-
 import javax.swing.JDialog;
 
 import model.User;
@@ -38,7 +36,7 @@ public class Main {
 			ProdutoVO vo = new ProdutoVO();
 			vo.setDescricao("PRODUTO#" + i);
 			vo.setQuantidade(i * 10);
-			vo.setValor(new BigDecimal(i * 20));
+			vo.setValor(new Double(i * 20));
 			ProdutosController.create(vo);
 		}
 	}

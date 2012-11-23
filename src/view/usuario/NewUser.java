@@ -23,9 +23,9 @@ public class NewUser extends FormUser {
 	private void salvarUser() {
 		try {
 			UserController.create(this.parseVO());
-			JOptionPane.showMessageDialog(this, "Produto cadastrado!");
+			JOptionPane.showMessageDialog(this, "Usuario cadastrado!");
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, ">> ERRO AO CADASTRAR PRODUTO");
+			JOptionPane.showMessageDialog(this, ">> ERRO AO CADASTRAR USUARIO");
 		}
 
 		this.clear();

@@ -127,6 +127,22 @@ public class MainFrame {
 			}
 			// FIM << MENU RELATORIO
 
+			// INICIO >> LOGOUT
+			{
+				JMenuItem mnNovo = new JMenuItem("LOGOUT");
+				mnNovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				mnNovo.setBackground(Color.DARK_GRAY);
+				mnNovo.setForeground(Color.WHITE);
+				mnNovo.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						new Login().setVisible(true);
+						frmMain.dispose();
+					}
+				});
+				menuBar.add(mnNovo);
+			}
+			// FIM << LOGOUT
 		}
 		// FIM << MENUBAR
 

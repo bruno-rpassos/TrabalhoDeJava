@@ -26,27 +26,23 @@ public class Form<T extends VO> extends DialogPadrao {
 	protected JButton cancelButton;
 
 	private Class<T> classe;
+	private Integer boundsBase;
 	private boolean didRequestedFocus;
 
 	protected Form(Class<T> VOClass, String title) throws Exception {
 		super(title);
 		this.classe = VOClass;
+		this.boundsBase = 200;
 
 		parseFields();
 		buildButtons();
+		refreshBounds();
 		didRequestedFocus = false;
 	}
-
+	
 	protected void updateTextFieldsWithVO(T vo) {
-
-	}
-
-	protected T generateVO() {
-		T vo = null;
-
 		try {
 			vo = this.classe.newInstance();
-
 			for (Field f : this.classe.getDeclaredFields()) {
 				if (f.isAnnotationPresent(Input.class)) {
 					Input in = f.getAnnotation(Input.class);
@@ -56,13 +52,31 @@ public class Form<T extends VO> extends DialogPadrao {
 					f.set(vo, parseToType(txtField, f.getType()));
 				}
 			}
-
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
+	}
 
+	protected T generateVO() {
+		T vo = null;
+		try {
+			vo = this.classe.newInstance();
+			for (Field f : this.classe.getDeclaredFields()) {
+				if (f.isAnnotationPresent(Input.class)) {
+					Input in = f.getAnnotation(Input.class);
+
+					f.setAccessible(true);
+					Object txtField = getTextFieldValue(in.name());
+					f.set(vo, parseToType(txtField, f.getType()));
+				}
+			}
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		return vo;
 	}
 
@@ -80,13 +94,18 @@ public class Form<T extends VO> extends DialogPadrao {
 		return alterado;
 	}
 
+	private void refreshBounds() {
+		super.setBounds(100, 100, this.boundsBase, 250);
+	}
+	
 	private void parseFields() throws Exception {
 		Field[] fields = this.classe.getDeclaredFields();
 
 		for (Field f : fields) {
 			if (f.isAnnotationPresent(Input.class)) {
 				Input in = f.getAnnotation(Input.class);
-
+				boundsBase += 50;
+				
 				{
 					JPanel panel = new JPanel();
 					panel.setBackground(Color.DARK_GRAY);
@@ -186,21 +205,14 @@ public class Form<T extends VO> extends DialogPadrao {
 	}
 
 	private Object parseToType(Object object, Class<?> type) {
-		System.out.println(" >> parsing : ");
-		if (type.equals(java.lang.String.class)) {
-			System.out.println(" string << ");
+		if (type.equals(java.lang.String.class))
 			return (String) object;
-		}
 
-		if (type.equals(java.lang.Integer.class)) {
-			System.out.println(" integer << ");
+		if (type.equals(java.lang.Integer.class))
 			return Integer.parseInt((String) object);
-		}
 
-		if (type.equals(java.lang.Double.class)) {
-			System.out.println(" double << ");
+		if (type.equals(java.lang.Double.class))
 			return Double.parseDouble((String) object);
-		}
 
 		return object;
 	}

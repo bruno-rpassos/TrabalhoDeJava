@@ -25,9 +25,10 @@ public class Main {
 
 	// >> BANCO
 	private static void initializeUsers() {
-		User u = new User("admin");
-		String p = "123";
-		UserController.registerNewUserWithPassword(u, p);
+		User u = new User();
+		u.setNome("admin");
+		u.setSenha("123");
+		UserController.registerNewUser(u);
 	}
 
 	// >> BANCO

@@ -16,7 +16,6 @@ public abstract class DialogPadrao extends JDialog {
 		setTitle(title);
 
 		setResizable(false);
-		setBounds(100, 100, 400, 250);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		contentPanel = new JPanel();

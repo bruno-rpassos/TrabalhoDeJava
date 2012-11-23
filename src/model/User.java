@@ -1,15 +1,14 @@
 package model;
 
 public class User extends Entity {
-	private String	nome;
+
+	private String nome;
+	private String senha;
 	private Integer id;
 
-	public User(String nome) {
-		this.nome = nome;
+	public User() {
 	}
 
-	public User() {}
-	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -24,6 +23,14 @@ public class User extends Entity {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }

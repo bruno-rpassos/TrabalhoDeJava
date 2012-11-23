@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.JDialog;
 
 import model.User;
-import repository.PasswordRepository;
 import repository.UserRepository;
 import view.vo.UserVO;
 import dao.UserDAO;
@@ -19,12 +18,12 @@ public class UserController {
 	public static void validarLogin(String user, String pass)
 			throws PassNotFoundException, UserNotFoundException {
 		User u = UserRepository.getInstance().getUser(user);
-		PasswordRepository.getInstance().validatePass(u, pass);
+		if (!u.getSenha().equals(pass))
+			throw new PassNotFoundException();
 	}
 
-	public static void registerNewUserWithPassword(User u, String p) {
-		UserRepository.getInstance().addNewUser(u);
-		PasswordController.addPassForUser(p, u);
+	public static void registerNewUser(User u) {
+		UserRepository.getInstance().add(u);
 	}
 
 	public static List<UserVO> getAllUserVO() {
@@ -62,7 +61,7 @@ public class UserController {
 			view.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 
 }

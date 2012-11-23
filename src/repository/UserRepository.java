@@ -30,7 +30,7 @@ public class UserRepository {
 		throw new UserNotFoundException();
 	}
 
-	public void addNewUser(User u) {
+	public void add(User u) {
 		this.users.add(u);
 	}
 

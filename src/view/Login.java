@@ -33,7 +33,8 @@ public class Login extends JDialog {
 	private void doLogin(String user, char[] pass) {
 		try {
 			UserController.validarLogin(user, new String(pass));
-
+			System.out.println(" >> LOGOU com " + user);
+			
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {

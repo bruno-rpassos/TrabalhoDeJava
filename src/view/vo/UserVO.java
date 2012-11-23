@@ -9,7 +9,7 @@ public class UserVO extends VO {
 
 	@Input(label = "Senha")
 	private String senha;
-	
+
 	public static final int ID = 0;
 	public static final int NOME = 1;
 
@@ -24,7 +24,6 @@ public class UserVO extends VO {
 		return this.nome;
 	}
 
-	
 	public String getSenha() {
 		return senha;
 	}

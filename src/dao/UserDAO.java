@@ -31,7 +31,7 @@ public class UserDAO implements DAO<User> {
 
 	@Override
 	public User getById(Integer id) throws Exception {
-		return null;
+		return UserRepository.getInstance().getById(id);
 	}
 
 	public User getByLogin(String login) throws UserNotFoundException,

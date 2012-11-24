@@ -1,44 +1,44 @@
 package view.vo;
 
-import annotation.Input;
+import annotation.Persistence;
 
 public class ProdutoVO extends VO {
 
-	@Input(label = "Descrição", name = "descricao")
-	private String descricao;
+	public static final int	DESCRICAO	= 1;
 
-	@Input(label = "Valor", name = "valor")
-	private Double valor;
+	public static final int	ID			= 0;
 
-	@Input(label = "Quantidade", name = "quantidade")
-	private Integer quantidade;
+	public static final int	QUANTIDADE	= 2;
 
-	public static final int ID = 0;
-	public static final int DESCRICAO = 1;
-	public static final int QUANTIDADE = 2;
-	public static final int VALOR = 3;
+	public static final int	VALOR		= 3;
+	@Persistence( label = "DescriÃ§Ã£o", name = "descricao" )
+	private String			descricao;
+	@Persistence( label = "Quantidade", name = "quantidade" )
+	private Integer			quantidade;
+	@Persistence( label = "Valor", name = "valor" )
+	private Double			valor;
 
 	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
+		return this.descricao;
 	}
 
 	public Integer getQuantidade() {
-		return quantidade;
+		return this.quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	public Double getValor() {
+		return this.valor;
+	}
+
+	public void setDescricao( final String descricao ) {
+		this.descricao = descricao;
+	}
+
+	public void setQuantidade( final Integer quantidade ) {
 		this.quantidade = quantidade;
+	}
+
+	public void setValor( final Double valor ) {
+		this.valor = valor;
 	}
 }

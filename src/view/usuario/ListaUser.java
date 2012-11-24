@@ -1,18 +1,18 @@
 package view.usuario;
 
-import controller.ProdutosController;
 import view.tablemodel.UserTableModel;
+import controller.ProdutosController;
 
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 public class ListaUser extends view.Lista<UserTableModel> {
 
 	public ListaUser() throws InstantiationException, IllegalAccessException {
-		super(UserTableModel.class);
+		super( UserTableModel.class );
 	}
 
 	@Override
 	protected void doubleClicked() {
-		String idDoUser = String.valueOf(table.getValueAt(table.getSelectedRow(), 0));
-		ProdutosController.edit(idDoUser);	
+		final String idDoUser = String.valueOf( this.table.getValueAt( this.table.getSelectedRow(), 0 ) );
+		ProdutosController.edit( idDoUser );
 	}
 }

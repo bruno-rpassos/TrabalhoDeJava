@@ -8,43 +8,42 @@ import exception.UserNotFoundException;
 
 public class UserRepository {
 
-	private static UserRepository instance;
-	private List<User> users;
-
-	private UserRepository() {
-		users = new ArrayList<User>();
-	}
+	private static UserRepository	instance;
 
 	public static UserRepository getInstance() {
-		if (instance == null)
-			instance = new UserRepository();
-		return instance;
-	}
-
-	public User getUser(String name) throws UserNotFoundException {
-		for (User u : this.users) {
-			if (u.getNome().equals(name))
-				return u;
+		if ( UserRepository.instance == null ) {
+			UserRepository.instance = new UserRepository();
 		}
-
-		throw new UserNotFoundException();
+		return UserRepository.instance;
 	}
 
-	public void add(User u) {
-		this.users.add(u);
+	private final List<User>	users;
+
+	private UserRepository() {
+		this.users = new ArrayList<User>();
 	}
 
-	public User getById(Integer id) throws UserNotFoundException {
-		for (User u : this.users) {
-			if (u.getId().equals(id)) {
-				return u;
-			}
-		}
-		throw new UserNotFoundException();
+	public void add( final User u ) {
+		this.users.add( u );
 	}
 
 	public List<User> getAll() {
 		return this.users;
+	}
+
+	public User getById( final Integer id ) throws UserNotFoundException {
+		for ( final User u : this.users ) {
+			if ( u.getId().equals( id ) ) return u;
+		}
+		throw new UserNotFoundException();
+	}
+
+	public User getUser( final String name ) throws UserNotFoundException {
+		for ( final User u : this.users ) {
+			if ( u.getNome().equals( name ) ) return u;
+		}
+
+		throw new UserNotFoundException();
 	}
 
 }

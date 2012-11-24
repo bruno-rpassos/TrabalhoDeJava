@@ -3,17 +3,16 @@ package view.produto;
 import view.tablemodel.ProdutosTableModel;
 import controller.ProdutosController;
 
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 public class ListaProduto extends view.Lista<ProdutosTableModel> {
 
 	public ListaProduto() throws InstantiationException, IllegalAccessException {
-		super(ProdutosTableModel.class);
+		super( ProdutosTableModel.class );
 	}
 
 	@Override
 	protected void doubleClicked() {
-		String idDoProduto = String.valueOf(table.getValueAt(
-				table.getSelectedRow(), 0));
-		ProdutosController.edit(idDoProduto);
+		final String idDoProduto = String.valueOf( this.table.getValueAt( this.table.getSelectedRow(), 0 ) );
+		ProdutosController.edit( idDoProduto );
 	}
 }

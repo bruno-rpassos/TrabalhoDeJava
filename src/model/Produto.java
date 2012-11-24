@@ -1,31 +1,31 @@
 package model;
 
 public class Produto extends Entity {
-	private String descricao;
-	private Double valor;
-	private Integer quantidade;
+	private String	descricao;
+	private Integer	quantidade;
+	private Double	valor;
 
 	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
+		return this.descricao;
 	}
 
 	public Integer getQuantidade() {
-		return quantidade;
+		return this.quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	public Double getValor() {
+		return this.valor;
+	}
+
+	public void setDescricao( final String descricao ) {
+		this.descricao = descricao;
+	}
+
+	public void setQuantidade( final Integer quantidade ) {
 		this.quantidade = quantidade;
+	}
+
+	public void setValor( final Double valor ) {
+		this.valor = valor;
 	}
 }

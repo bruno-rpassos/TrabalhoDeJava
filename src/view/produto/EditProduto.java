@@ -8,30 +8,30 @@ import javax.swing.JOptionPane;
 import view.vo.ProdutoVO;
 import controller.ProdutosController;
 
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 public class EditProduto extends FormProduto {
-	public EditProduto(final ProdutoVO vo) throws Exception {
+	public EditProduto( final ProdutoVO vo ) throws Exception {
 		super();
-		setTitle("ATUALIZAR PRODUTO");
-		saveButton.addActionListener(new ActionListener() {
+		this.setTitle( "ATUALIZAR PRODUTO" );
+		this.saveButton.addActionListener( new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				alterarProduto(vo);
+			public void actionPerformed( final ActionEvent e ) {
+				EditProduto.this.alterarProduto( vo );
 			}
-		});
+		} );
 
-		if (vo != null) {
-			this.updateTextFieldsWithVO(vo);
+		if ( vo != null ) {
+			this.updateTextFieldsWithVO( vo );
 		}
 	}
 
-	private void alterarProduto(ProdutoVO vo) {
+	private void alterarProduto( final ProdutoVO vo ) {
 		try {
-			ProdutosController.update(this.update(vo));
-			JOptionPane.showMessageDialog(this, "Produto atualizado!");
+			ProdutosController.update( this.update( vo ) );
+			JOptionPane.showMessageDialog( this, "Produto atualizado!" );
 			this.dispose();
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, ">> ERRO AO ATUALIZAR PRODUTO");
+		} catch ( final Exception ex ) {
+			JOptionPane.showMessageDialog( this, ">> ERRO AO ATUALIZAR PRODUTO" );
 		}
 	}
 }

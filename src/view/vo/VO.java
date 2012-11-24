@@ -1,13 +1,13 @@
 package view.vo;
 
 public abstract class VO {
-	protected Integer id;
+	protected Integer	id;
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId( final Integer id ) {
 		this.id = id;
 	}
 }

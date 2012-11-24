@@ -1,34 +1,33 @@
 package view.vo;
 
-import annotation.Input;
+import annotation.Persistence;
 
 public class UserVO extends VO {
 
-	@Input(label = "Nome", name = "nome")
-	private String nome;
+	public static final int	ID		= 0;
 
-	@Input(label = "Senha", name = "senha")
-	private String senha;
+	public static final int	NOME	= 1;
 
-	public static final int ID = 0;
-	public static final int NOME = 1;
+	@Persistence( label = "Nome", name = "nome" )
+	private String			nome;
+	@Persistence( label = "Senha", name = "senha" )
+	private String			senha;
 
-	public UserVO() {
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	public UserVO() {}
 
 	public String getNome() {
 		return this.nome;
 	}
 
 	public String getSenha() {
-		return senha;
+		return this.senha;
 	}
 
-	public void setSenha(String senha) {
+	public void setNome( final String nome ) {
+		this.nome = nome;
+	}
+
+	public void setSenha( final String senha ) {
 		this.senha = senha;
 	}
 }

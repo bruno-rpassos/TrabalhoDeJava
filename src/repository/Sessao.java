@@ -3,21 +3,24 @@ package repository;
 import model.User;
 
 public class Sessao {
-	private static Sessao instance;
-	private User logado;
-	
-	private Sessao() {}
+	private static Sessao	instance;
+
 	public static Sessao getInstance() {
-		if(instance == null)
-			instance = new Sessao();
-		return instance;
+		if ( Sessao.instance == null ) {
+			Sessao.instance = new Sessao();
+		}
+		return Sessao.instance;
 	}
-	
+
+	private User	logado;
+
+	private Sessao() {}
+
 	public User getLogado() {
-		return logado;
+		return this.logado;
 	}
-	
-	public void setLogado(User logado) {
+
+	public void setLogado( final User logado ) {
 		this.logado = logado;
 	}
 }

@@ -7,25 +7,25 @@ import javax.swing.JOptionPane;
 
 import controller.ProdutosController;
 
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 public class NewProduto extends FormProduto {
-	public NewProduto() throws Exception  {
+	public NewProduto() throws Exception {
 		super();
-		setTitle("NOVO PRODUTO");
-		saveButton.addActionListener(new ActionListener() {
+		this.setTitle( "NOVO PRODUTO" );
+		this.saveButton.addActionListener( new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				salvarProduto();
+			public void actionPerformed( final ActionEvent e ) {
+				NewProduto.this.salvarProduto();
 			}
-		});
+		} );
 	}
 
 	private void salvarProduto() {
 		try {
-			ProdutosController.create(this.parseVO());
-			JOptionPane.showMessageDialog(this, "Produto cadastrado!");
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, ">> ERRO AO CADASTRAR PRODUTO");
+			ProdutosController.create( this.parseVO() );
+			JOptionPane.showMessageDialog( this, "Produto cadastrado!" );
+		} catch ( final Exception ex ) {
+			JOptionPane.showMessageDialog( this, ">> ERRO AO CADASTRAR PRODUTO" );
 		}
 
 		this.clear();

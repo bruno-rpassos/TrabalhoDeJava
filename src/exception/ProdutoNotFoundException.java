@@ -1,8 +1,8 @@
 package exception;
 
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 public class ProdutoNotFoundException extends Exception {
 	public ProdutoNotFoundException() {
-		super("Produto nao encontrado");
+		super( "Produto nao encontrado" );
 	}
 }

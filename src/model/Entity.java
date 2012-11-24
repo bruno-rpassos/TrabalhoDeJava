@@ -7,7 +7,7 @@ public abstract class Entity {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId( final Integer id ) {
 		this.id = id;
 	}
 

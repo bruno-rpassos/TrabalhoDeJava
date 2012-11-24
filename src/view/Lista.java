@@ -11,86 +11,88 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 public abstract class Lista<T extends TableModel> extends JDialog {
 
-	protected JTable table;
-	protected T tableModel;
-	protected JTextField tfFilter;
-	protected TableRowSorter<T> sorter;
+	protected TableRowSorter<T>	sorter;
+	protected JTable			table;
+	protected T					tableModel;
+	protected JTextField		tfFilter;
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Lista(Class listaClass) throws InstantiationException, IllegalAccessException {		
-		tableModel = (T) listaClass.newInstance();
-		table = new JTable(tableModel);
-		table.setAutoCreateRowSorter(true);
-		table.setLayout(new FlowLayout());
-		setResizable(false);
-		setBounds(100, 100, 800, 470);
-		getContentPane().setLayout(new BorderLayout());
+	@SuppressWarnings( { "rawtypes", "unchecked" } )
+	public Lista( final Class listaClass ) throws InstantiationException, IllegalAccessException {
+		this.tableModel = ( T ) listaClass.newInstance();
+		this.table = new JTable( this.tableModel );
+		this.table.setAutoCreateRowSorter( true );
+		this.table.setLayout( new FlowLayout() );
+		this.setResizable( false );
+		this.setBounds( 100, 100, 800, 470 );
+		this.getContentPane().setLayout( new BorderLayout() );
 
 		// INICIO >> PANEL BUSCA
 		{
-			tfFilter = new JTextField();
-			tfFilter.getDocument().addDocumentListener(new DocumentListener() {
+			this.tfFilter = new JTextField();
+			this.tfFilter.getDocument().addDocumentListener( new DocumentListener() {
 				@Override
-				public void removeUpdate(DocumentEvent e) {
-					newFilter();
+				public void changedUpdate( final DocumentEvent e ) {
+					Lista.this.newFilter();
 				}
 
 				@Override
-				public void insertUpdate(DocumentEvent e) {
-					newFilter();
+				public void insertUpdate( final DocumentEvent e ) {
+					Lista.this.newFilter();
 				}
 
 				@Override
-				public void changedUpdate(DocumentEvent e) {
-					newFilter();
+				public void removeUpdate( final DocumentEvent e ) {
+					Lista.this.newFilter();
 				}
-			});
+			} );
 
-			getContentPane().add(tfFilter, BorderLayout.NORTH);
+			this.getContentPane().add( this.tfFilter, BorderLayout.NORTH );
 		}
 		// FIM >> PANEL BUSCA
 
 		// INICIO >> PANEL PRINCIPAL
 		{
-			sorter = new TableRowSorter<T>(tableModel);
-			table.setRowSorter(sorter);
-			setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			this.sorter = new TableRowSorter<T>( this.tableModel );
+			this.table.setRowSorter( this.sorter );
+			this.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
 
-			JScrollPane scrollPane = new JScrollPane(table);
-			scrollPane.getViewport().setBackground(Color.DARK_GRAY);
-			scrollPane.getViewport().setForeground(Color.WHITE);
+			final JScrollPane scrollPane = new JScrollPane( this.table );
+			scrollPane.getViewport().setBackground( Color.DARK_GRAY );
+			scrollPane.getViewport().setForeground( Color.WHITE );
 
-			getContentPane().add(scrollPane, BorderLayout.SOUTH);
+			this.getContentPane().add( scrollPane, BorderLayout.SOUTH );
 		}
 		// FIM >> PANEL PRINCIPAL
 
-		table.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					doubleClicked();
+		this.table.addMouseListener( new MouseAdapter() {
+			@Override
+			public void mouseClicked( final MouseEvent e ) {
+				if ( e.getClickCount() == 2 ) {
+					Lista.this.doubleClicked();
 				}
 			};
-		});
+		} );
 	}
+
+	protected abstract void doubleClicked();
 
 	private void newFilter() {
 		RowFilter<T, Object> rf = null;
 		try {
-			rf = RowFilter.regexFilter(tfFilter.getText().toUpperCase(), 1);
-		} catch (java.util.regex.PatternSyntaxException e) {
+			rf = RowFilter.regexFilter( this.tfFilter.getText().toUpperCase(), 1 );
+		} catch ( final java.util.regex.PatternSyntaxException e ) {
 			return;
 		}
 
-		sorter.setRowFilter(rf);
+		this.sorter.setRowFilter( rf );
 	}
-
-	protected abstract void doubleClicked();
 }

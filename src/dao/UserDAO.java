@@ -10,33 +10,33 @@ import exception.PassNotFoundException;
 import exception.UserNotFoundException;
 
 public class UserDAO implements DAO<User> {
-	private static UserDAO instance;
-	private List<Listener> listeners;
+	private static UserDAO	instance;
+
+	public static UserDAO getInstance() {
+		if ( UserDAO.instance == null ) {
+			UserDAO.instance = new UserDAO();
+		}
+		return UserDAO.instance;
+	}
+
+	private final List<Listener>	listeners;
 
 	private UserDAO() {
 		this.listeners = new ArrayList<Listener>();
 	}
 
-	public static UserDAO getInstance() {
-		if (instance == null)
-			instance = new UserDAO();
-		return instance;
+	@Override
+	public void addListener( final Listener l ) {
+
 	}
 
 	@Override
-	public void saveOrUpdate(User user) throws Exception {
-		UserRepository.getInstance().add(user);
-		dataChanged();
+	public User getById( final Integer id ) throws Exception {
+		return UserRepository.getInstance().getById( id );
 	}
 
-	@Override
-	public User getById(Integer id) throws Exception {
-		return UserRepository.getInstance().getById(id);
-	}
-
-	public User getByLogin(String login) throws UserNotFoundException,
-			PassNotFoundException {
-		User user = UserRepository.getInstance().getUser(login);
+	public User getByLogin( final String login ) throws UserNotFoundException, PassNotFoundException {
+		final User user = UserRepository.getInstance().getUser( login );
 
 		return user;
 	}
@@ -47,12 +47,13 @@ public class UserDAO implements DAO<User> {
 	}
 
 	@Override
-	public void addListener(Listener l) {
-
+	public void saveOrUpdate( final User user ) throws Exception {
+		UserRepository.getInstance().add( user );
+		this.dataChanged();
 	}
 
 	private void dataChanged() {
-		for (Listener l : this.listeners) {
+		for ( final Listener l : this.listeners ) {
 			l.actionPerformed();
 		}
 	}

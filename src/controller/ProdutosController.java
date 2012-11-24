@@ -12,66 +12,65 @@ import factory.ProdutoFactory;
 
 public class ProdutosController {
 
-	public static void newResource() {
+	public static void create( final ProdutoVO vo ) {
+		final Produto produto = ProdutoFactory.getProdutoByVO( vo );
 		try {
-			JDialog view = new view.produto.NewProduto();
-			view.setVisible(true);
-		} catch (Exception e) {
+			ProdutoDAO.getInstance().saveOrUpdate( produto );
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void edit(String id) {
-		ProdutoDAO dao = ProdutoDAO.getInstance();
+	public static void edit( final String id ) {
+		final ProdutoDAO dao = ProdutoDAO.getInstance();
 		try {
-			Produto produto = dao.getById(new Integer(id));
-			JDialog view = new view.produto.EditProduto(
-					ProdutoFactory.beanToVO(produto));
-			view.setVisible(true);
-		} catch (NumberFormatException e) {
+			final Produto produto = dao.getById( new Integer( id ) );
+			final JDialog view = new view.produto.EditProduto( ProdutoFactory.beanToVO( produto ) );
+			view.setVisible( true );
+		} catch ( final NumberFormatException e ) {
 			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void create(ProdutoVO vo) {
-		Produto produto = ProdutoFactory.getProdutoByVO(vo);
-		try {
-			ProdutoDAO.getInstance().saveOrUpdate(produto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void update(ProdutoVO vo) {
-		Produto produto = ProdutoFactory.getProdutoByVO(vo);
-		try {
-			ProdutoDAO.getInstance().saveOrUpdate(produto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void list() {
-		try {
-			JDialog view = new view.produto.ListaProduto();
-			view.setVisible(true);
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 	}
 
 	public static List<ProdutoVO> getAllProdutosVO() {
-		List<Produto> produtos = ProdutoDAO.getInstance().list();
-		List<ProdutoVO> vo = new ArrayList<ProdutoVO>();
+		final List<Produto> produtos = ProdutoDAO.getInstance().list();
+		final List<ProdutoVO> vo = new ArrayList<ProdutoVO>();
 
-		for (Produto produto : produtos) {
-			vo.add(ProdutoFactory.beanToVO(produto));
+		for ( final Produto produto : produtos ) {
+			vo.add( ProdutoFactory.beanToVO( produto ) );
 		}
 
 		return vo;
+	}
+
+	public static void list() {
+		try {
+			final JDialog view = new view.produto.ListaProduto();
+			view.setVisible( true );
+		} catch ( final InstantiationException e ) {
+			e.printStackTrace();
+		} catch ( final IllegalAccessException e ) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void newResource() {
+		try {
+			final JDialog view = new view.produto.NewProduto();
+			view.setVisible( true );
+		} catch ( final Exception e ) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void update( final ProdutoVO vo ) {
+		final Produto produto = ProdutoFactory.getProdutoByVO( vo );
+		try {
+			ProdutoDAO.getInstance().saveOrUpdate( produto );
+		} catch ( final Exception e ) {
+			e.printStackTrace();
+		}
 	}
 }

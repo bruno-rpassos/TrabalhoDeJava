@@ -10,73 +10,72 @@ import view.vo.UserVO;
 import controller.UserController;
 import dao.UserDAO;
 
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 public class UserTableModel extends DefaultTableModel {
-	private static final String[] COLUNAS = new String[] { "Id", "Descricao",
-			"Quantidade", "Valor" };
+	private static final String[]	COLUNAS	= new String[] { "Id", "Descricao", "Quantidade", "Valor" };
 
-	private List<UserVO> listaDeUsers;
+	private List<UserVO>			listaDeUsers;
 
 	public UserTableModel() {
-		UserDAO.getInstance().addListener(new Listener() {
+		UserDAO.getInstance().addListener( new Listener() {
+			@Override
 			public void actionPerformed() {
-				atualizarDados();
+				UserTableModel.this.atualizarDados();
 			}
-		});
+		} );
 
-		atualizarDados();
-	}
-
-	private void atualizarDados() {
-		this.listaDeUsers = new ArrayList<UserVO>(UserController.getAllUserVO());
-		fireTableDataChanged();
+		this.atualizarDados();
 	}
 
 	@Override
-	public int getRowCount() {
-		if (listaDeUsers == null)
-			return 0;
-		return listaDeUsers.size();
+	public Class<?> getColumnClass( final int column ) {
+		switch ( column ) {
+			case UserVO.ID:
+				return Integer.class;
+			case UserVO.NOME:
+				return String.class;
+			default:
+				return Object.class;
+		}
 	}
 
 	@Override
 	public int getColumnCount() {
-		return COLUNAS.length;
+		return UserTableModel.COLUNAS.length;
 	}
 
 	@Override
-	public Object getValueAt(int row, int column) {
-		UserVO vo = this.listaDeUsers.get(row);
+	public String getColumnName( final int column ) {
+		return UserTableModel.COLUNAS[column];
+	}
 
-		switch (column) {
-		case UserVO.ID:
-			return vo.getId();
-		case UserVO.NOME:
-			return vo.getNome();
-		default:
-			return "";
+	@Override
+	public int getRowCount() {
+		if ( this.listaDeUsers == null ) return 0;
+		return this.listaDeUsers.size();
+	}
+
+	@Override
+	public Object getValueAt( final int row, final int column ) {
+		final UserVO vo = this.listaDeUsers.get( row );
+
+		switch ( column ) {
+			case UserVO.ID:
+				return vo.getId();
+			case UserVO.NOME:
+				return vo.getNome();
+			default:
+				return "";
 		}
 	}
 
 	@Override
-	public String getColumnName(int column) {
-		return COLUNAS[column];
-	}
-
-	@Override
-	public Class<?> getColumnClass(int column) {
-		switch (column) {
-		case UserVO.ID:
-			return Integer.class;
-		case UserVO.NOME:
-			return String.class;
-		default:
-			return Object.class;
-		}
-	}
-
-	@Override
-	public boolean isCellEditable(int row, int column) {
+	public boolean isCellEditable( final int row, final int column ) {
 		return false;
+	}
+
+	private void atualizarDados() {
+		this.listaDeUsers = new ArrayList<UserVO>( UserController.getAllUserVO() );
+		this.fireTableDataChanged();
 	}
 }

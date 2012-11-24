@@ -5,20 +5,20 @@ import view.vo.UserVO;
 
 public class UserFactory {
 
-	public static UserVO beanToVO(User u) {
-		UserVO vo = new UserVO();
+	public static UserVO beanToVO( final User u ) {
+		final UserVO vo = new UserVO();
 
-		vo.setId(u.getId());
-		vo.setNome(u.getNome());
+		vo.setId( u.getId() );
+		vo.setNome( u.getNome() );
 
 		return vo;
 	}
 
-	public static User getUserByVO(UserVO vo) {
-		User u = new User();
+	public static User getUserByVO( final UserVO vo ) {
+		final User u = new User();
 
-		u.setId(vo.getId());
-		u.setNome(vo.getNome());
+		u.setId( vo.getId() );
+		u.setNome( vo.getNome() );
 
 		return u;
 	}

@@ -3,44 +3,49 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import repository.ProdutoRepository;
-
 import model.Listener;
 import model.Produto;
+import repository.ProdutoRepository;
 
 public class ProdutoDAO implements DAO<Produto> {
 	private static ProdutoDAO	instance;
-	private List<Listener>		listeners;
+
+	public static ProdutoDAO getInstance() {
+		if ( ProdutoDAO.instance == null ) {
+			ProdutoDAO.instance = new ProdutoDAO();
+		}
+		return ProdutoDAO.instance;
+	}
+
+	private final List<Listener>	listeners;
 
 	private ProdutoDAO() {
 		this.listeners = new ArrayList<Listener>();
 	}
 
-	public static ProdutoDAO getInstance() {
-		if (instance == null)
-			instance = new ProdutoDAO();
-		return instance;
+	@Override
+	public void addListener( final Listener l ) {
+		this.listeners.add( l );
 	}
 
-	public void saveOrUpdate(Produto produto) throws Exception {
-		ProdutoRepository.getInstance().add(produto);
-		dataChanged();
+	@Override
+	public Produto getById( final Integer id ) throws Exception {
+		return ProdutoRepository.getInstance().getById( id );
 	}
 
-	public Produto getById(Integer id) throws Exception {
-		return ProdutoRepository.getInstance().getById(id);
-	}
-
+	@Override
 	public List<Produto> list() {
 		return ProdutoRepository.getInstance().getAll();
 	}
 
-	public void addListener(Listener l) {
-		this.listeners.add(l);
+	@Override
+	public void saveOrUpdate( final Produto produto ) throws Exception {
+		ProdutoRepository.getInstance().add( produto );
+		this.dataChanged();
 	}
 
 	private void dataChanged() {
-		for (Listener l : this.listeners) {
+		for ( final Listener l : this.listeners ) {
 			l.actionPerformed();
 		}
 	}

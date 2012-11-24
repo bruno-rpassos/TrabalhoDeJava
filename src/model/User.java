@@ -2,34 +2,35 @@ package model;
 
 public class User extends Entity {
 
-	private String nome;
-	private String senha;
-	private Integer id;
+	private Integer	id;
+	private String	nome;
+	private String	senha;
 
-	public User() {
-	}
+	public User() {}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	@Override
+	public Integer getId() {
+		return this.id;
 	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public Integer getId() {
-		return id;
+	public String getSenha() {
+		return this.senha;
 	}
 
-	public void setId(Integer id) {
+	@Override
+	public void setId( final Integer id ) {
 		this.id = id;
 	}
 
-	public String getSenha() {
-		return senha;
+	public void setNome( final String nome ) {
+		this.nome = nome;
 	}
 
-	public void setSenha(String senha) {
+	public void setSenha( final String senha ) {
 		this.senha = senha;
 	}
 

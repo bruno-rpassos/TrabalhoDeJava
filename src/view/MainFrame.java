@@ -16,76 +16,73 @@ import controller.UserController;
 
 public class MainFrame {
 
-	public JFrame frmMain;
+	public JFrame	frmMain;
 
 	/**
 	 * Create the application.
 	 */
 	public MainFrame() {
-		initialize();
+		this.initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmMain = new JFrame();
-		frmMain.getContentPane().setBackground(Color.DARK_GRAY);
-		frmMain.setResizable(false);
-		frmMain.setTitle("2SI 2012 - ProgII - 4Bim");
-		frmMain.setBounds(new Rectangle(100, 100, 500, 200));
-		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frmMain = new JFrame();
+		this.frmMain.getContentPane().setBackground( Color.DARK_GRAY );
+		this.frmMain.setResizable( false );
+		this.frmMain.setTitle( "2SI 2012 - ProgII - 4Bim" );
+		this.frmMain.setBounds( new Rectangle( 100, 100, 500, 200 ) );
+		this.frmMain.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
 		// INICIO >> MENUBAR
 		{
-			JMenuBar menuBar = new JMenuBar();
-			menuBar.setBackground(Color.DARK_GRAY);
-			frmMain.setJMenuBar(menuBar);
+			final JMenuBar menuBar = new JMenuBar();
+			menuBar.setBackground( Color.DARK_GRAY );
+			this.frmMain.setJMenuBar( menuBar );
 
 			// INICIO >> MENU NOVO
 			{
-				JMenu mnNovo = new JMenu("NOVO");
-				mnNovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				mnNovo.setBackground(Color.DARK_GRAY);
-				mnNovo.setForeground(Color.WHITE);
-				menuBar.add(mnNovo);
+				final JMenu mnNovo = new JMenu( "NOVO" );
+				mnNovo.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+				mnNovo.setBackground( Color.DARK_GRAY );
+				mnNovo.setForeground( Color.WHITE );
+				menuBar.add( mnNovo );
 
 				// INICIO >> MENUITEM VENDA
 				{
-					JMenuItem mntmVenda = new JMenuItem("Venda");
-					mntmVenda.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
-					mnNovo.add(mntmVenda);
+					final JMenuItem mntmVenda = new JMenuItem( "Venda" );
+					mntmVenda.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+					mnNovo.add( mntmVenda );
 				}
 				// FIM << MENUITEM VENDA
 
 				// INICIO >> MENUITEM PRODUTO
 				{
-					JMenuItem mntmProduto = new JMenuItem("Produto");
-					mntmProduto.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
-					mntmProduto.addActionListener(new ActionListener() {
+					final JMenuItem mntmProduto = new JMenuItem( "Produto" );
+					mntmProduto.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+					mntmProduto.addActionListener( new ActionListener() {
 						@Override
-						public void actionPerformed(ActionEvent e) {
+						public void actionPerformed( final ActionEvent e ) {
 							ProdutosController.newResource();
 						}
-					});
-					mnNovo.add(mntmProduto);
+					} );
+					mnNovo.add( mntmProduto );
 				}
 				// FIM << MENUITEM PRODUTO
 
 				// INICIO >> MENUITEM USER
 				{
-					JMenuItem mntmProduto = new JMenuItem("Usuario");
-					mntmProduto.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
-					mntmProduto.addActionListener(new ActionListener() {
+					final JMenuItem mntmProduto = new JMenuItem( "Usuario" );
+					mntmProduto.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+					mntmProduto.addActionListener( new ActionListener() {
 						@Override
-						public void actionPerformed(ActionEvent e) {
+						public void actionPerformed( final ActionEvent e ) {
 							UserController.newResource();
 						}
-					});
-					mnNovo.add(mntmProduto);
+					} );
+					mnNovo.add( mntmProduto );
 				}
 				// FIM << MENUITEM USER
 			}
@@ -93,34 +90,31 @@ public class MainFrame {
 
 			// INICIO >> MENU RELATORIO
 			{
-				JMenu mnRelatorio = new JMenu("RELATORIO");
-				mnRelatorio.setCursor(Cursor
-						.getPredefinedCursor(Cursor.HAND_CURSOR));
-				mnRelatorio.setBackground(Color.DARK_GRAY);
-				mnRelatorio.setForeground(Color.WHITE);
-				menuBar.add(mnRelatorio);
+				final JMenu mnRelatorio = new JMenu( "RELATORIO" );
+				mnRelatorio.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+				mnRelatorio.setBackground( Color.DARK_GRAY );
+				mnRelatorio.setForeground( Color.WHITE );
+				menuBar.add( mnRelatorio );
 
 				// INICIO >> MENUITEM VENDAS
 				{
-					JMenuItem mntmVendas = new JMenuItem("Vendas");
-					mntmVendas.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
-					mnRelatorio.add(mntmVendas);
+					final JMenuItem mntmVendas = new JMenuItem( "Vendas" );
+					mntmVendas.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+					mnRelatorio.add( mntmVendas );
 				}
 				// FIM << MENUITEM VENDAS
 
 				// INICIO >> MENUITEM PRODUTOS
 				{
-					JMenuItem mntmProdutos = new JMenuItem("Produtos");
-					mntmProdutos.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
-					mntmProdutos.addActionListener(new ActionListener() {
+					final JMenuItem mntmProdutos = new JMenuItem( "Produtos" );
+					mntmProdutos.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+					mntmProdutos.addActionListener( new ActionListener() {
 						@Override
-						public void actionPerformed(ActionEvent e) {
+						public void actionPerformed( final ActionEvent e ) {
 							ProdutosController.list();
 						}
-					});
-					mnRelatorio.add(mntmProdutos);
+					} );
+					mnRelatorio.add( mntmProdutos );
 				}
 				// FIM << MENUITEM VENDAS
 
@@ -129,18 +123,18 @@ public class MainFrame {
 
 			// INICIO >> LOGOUT
 			{
-				JMenuItem mnNovo = new JMenuItem("LOGOUT");
-				mnNovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				mnNovo.setBackground(Color.DARK_GRAY);
-				mnNovo.setForeground(Color.WHITE);
-				mnNovo.addActionListener(new ActionListener() {
+				final JMenuItem mnNovo = new JMenuItem( "LOGOUT" );
+				mnNovo.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+				mnNovo.setBackground( Color.DARK_GRAY );
+				mnNovo.setForeground( Color.WHITE );
+				mnNovo.addActionListener( new ActionListener() {
 					@Override
-					public void actionPerformed(ActionEvent e) {
-						new Login().setVisible(true);
-						frmMain.dispose();
+					public void actionPerformed( final ActionEvent e ) {
+						new Login().setVisible( true );
+						MainFrame.this.frmMain.dispose();
 					}
-				});
-				menuBar.add(mnNovo);
+				} );
+				menuBar.add( mnNovo );
 			}
 			// FIM << LOGOUT
 		}

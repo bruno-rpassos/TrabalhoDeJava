@@ -25,13 +25,12 @@ public class UserDAO implements DAO<User> {
 		this.listeners = new ArrayList<Listener>();
 	}
 
-	@Override
 	public void addListener( final Listener l ) {
-
+		this.listeners.add( l );
 	}
 
 	@Override
-	public User getById( final Integer id ) throws Exception {
+	public User getById( final Integer id ) throws UserNotFoundException {
 		return UserRepository.getInstance().getById( id );
 	}
 
@@ -47,7 +46,7 @@ public class UserDAO implements DAO<User> {
 	}
 
 	@Override
-	public void saveOrUpdate( final User user ) throws Exception {
+	public void saveOrUpdate( final User user ) {
 		UserRepository.getInstance().add( user );
 		this.dataChanged();
 	}

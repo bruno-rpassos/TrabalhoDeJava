@@ -22,7 +22,7 @@ public class NewProduto extends FormProduto {
 
 	private void salvarProduto() {
 		try {
-			ProdutosController.create( this.parseVO() );
+			ProdutosController.getInstance().create( this.parseEntity() );
 			JOptionPane.showMessageDialog( this, "Produto cadastrado!" );
 		} catch ( final Exception ex ) {
 			JOptionPane.showMessageDialog( this, ">> ERRO AO CADASTRAR PRODUTO" );

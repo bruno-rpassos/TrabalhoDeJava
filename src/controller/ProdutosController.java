@@ -1,51 +1,62 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
 
 import model.Produto;
-import view.vo.ProdutoVO;
 import dao.ProdutoDAO;
-import factory.ProdutoFactory;
+import exception.ProdutoInvalidException;
+import exception.ProdutoNotFoundException;
+import exception.TypeNotFoundException;
 
-public class ProdutosController {
+public class ProdutosController implements Controller<Produto> {
 
-	public static void create( final ProdutoVO vo ) {
-		final Produto produto = ProdutoFactory.getProdutoByVO( vo );
-		try {
-			ProdutoDAO.getInstance().saveOrUpdate( produto );
-		} catch ( final Exception e ) {
-			e.printStackTrace();
+	private static ProdutosController	instance;
+
+	public static ProdutosController getInstance() {
+		if ( ProdutosController.instance == null ) {
+			ProdutosController.instance = new ProdutosController();
 		}
+		return ProdutosController.instance;
 	}
 
-	public static void edit( final String id ) {
-		final ProdutoDAO dao = ProdutoDAO.getInstance();
+	private ProdutosController() {}
+
+	@Override
+	public void create( final Produto p ) {
 		try {
-			final Produto produto = dao.getById( new Integer( id ) );
-			final JDialog view = new view.produto.EditProduto( ProdutoFactory.beanToVO( produto ) );
+			ProdutoDAO.getInstance().saveOrUpdate( p );
+		} catch ( final Exception e ) {}
+	}
+
+	@Override
+	public void edit( final Integer id ) throws TypeNotFoundException {
+		try {
+			final Produto produto = ProdutoDAO.getInstance().getById( id );
+			final JDialog view = new view.produto.EditProduto( produto );
 			view.setVisible( true );
-		} catch ( final NumberFormatException e ) {
-			e.printStackTrace();
-		} catch ( final Exception e ) {
-			e.printStackTrace();
-		}
+		} catch ( final ProdutoInvalidException e ) {} catch ( final ProdutoNotFoundException e ) {}
 	}
 
-	public static List<ProdutoVO> getAllProdutosVO() {
-		final List<Produto> produtos = ProdutoDAO.getInstance().list();
-		final List<ProdutoVO> vo = new ArrayList<ProdutoVO>();
+	@Override
+	public Produto get( final Integer id ) {
+		Produto p = null;
 
-		for ( final Produto produto : produtos ) {
-			vo.add( ProdutoFactory.beanToVO( produto ) );
-		}
+		try {
+			p = ProdutoDAO.getInstance().getById( id );
+		} catch ( final ProdutoInvalidException e ) {} catch ( final ProdutoNotFoundException e ) {}
 
-		return vo;
+		return p;
 	}
 
-	public static void list() {
+	@Override
+	public List<Produto> getAll() {
+		return ProdutoDAO.getInstance().list();
+	}
+
+	@Override
+	public void list() {
 		try {
 			final JDialog view = new view.produto.ListaProduto();
 			view.setVisible( true );
@@ -56,7 +67,8 @@ public class ProdutosController {
 		}
 	}
 
-	public static void newResource() {
+	@Override
+	public void newResource() {
 		try {
 			final JDialog view = new view.produto.NewProduto();
 			view.setVisible( true );
@@ -65,10 +77,10 @@ public class ProdutosController {
 		}
 	}
 
-	public static void update( final ProdutoVO vo ) {
-		final Produto produto = ProdutoFactory.getProdutoByVO( vo );
+	@Override
+	public void update( final Produto p ) {
 		try {
-			ProdutoDAO.getInstance().saveOrUpdate( produto );
+			ProdutoDAO.getInstance().saveOrUpdate( p );
 		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}

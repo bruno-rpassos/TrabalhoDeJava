@@ -2,9 +2,11 @@ package main;
 
 import javax.swing.WindowConstants;
 
+import model.Permissao;
+import model.Produto;
 import model.User;
 import view.Login;
-import view.vo.ProdutoVO;
+import controller.PermissaoController;
 import controller.ProdutosController;
 import controller.UserController;
 
@@ -28,28 +30,36 @@ public class Main {
 	}
 
 	private static void initialize() {
+		Main.initializePermissions();
 		Main.initializeUsers();
 		Main.initializeProdutos();
 		Main.callLogin();
 	}
 
-	// >> BANCO
+	private static void initializePermissions() {
+		PermissaoController.getInstance().create( new Permissao( Permissao.ADMIN ) );
+		PermissaoController.getInstance().create( new Permissao( Permissao.VENDEDOR ) );
+	}
+
 	private static void initializeProdutos() {
 		for ( int i = 1; i <= 5; i++ ) {
-			final ProdutoVO vo = new ProdutoVO();
-			vo.setDescricao( "PRODUTO#" + i );
-			vo.setQuantidade( new Integer( i * 10 ) );
-			vo.setValor( new Double( i * 20 ) );
-			ProdutosController.create( vo );
+			final Produto p = new Produto();
+
+			p.setDescricao( "PRODUTO#" + i );
+			p.setQuantidade( new Integer( i * 10 ) );
+			p.setValor( new Double( i * 20 ) );
+
+			ProdutosController.getInstance().create( p );
 		}
 	}
 
-	// >> BANCO
 	private static void initializeUsers() {
 		final User u = new User();
+
 		u.setNome( "admin" );
 		u.setSenha( "123" );
-		UserController.registerNewUser( u );
-	}
+		u.setPermissao( PermissaoController.getInstance().get( Permissao.ADMIN ) );
 
+		UserController.getInstance().create( u );
+	}
 }

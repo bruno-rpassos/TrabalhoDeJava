@@ -65,7 +65,7 @@ public class MainFrame {
 					mntmProduto.addActionListener( new ActionListener() {
 						@Override
 						public void actionPerformed( final ActionEvent e ) {
-							ProdutosController.newResource();
+							ProdutosController.getInstance().newResource();
 						}
 					} );
 					mnNovo.add( mntmProduto );
@@ -79,7 +79,7 @@ public class MainFrame {
 					mntmProduto.addActionListener( new ActionListener() {
 						@Override
 						public void actionPerformed( final ActionEvent e ) {
-							UserController.newResource();
+							UserController.getInstance().newResource();
 						}
 					} );
 					mnNovo.add( mntmProduto );
@@ -111,7 +111,7 @@ public class MainFrame {
 					mntmProdutos.addActionListener( new ActionListener() {
 						@Override
 						public void actionPerformed( final ActionEvent e ) {
-							ProdutosController.list();
+							ProdutosController.getInstance().list();
 						}
 					} );
 					mnRelatorio.add( mntmProdutos );

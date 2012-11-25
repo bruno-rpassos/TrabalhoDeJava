@@ -5,30 +5,31 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import view.vo.UserVO;
+import model.User;
 import controller.UserController;
+import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class EditUser extends FormUser {
 
-	public EditUser( final UserVO vo ) throws Exception {
+	public EditUser( final User u ) throws TypeNotFoundException {
 		super();
 		this.setTitle( "ATUALIZAR USER" );
 		this.saveButton.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed( final ActionEvent e ) {
-				EditUser.this.alterarUser( vo );
+				EditUser.this.alterarUser( u );
 			}
 		} );
 
-		if ( vo != null ) {
-			this.updateTextFieldsWithVO( vo );
+		if ( u != null ) {
+			this.updateTextFieldsWithEntity( u );
 		}
 	}
 
-	private void alterarUser( final UserVO vo ) {
+	private void alterarUser( final User u ) {
 		try {
-			UserController.update( this.update( vo ) );
+			UserController.getInstance().update( this.update( u ) );
 			JOptionPane.showMessageDialog( this, "User atualizado!" );
 			this.dispose();
 		} catch ( final Exception ex ) {

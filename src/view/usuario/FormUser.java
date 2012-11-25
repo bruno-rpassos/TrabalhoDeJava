@@ -1,12 +1,13 @@
 package view.usuario;
 
+import model.User;
 import view.Form;
-import view.vo.UserVO;
+import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
-public class FormUser extends Form<UserVO> {
+public class FormUser extends Form<User> {
 
-	public FormUser() throws Exception {
-		super( UserVO.class, "USUARIO" );
+	public FormUser() throws TypeNotFoundException {
+		super( User.class, "USUARIO" );
 	}
 }

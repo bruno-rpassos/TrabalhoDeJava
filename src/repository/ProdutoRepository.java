@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Produto;
+import exception.ProdutoInvalidException;
 import exception.ProdutoNotFoundException;
 
 public class ProdutoRepository {
-	private static Integer				id	= 1;
-	private static ProdutoRepository	repo;
+	private static Integer				ID	= 1;
+	private static ProdutoRepository	instance;
 
 	public static ProdutoRepository getInstance() {
-		if ( ProdutoRepository.repo == null ) {
-			ProdutoRepository.repo = new ProdutoRepository();
+		if ( ProdutoRepository.instance == null ) {
+			ProdutoRepository.instance = new ProdutoRepository();
 		}
-		return ProdutoRepository.repo;
+		return ProdutoRepository.instance;
 	}
 
 	private final List<Produto>	produtos;
@@ -23,9 +24,9 @@ public class ProdutoRepository {
 		this.produtos = new ArrayList<Produto>();
 	}
 
-	public void add( final Produto produto ) throws Exception {
+	public void add( final Produto produto ) throws ProdutoNotFoundException, ProdutoInvalidException {
 		if ( produto.getId() == null ) {
-			produto.setId( new Integer( ProdutoRepository.id++ ) );
+			produto.setId( new Integer( ProdutoRepository.ID++ ) );
 		} else {
 			final Produto existente = this.getById( produto.getId() );
 			if ( existente != null ) {
@@ -40,7 +41,7 @@ public class ProdutoRepository {
 		return this.produtos;
 	}
 
-	public Produto getById( final Integer id ) throws Exception {
+	public Produto getById( final Integer id ) throws ProdutoNotFoundException, ProdutoInvalidException {
 		for ( final Produto p : this.produtos ) {
 			if ( p.getId().equals( id ) ) return p;
 		}

@@ -2,6 +2,7 @@ package view.usuario;
 
 import view.tablemodel.UserTableModel;
 import controller.ProdutosController;
+import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class ListaUser extends view.Lista<UserTableModel> {
@@ -11,8 +12,8 @@ public class ListaUser extends view.Lista<UserTableModel> {
 	}
 
 	@Override
-	protected void doubleClicked() {
-		final String idDoUser = String.valueOf( this.table.getValueAt( this.table.getSelectedRow(), 0 ) );
-		ProdutosController.edit( idDoUser );
+	protected void doubleClicked() throws TypeNotFoundException {
+		final Integer id = Integer.parseInt( ( String ) this.table.getValueAt( this.table.getSelectedRow(), 0 ) );
+		ProdutosController.getInstance().edit( id );
 	}
 }

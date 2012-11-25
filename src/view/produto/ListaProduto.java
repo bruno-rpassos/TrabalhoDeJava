@@ -2,6 +2,7 @@ package view.produto;
 
 import view.tablemodel.ProdutosTableModel;
 import controller.ProdutosController;
+import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class ListaProduto extends view.Lista<ProdutosTableModel> {
@@ -11,8 +12,8 @@ public class ListaProduto extends view.Lista<ProdutosTableModel> {
 	}
 
 	@Override
-	protected void doubleClicked() {
-		final String idDoProduto = String.valueOf( this.table.getValueAt( this.table.getSelectedRow(), 0 ) );
-		ProdutosController.edit( idDoProduto );
+	protected void doubleClicked() throws TypeNotFoundException {
+		final Integer id = Integer.parseInt( ( String ) this.table.getValueAt( this.table.getSelectedRow(), 0 ) );
+		ProdutosController.getInstance().edit( id );
 	}
 }

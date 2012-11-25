@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import model.Listener;
-import view.vo.UserVO;
+import model.User;
 import controller.UserController;
 import dao.UserDAO;
 
@@ -14,7 +14,7 @@ import dao.UserDAO;
 public class UserTableModel extends DefaultTableModel {
 	private static final String[]	COLUNAS	= new String[] { "Id", "Descricao", "Quantidade", "Valor" };
 
-	private List<UserVO>			listaDeUsers;
+	private List<User>				listaDeUsers;
 
 	public UserTableModel() {
 		UserDAO.getInstance().addListener( new Listener() {
@@ -30,9 +30,9 @@ public class UserTableModel extends DefaultTableModel {
 	@Override
 	public Class<?> getColumnClass( final int column ) {
 		switch ( column ) {
-			case UserVO.ID:
+			case User.ID:
 				return Integer.class;
-			case UserVO.NOME:
+			case User.NOME:
 				return String.class;
 			default:
 				return Object.class;
@@ -57,12 +57,12 @@ public class UserTableModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt( final int row, final int column ) {
-		final UserVO vo = this.listaDeUsers.get( row );
+		final User vo = this.listaDeUsers.get( row );
 
 		switch ( column ) {
-			case UserVO.ID:
+			case User.ID:
 				return vo.getId();
-			case UserVO.NOME:
+			case User.NOME:
 				return vo.getNome();
 			default:
 				return "";
@@ -75,7 +75,7 @@ public class UserTableModel extends DefaultTableModel {
 	}
 
 	private void atualizarDados() {
-		this.listaDeUsers = new ArrayList<UserVO>( UserController.getAllUserVO() );
+		this.listaDeUsers = new ArrayList<User>( UserController.getInstance().getAll() );
 		this.fireTableDataChanged();
 	}
 }

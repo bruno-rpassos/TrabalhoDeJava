@@ -14,46 +14,46 @@ import java.lang.reflect.Field;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import view.vo.VO;
+import model.Entity;
+import annotation.Input;
+import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
-public class Form<T extends VO> extends DialogPadrao {
+public class Form<T extends Entity> extends DialogPadrao {
 
 	protected JButton		cancelButton;
 	protected JButton		saveButton;
 
-	private Integer			boundsBase;
 	private final Class<T>	classe;
 	private boolean			didRequestedFocus;
 
-	protected Form( final Class<T> VOClass, final String title ) throws Exception {
+	protected Form( final Class<T> entityClass, final String title ) throws TypeNotFoundException {
 		super( title );
-		this.classe = VOClass;
-		this.boundsBase = 200;
+		this.classe = entityClass;
+		this.didRequestedFocus = false;
 
 		this.parseFields();
 		this.buildButtons();
-		this.refreshBounds();
-		this.didRequestedFocus = false;
 	}
 
 	protected void clear() {
 		this.clearAllTextFields( this.getContentPane() );
 	}
 
-	protected T generateVO() {
-		T vo = null;
+	protected T generateEntity() {
+		T entity = null;
 		try {
-			vo = this.classe.newInstance();
+			entity = this.classe.newInstance();
 			for ( final Field f : this.classe.getDeclaredFields() ) {
-				if ( f.isAnnotationPresent( Persistencia.class ) ) {
-					final Persistencia in = f.getAnnotation( Persistencia.class );
+				if ( f.isAnnotationPresent( Input.class ) ) {
+					final Input in = f.getAnnotation( Input.class );
 
 					f.setAccessible( true );
 					final Object txtField = this.getTextFieldValue( in.name() );
-					f.set( vo, this.parseToType( txtField, f.getType() ) );
+					f.set( entity, this.parseToType( txtField, f.getType() ) );
 				}
 			}
 		} catch ( final InstantiationException e ) {
@@ -61,29 +61,29 @@ public class Form<T extends VO> extends DialogPadrao {
 		} catch ( final IllegalAccessException e ) {
 			e.printStackTrace();
 		}
-		return vo;
+		return entity;
 	}
 
-	protected T parseVO() throws Exception {
-		return this.generateVO();
+	protected T parseEntity() throws Exception {
+		return this.generateEntity();
 	}
 
-	protected T update( final T vo ) throws Exception {
-		final T alterado = this.parseVO();
-		alterado.setId( vo.getId() );
+	protected T update( final T entity ) throws Exception {
+		final T alterado = this.parseEntity();
+		alterado.setId( entity.getId() );
 		return alterado;
 	}
 
-	protected void updateTextFieldsWithVO( T vo ) {
+	protected void updateTextFieldsWithEntity( T entity ) {
 		try {
-			vo = this.classe.newInstance();
+			entity = this.classe.newInstance();
 			for ( final Field f : this.classe.getDeclaredFields() ) {
-				if ( f.isAnnotationPresent( Persistencia.class ) ) {
-					final Persistencia in = f.getAnnotation( Persistencia.class );
+				if ( f.isAnnotationPresent( Input.class ) ) {
+					final Input in = f.getAnnotation( Input.class );
 
 					f.setAccessible( true );
 					final Object txtField = this.getTextFieldValue( in.name() );
-					f.set( vo, this.parseToType( txtField, f.getType() ) );
+					f.set( entity, this.parseToType( txtField, f.getType() ) );
 				}
 			}
 		} catch ( final InstantiationException e ) {
@@ -167,13 +167,12 @@ public class Form<T extends VO> extends DialogPadrao {
 		return null;
 	}
 
-	private void parseFields() throws Exception {
+	private void parseFields() throws TypeNotFoundException {
 		final Field[] fields = this.classe.getDeclaredFields();
 
 		for ( final Field f : fields ) {
-			if ( f.isAnnotationPresent( Persistencia.class ) ) {
-				final Persistencia in = f.getAnnotation( Persistencia.class );
-				this.boundsBase += 50;
+			if ( f.isAnnotationPresent( Input.class ) ) {
+				final Input in = f.getAnnotation( Input.class );
 
 				{
 					final JPanel panel = new JPanel();
@@ -189,13 +188,20 @@ public class Form<T extends VO> extends DialogPadrao {
 					}
 
 					{
-						final JTextField textField = new JTextField( 25 );
-						textField.setName( in.name() );
-						panel.add( textField );
+						final Component c = this.parseFieldType( in.type() );
+						c.setName( in.name() );
+						panel.add( c );
 					}
 				}
 			}
 		}
+	}
+
+	private Component parseFieldType( final String type ) throws TypeNotFoundException {
+		if ( type.equals( "PASSWORD" ) ) return new JPasswordField( 25 );
+		else if ( type.equals( "TEXTFIELD" ) ) return new JTextField( 25 );
+
+		throw new TypeNotFoundException();
 	}
 
 	private Object parseToType( final Object object, final Class<?> type ) {
@@ -206,10 +212,6 @@ public class Form<T extends VO> extends DialogPadrao {
 		if ( type.equals( java.lang.Double.class ) ) return Double.parseDouble( ( String ) object );
 
 		return object;
-	}
-
-	private void refreshBounds() {
-		super.setBounds( 100, 100, this.boundsBase, 250 );
 	}
 
 }

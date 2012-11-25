@@ -1,41 +1,85 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
 
 import model.User;
 import repository.UserRepository;
-import view.vo.UserVO;
 import dao.UserDAO;
 import exception.PassNotFoundException;
+import exception.TypeNotFoundException;
 import exception.UserNotFoundException;
-import factory.UserFactory;
 
-public class UserController {
+public class UserController implements Controller<User> {
 
-	public static void create( final UserVO vo ) {
-		final User user = UserFactory.getUserByVO( vo );
+	private static UserController	instance;
+
+	public static UserController getInstance() {
+		if ( UserController.instance == null ) {
+			UserController.instance = new UserController();
+		}
+		return UserController.instance;
+	}
+
+	@Override
+	public void create( final User u ) {
 		try {
-			UserDAO.getInstance().saveOrUpdate( user );
+			UserDAO.getInstance().saveOrUpdate( u );
 		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 	}
 
-	public static List<UserVO> getAllUserVO() {
-		final List<User> users = UserDAO.getInstance().list();
-		final List<UserVO> vo = new ArrayList<UserVO>();
-
-		for ( final User user : users ) {
-			vo.add( UserFactory.beanToVO( user ) );
-		}
-
-		return vo;
+	@Override
+	public void edit( final Integer id ) {
+		try {
+			final User user = UserDAO.getInstance().getById( id );
+			final JDialog view = new view.usuario.EditUser( user );
+			view.setVisible( true );
+		} catch ( final UserNotFoundException e ) {} catch ( final TypeNotFoundException e ) {}
 	}
 
-	public static void newResource() {
+	@Override
+	public User get( final Integer id ) {
+		User u = null;
+
+		try {
+			u = UserDAO.getInstance().getById( id );
+		} catch ( final Exception e ) {}
+
+		return u;
+	}
+
+	@Override
+	public List<User> getAll() {
+		return UserDAO.getInstance().list();
+	}
+
+	public User getByName( final String name ) {
+		User u = null;
+
+		try {
+			u = UserDAO.getInstance().getByLogin( name );
+		} catch ( final Exception e ) {}
+
+		return u;
+	}
+
+	@Override
+	public void list() {
+		try {
+			final JDialog view = new view.usuario.ListaUser();
+			view.setVisible( true );
+		} catch ( final InstantiationException e ) {
+			e.printStackTrace();
+		} catch ( final IllegalAccessException e ) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void newResource() {
 		try {
 			final JDialog view = new view.usuario.NewUser();
 			view.setVisible( true );
@@ -44,28 +88,13 @@ public class UserController {
 		}
 	}
 
-	public static void registerNewUser( final User u ) {
-		UserRepository.getInstance().add( u );
+	@Override
+	public void update( final User u ) {
+		UserDAO.getInstance().saveOrUpdate( u );
 	}
 
-	public static void update( final UserVO vo ) {
-		final User user = UserFactory.getUserByVO( vo );
-		try {
-			UserDAO.getInstance().saveOrUpdate( user );
-		} catch ( final Exception e ) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void validarLogin( final String user, final String pass ) throws PassNotFoundException, UserNotFoundException {
-		System.out.println( "looking for : " + user );
-		System.out.println( "   with pass : " + pass );
-
+	public void validarLogin( final String user, final String pass ) throws PassNotFoundException, UserNotFoundException {
 		final User u = UserRepository.getInstance().getUser( user );
-		System.out.println( "user found > " + u.getNome() );
-		System.out.println( "   pass > " + u.getSenha() );
-
-		System.out.println( "   user.pass equals pass ? " + u.getSenha().equals( pass ) );
 
 		if ( !u.getSenha().equals( pass ) ) throw new PassNotFoundException();
 	}

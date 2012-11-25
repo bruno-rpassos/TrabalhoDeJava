@@ -25,5 +25,6 @@ public abstract class DialogPadrao extends JDialog {
 
 		this.getContentPane().setLayout( new BorderLayout() );
 		this.getContentPane().add( this.contentPanel, BorderLayout.CENTER );
+		this.setBounds( 100, 100, 450, 250 );
 	}
 }

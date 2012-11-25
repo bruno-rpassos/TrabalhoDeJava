@@ -1,33 +1,43 @@
 package model;
 
+import annotation.Input;
+import annotation.Persistence;
+
 public class User extends Entity {
 
-	private Integer	id;
-	private String	nome;
-	private String	senha;
+	public static final int	ID		= 0;
+	public static final int	NOME	= 1;
+
+	@Persistence
+	@Input( label = "Nome", name = "nome" )
+	private String			nome;
+
+	private Permissao		permissao;
+
+	@Persistence
+	@Input( label = "Senha", name = "senha", type = "PASSWORD" )
+	private String			senha;
 
 	public User() {}
 
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
-
 	public String getNome() {
 		return this.nome;
+	}
+
+	public Permissao getPermissao() {
+		return this.permissao;
 	}
 
 	public String getSenha() {
 		return this.senha;
 	}
 
-	@Override
-	public void setId( final Integer id ) {
-		this.id = id;
-	}
-
 	public void setNome( final String nome ) {
 		this.nome = nome;
+	}
+
+	public void setPermissao( final Permissao p ) {
+		this.permissao = p;
 	}
 
 	public void setSenha( final String senha ) {

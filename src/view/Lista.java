@@ -17,6 +17,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import exception.TypeNotFoundException;
+
 @SuppressWarnings( "serial" )
 public abstract class Lista<T extends TableModel> extends JDialog {
 
@@ -77,13 +79,15 @@ public abstract class Lista<T extends TableModel> extends JDialog {
 			@Override
 			public void mouseClicked( final MouseEvent e ) {
 				if ( e.getClickCount() == 2 ) {
-					Lista.this.doubleClicked();
+					try {
+						Lista.this.doubleClicked();
+					} catch ( final TypeNotFoundException ex ) {}
 				}
 			};
 		} );
 	}
 
-	protected abstract void doubleClicked();
+	protected abstract void doubleClicked() throws TypeNotFoundException;
 
 	private void newFilter() {
 		RowFilter<T, Object> rf = null;

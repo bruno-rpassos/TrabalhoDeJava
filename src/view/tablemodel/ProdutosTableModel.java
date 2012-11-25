@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import model.Listener;
-import view.vo.ProdutoVO;
+import model.Produto;
 import controller.ProdutosController;
 import dao.ProdutoDAO;
 
@@ -16,7 +16,7 @@ public class ProdutosTableModel extends DefaultTableModel {
 
 	private static final String[]	COLUNAS	= new String[] { "Id", "Descricao", "Quantidade", "Valor" };
 
-	private List<ProdutoVO>			listaDeProdutos;
+	private List<Produto>			listaDeProdutos;
 
 	public ProdutosTableModel() {
 		ProdutoDAO.getInstance().addListener( new Listener() {
@@ -32,13 +32,13 @@ public class ProdutosTableModel extends DefaultTableModel {
 	@Override
 	public Class<?> getColumnClass( final int column ) {
 		switch ( column ) {
-			case ProdutoVO.ID:
+			case Produto.ID:
 				return Integer.class;
-			case ProdutoVO.DESCRICAO:
+			case Produto.DESCRICAO:
 				return String.class;
-			case ProdutoVO.QUANTIDADE:
+			case Produto.QUANTIDADE:
 				return Integer.class;
-			case ProdutoVO.VALOR:
+			case Produto.VALOR:
 				return BigDecimal.class;
 			default:
 				return Object.class;
@@ -63,17 +63,17 @@ public class ProdutosTableModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt( final int row, final int column ) {
-		final ProdutoVO vo = this.listaDeProdutos.get( row );
+		final Produto p = this.listaDeProdutos.get( row );
 
 		switch ( column ) {
-			case ProdutoVO.ID:
-				return vo.getId();
-			case ProdutoVO.DESCRICAO:
-				return vo.getDescricao();
-			case ProdutoVO.QUANTIDADE:
-				return vo.getQuantidade();
-			case ProdutoVO.VALOR:
-				return vo.getValor();
+			case Produto.ID:
+				return p.getId();
+			case Produto.DESCRICAO:
+				return p.getDescricao();
+			case Produto.QUANTIDADE:
+				return p.getQuantidade();
+			case Produto.VALOR:
+				return p.getValor();
 			default:
 				return "";
 		}
@@ -85,7 +85,7 @@ public class ProdutosTableModel extends DefaultTableModel {
 	}
 
 	private void atualizarDados() {
-		this.listaDeProdutos = new ArrayList<ProdutoVO>( ProdutosController.getAllProdutosVO() );
+		this.listaDeProdutos = new ArrayList<Produto>( ProdutosController.getInstance().getAll() );
 		this.fireTableDataChanged();
 	}
 }

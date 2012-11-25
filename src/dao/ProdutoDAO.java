@@ -6,6 +6,8 @@ import java.util.List;
 import model.Listener;
 import model.Produto;
 import repository.ProdutoRepository;
+import exception.ProdutoInvalidException;
+import exception.ProdutoNotFoundException;
 
 public class ProdutoDAO implements DAO<Produto> {
 	private static ProdutoDAO	instance;
@@ -23,13 +25,12 @@ public class ProdutoDAO implements DAO<Produto> {
 		this.listeners = new ArrayList<Listener>();
 	}
 
-	@Override
 	public void addListener( final Listener l ) {
 		this.listeners.add( l );
 	}
 
 	@Override
-	public Produto getById( final Integer id ) throws Exception {
+	public Produto getById( final Integer id ) throws ProdutoInvalidException, ProdutoNotFoundException {
 		return ProdutoRepository.getInstance().getById( id );
 	}
 

@@ -7,6 +7,10 @@ import java.lang.annotation.Target;
 
 @Target( ElementType.FIELD )
 @Retention( RetentionPolicy.RUNTIME )
-public @interface Persistence {
+public @interface Input {
+	String label() default "";
 
+	String name() default "";
+
+	String type() default "TEXTFIELD";
 }

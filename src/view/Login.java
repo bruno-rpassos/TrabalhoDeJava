@@ -11,14 +11,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import controller.Sessao;
 import controller.UserController;
 import exception.PassNotFoundException;
+import exception.PermissaoNegadaException;
 import exception.UserNotFoundException;
 
 @SuppressWarnings( "serial" )
@@ -101,7 +102,10 @@ public class Login extends JDialog {
 	private void doLogin( final String user, final char[] pass ) {
 		try {
 			System.out.println( "trying to login [" + user + ", " + new String( pass ) + " ]" );
-			UserController.validarLogin( user, new String( pass ) );
+
+			UserController.getInstance().validarLogin( user, new String( pass ) );
+			Sessao.getInstance().setLogado( UserController.getInstance().getByName( user ) );
+
 			System.out.println( " >> LOGOU com " + user );
 
 			EventQueue.invokeLater( new Runnable() {
@@ -118,9 +122,11 @@ public class Login extends JDialog {
 
 			this.dispose();
 		} catch ( final UserNotFoundException ex ) {
-			JOptionPane.showMessageDialog( this, ">> USER INVALIDO!" );
+			System.out.println( "fail user" );
 		} catch ( final PassNotFoundException ex ) {
-			JOptionPane.showMessageDialog( this, ">> " + user + ": SENHA INVALIDA!" );
+			System.out.println( "fail senha" );
+		} catch ( final PermissaoNegadaException e1 ) {
+			System.out.println( "fail permissao" );
 		}
 	}
 

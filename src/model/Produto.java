@@ -1,9 +1,25 @@
 package model;
 
+import annotation.Input;
+import annotation.Persistence;
+
 public class Produto extends Entity {
-	private String	descricao;
-	private Integer	quantidade;
-	private Double	valor;
+	public static final int	DESCRICAO	= 1;
+	public static final int	ID			= 0;
+	public static final int	QUANTIDADE	= 3;
+	public static final int	VALOR		= 4;
+
+	@Persistence
+	@Input( label = "Descricao", name = "descricao" )
+	private String			descricao;
+
+	@Persistence
+	@Input( label = "Quantidade", name = "quantidade" )
+	private Integer			quantidade;
+
+	@Persistence
+	@Input( label = "Valor R$", name = "valor" )
+	private Double			valor;
 
 	public String getDescricao() {
 		return this.descricao;

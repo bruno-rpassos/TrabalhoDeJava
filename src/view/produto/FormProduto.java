@@ -1,12 +1,13 @@
 package view.produto;
 
+import model.Produto;
 import view.Form;
-import view.vo.ProdutoVO;
+import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
-public class FormProduto extends Form<ProdutoVO> {
+public class FormProduto extends Form<Produto> {
 
-	public FormProduto() throws Exception {
-		super( ProdutoVO.class, "PRODUTO" );
+	public FormProduto() throws TypeNotFoundException {
+		super( Produto.class, "PRODUTO" );
 	}
 }

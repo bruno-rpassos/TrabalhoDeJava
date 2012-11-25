@@ -34,7 +34,7 @@ public abstract class Lista<T extends TableModel> extends JDialog {
 		this.table.setAutoCreateRowSorter( true );
 		this.table.setLayout( new FlowLayout() );
 		this.setResizable( false );
-		this.setBounds( 100, 100, 800, 470 );
+		this.setBounds( 100, 100, 800, 500 );
 		this.getContentPane().setLayout( new BorderLayout() );
 
 		// INICIO >> PANEL BUSCA

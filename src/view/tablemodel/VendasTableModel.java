@@ -11,7 +11,7 @@ import dao.VendaDAO;
 public class VendasTableModel extends TableModelPadrao<Venda> {
 
 	public VendasTableModel() {
-		TableModelPadrao.COLUNAS = new String[] { "Id", "Descricao", "Valor Total (R$)", "Desconto (%)", "Valor com Desconto (R$)" };
+		TableModelPadrao.COLUNAS = new String[] { "Id", "Descricao", "Valor Total (R$)", "Desconto (%)", "Valor com Desconto (R$)", "Cliente" };
 
 		VendaDAO.getInstance().addListener( new Listener() {
 			@Override
@@ -36,6 +36,8 @@ public class VendasTableModel extends TableModelPadrao<Venda> {
 				return Double.class;
 			case Venda.VALOR_COM_DESCONTO:
 				return Double.class;
+			case Venda.CLIENTE:
+				return String.class;
 			default:
 				return Object.class;
 		}
@@ -58,6 +60,8 @@ public class VendasTableModel extends TableModelPadrao<Venda> {
 				final Double desconto = v.getValorTotal() * ( v.getDesconto() / 100 );
 				final Double valorComDesconto = v.getValorTotal() - desconto;
 				return valorComDesconto;
+			case Venda.CLIENTE:
+				return v.getCliente().getNome();
 			default:
 				return "";
 		}

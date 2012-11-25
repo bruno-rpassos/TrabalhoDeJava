@@ -9,11 +9,16 @@ import exception.ProdutoNotFoundException;
 
 public class Venda extends Entity {
 
+	public static final int	CLIENTE				= 5;
 	public static final int	DESCONTO			= 3;
 	public static final int	DESCRICAO			= 1;
 	public static final int	ID					= 0;
 	public static final int	VALOR_COM_DESCONTO	= 4;
 	public static final int	VALOR_TOTAL			= 2;
+
+	@Persistence
+	@Input( label = "Cliente", name = "cliente", parse = false )
+	private Pessoa			cliente;
 
 	@Persistence
 	@Input( label = "Desconto %", name = "desconto" )
@@ -35,6 +40,10 @@ public class Venda extends Entity {
 
 	public void addProduto( final Produto produto ) {
 		this.produtos.add( produto );
+	}
+
+	public Pessoa getCliente() {
+		return this.cliente;
 	}
 
 	public Double getDesconto() {
@@ -59,6 +68,10 @@ public class Venda extends Entity {
 
 	public Double getValorTotal() {
 		return this.valorTotal;
+	}
+
+	public void setCliente( final Pessoa cliente ) {
+		this.cliente = cliente;
 	}
 
 	public void setDesconto( final Double desconto ) {

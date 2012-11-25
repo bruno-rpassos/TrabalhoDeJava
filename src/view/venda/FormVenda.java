@@ -15,13 +15,16 @@ public class FormVenda extends Form<Venda> {
 
 	public FormVenda( final Venda venda ) throws TypeNotFoundException {
 		super( Venda.class, "VENDA" );
-		super.setBounds( 100, 100, 450, 400 );
 
 		this.initizalize( venda );
 	}
 
 	protected void NewVenda() {
 		this.lista.NewVenda();
+	}
+
+	protected void parseCliente( final Object value, final String field ) {
+		super.setValueToField( value, field );
 	}
 
 	private void initizalize( final Venda venda ) {

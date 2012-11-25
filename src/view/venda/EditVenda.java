@@ -32,6 +32,7 @@ public class EditVenda extends FormVenda {
 
 		if ( v != null ) {
 			this.updateTextFieldsWithEntity( v );
+			this.parseCliente( v.getCliente().getNome(), "cliente" );
 		}
 	}
 
@@ -52,6 +53,7 @@ public class EditVenda extends FormVenda {
 			final Venda atualizada = this.update( v );
 			atualizada.setProdutos( v.getProdutos() );
 			atualizada.setValorTotal( v.getValorTotal() );
+			atualizada.setCliente( v.getCliente() );
 
 			VendasController.getInstance().update( atualizada );
 			JOptionPane.showMessageDialog( this, "Venda atualizado!" );

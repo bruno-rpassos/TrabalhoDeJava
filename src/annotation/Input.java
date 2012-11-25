@@ -12,5 +12,7 @@ public @interface Input {
 
 	String name() default "";
 
+	boolean parse() default true;
+
 	String type() default "TEXTFIELD";
 }

@@ -74,9 +74,9 @@ public class VendasController implements Controller<Venda> {
 	}
 
 	@Override
-	public void update( final Venda p ) {
+	public void update( final Venda v ) {
 		try {
-			VendaDAO.getInstance().saveOrUpdate( p );
+			VendaDAO.getInstance().saveOrUpdate( v );
 		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}

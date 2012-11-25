@@ -38,6 +38,10 @@ public class VendaDAO implements DAO<Venda> {
 		return VendaRepository.getInstance().getAll();
 	}
 
+	public void refresh() {
+		this.dataChanged();
+	}
+
 	@Override
 	public void saveOrUpdate( final Venda venda ) throws VendaNotFoundException {
 		VendaRepository.getInstance().add( venda );

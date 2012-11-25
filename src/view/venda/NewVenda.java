@@ -11,16 +11,14 @@ import model.Venda;
 import view.produto.ListaProduto;
 import controller.ProdutosController;
 import controller.VendasController;
+import dao.VendaDAO;
 import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class NewVenda extends FormVenda {
-	private final Venda	venda;
-
 	public NewVenda() throws Exception {
-		super();
+		super( new Venda() );
 		this.setTitle( "NOVA VENDA" );
-		this.venda = new Venda();
 
 		this.saveButton.addActionListener( new ActionListener() {
 			@Override
@@ -33,7 +31,7 @@ public class NewVenda extends FormVenda {
 		searchProduto.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed( final ActionEvent e ) {
-				NewVenda.this.buscarProduto();
+				NewVenda.this.adicionarProduto();
 			}
 		} );
 		this.addButton( searchProduto );
@@ -41,7 +39,7 @@ public class NewVenda extends FormVenda {
 		super.setBounds( 100, 100, 450, 400 );
 	}
 
-	private void buscarProduto() {
+	private void adicionarProduto() {
 		System.out.println( "adding produtos to venda" );
 		try {
 			final ListaProduto lista = new ListaProduto() {
@@ -57,6 +55,7 @@ public class NewVenda extends FormVenda {
 					p.setQuantidade( Integer.parseInt( JOptionPane.showInputDialog( "Informe a quantidade" ) ) );
 
 					NewVenda.this.venda.addProduto( p );
+					VendaDAO.getInstance().refresh();
 					this.dispose();
 				}
 			};
@@ -68,10 +67,27 @@ public class NewVenda extends FormVenda {
 		}
 	}
 
+	private void clearVenda() {
+		NewVenda.this.venda = new Venda();
+		this.NewVenda();
+		VendaDAO.getInstance().refresh();
+	}
+
 	private void salvarVenda() {
 		try {
 			final Venda v = this.parseEntity();
 			v.setProdutos( this.venda.getProdutos() );
+
+			Double total = new Double( 0 );
+			for ( final Produto p : v.getProdutos() ) {
+				System.out.println( " > valor " + p.getValor() );
+				System.out.println( " > quant " + p.getQuantidade() );
+				total = total + p.getValor() * p.getQuantidade();
+			}
+			v.setValorTotal( total );
+
+			System.out.println( "valor total " + total );
+
 			VendasController.getInstance().create( v );
 			JOptionPane.showMessageDialog( this, "Venda cadastrado!" );
 		} catch ( final Exception ex ) {
@@ -79,5 +95,6 @@ public class NewVenda extends FormVenda {
 		}
 
 		this.clear();
+		this.clearVenda();
 	}
 }

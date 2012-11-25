@@ -13,7 +13,7 @@ public class ListaVenda extends view.Lista<VendasTableModel> {
 
 	@Override
 	protected void doubleClicked() throws TypeNotFoundException {
-		final Integer id = Integer.parseInt( ( String ) this.table.getValueAt( this.table.getSelectedRow(), 0 ) );
+		final Integer id = ( Integer ) this.table.getValueAt( this.table.getSelectedRow(), 0 );
 		VendasController.getInstance().edit( id );
 	}
 }

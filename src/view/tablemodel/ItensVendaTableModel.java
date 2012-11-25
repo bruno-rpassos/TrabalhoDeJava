@@ -5,16 +5,17 @@ import java.math.BigDecimal;
 import model.Listener;
 import model.Produto;
 import model.Venda;
-import dao.ProdutoDAO;
+import dao.VendaDAO;
 
 @SuppressWarnings( "serial" )
 public class ItensVendaTableModel extends TableModelPadrao<Produto> {
 	private Venda	venda;
 
-	public ItensVendaTableModel() {
+	public ItensVendaTableModel( final Venda venda ) {
 		TableModelPadrao.COLUNAS = new String[] { "Id", "Descricao", "Quantidade", "Valor" };
+		this.venda = venda;
 
-		ProdutoDAO.getInstance().addListener( new Listener() {
+		VendaDAO.getInstance().addListener( new Listener() {
 			@Override
 			public void actionPerformed() {
 				ItensVendaTableModel.this.atualizarDados();
@@ -22,6 +23,10 @@ public class ItensVendaTableModel extends TableModelPadrao<Produto> {
 		} );
 
 		this.atualizarDados();
+	}
+
+	public void addProduto( final Produto p ) {
+		this.venda.addProduto( p );
 	}
 
 	@Override
@@ -56,6 +61,11 @@ public class ItensVendaTableModel extends TableModelPadrao<Produto> {
 			default:
 				return "";
 		}
+	}
+
+	public void NewVenda() {
+		this.venda = new Venda();
+		this.atualizarDados();
 	}
 
 	@Override

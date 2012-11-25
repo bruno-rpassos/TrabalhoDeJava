@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import model.Produto;
 import model.Venda;
 import controller.VendasController;
 import exception.TypeNotFoundException;
@@ -12,7 +13,7 @@ import exception.TypeNotFoundException;
 @SuppressWarnings( "serial" )
 public class EditVenda extends FormVenda {
 	public EditVenda( final Venda v ) throws TypeNotFoundException {
-		super();
+		super( v );
 		this.setTitle( "ATUALIZAR VENDA" );
 		this.saveButton.addActionListener( new ActionListener() {
 			@Override
@@ -30,7 +31,23 @@ public class EditVenda extends FormVenda {
 
 	private void alterarVenda( final Venda v ) {
 		try {
-			VendasController.getInstance().update( this.update( v ) );
+			System.out.println( "updating venda" );
+			System.out.println( "   > id         " + v.getId() );
+			System.out.println( "   > descricao  " + v.getDescricao() );
+			System.out.println( "   > valortotal " + v.getValorTotal() );
+			System.out.println( "   > desconto   " + v.getValorTotal() );
+			System.out.println( "   > produtos" );
+			for ( final Produto p : v.getProdutos() ) {
+				System.out.println( "       >  id        " + p.getId() );
+				System.out.println( "       >  descricao " + p.getDescricao() );
+				System.out.println( "       >  quantid   " + p.getQuantidade() );
+			}
+
+			final Venda atualizada = this.update( v );
+			atualizada.setProdutos( v.getProdutos() );
+			atualizada.setValorTotal( v.getValorTotal() );
+
+			VendasController.getInstance().update( atualizada );
 			JOptionPane.showMessageDialog( this, "Venda atualizado!" );
 			this.dispose();
 		} catch ( final Exception ex ) {

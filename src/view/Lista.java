@@ -92,7 +92,7 @@ public abstract class Lista<T extends TableModel> extends JDialog {
 	private void newFilter() {
 		RowFilter<T, Object> rf = null;
 		try {
-			rf = RowFilter.regexFilter( this.tfFilter.getText().toUpperCase(), 1 );
+			rf = RowFilter.regexFilter( "^" + this.tfFilter.getText().toUpperCase(), 1 );
 		} catch ( final java.util.regex.PatternSyntaxException e ) {
 			return;
 		}

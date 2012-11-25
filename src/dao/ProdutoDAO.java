@@ -41,6 +41,7 @@ public class ProdutoDAO implements DAO<Produto> {
 
 	@Override
 	public void saveOrUpdate( final Produto produto ) throws Exception {
+		produto.setDescricao( produto.getDescricao().toUpperCase() );
 		ProdutoRepository.getInstance().add( produto );
 		this.dataChanged();
 	}

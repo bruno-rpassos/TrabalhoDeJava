@@ -64,11 +64,6 @@ public class VendasTableModel extends TableModelPadrao<Venda> {
 	}
 
 	@Override
-	public boolean isCellEditable( final int row, final int column ) {
-		return false;
-	}
-
-	@Override
 	protected void atualizarDados() {
 		this.lista = new ArrayList<Venda>( VendasController.getInstance().getAll() );
 		this.fireTableDataChanged();

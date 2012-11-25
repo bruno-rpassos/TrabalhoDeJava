@@ -44,6 +44,7 @@ public class VendaDAO implements DAO<Venda> {
 
 	@Override
 	public void saveOrUpdate( final Venda venda ) throws VendaNotFoundException {
+		venda.setDescricao( venda.getDescricao().toUpperCase() );
 		VendaRepository.getInstance().add( venda );
 		this.dataChanged();
 	}

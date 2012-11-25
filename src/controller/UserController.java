@@ -7,8 +7,8 @@ import javax.swing.JDialog;
 import model.User;
 import repository.UserRepository;
 import dao.UserDAO;
+import exception.NotImplementedYet;
 import exception.PassNotFoundException;
-import exception.TypeNotFoundException;
 import exception.UserNotFoundException;
 
 public class UserController implements Controller<User> {
@@ -33,11 +33,7 @@ public class UserController implements Controller<User> {
 
 	@Override
 	public void edit( final Integer id ) {
-		try {
-			final User user = UserDAO.getInstance().getById( id );
-			final JDialog view = new view.usuario.EditUser( user );
-			view.setVisible( true );
-		} catch ( final UserNotFoundException e ) {} catch ( final TypeNotFoundException e ) {}
+		NotImplementedYet.NOT_IMPLEMENTED_YET();
 	}
 
 	@Override
@@ -68,14 +64,7 @@ public class UserController implements Controller<User> {
 
 	@Override
 	public void list() {
-		try {
-			final JDialog view = new view.usuario.ListaUser();
-			view.setVisible( true );
-		} catch ( final InstantiationException e ) {
-			e.printStackTrace();
-		} catch ( final IllegalAccessException e ) {
-			e.printStackTrace();
-		}
+		NotImplementedYet.NOT_IMPLEMENTED_YET();
 	}
 
 	@Override

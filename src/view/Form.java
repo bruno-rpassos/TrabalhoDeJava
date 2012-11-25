@@ -24,8 +24,8 @@ import exception.TypeNotFoundException;
 @SuppressWarnings( "serial" )
 public class Form<T extends Entity> extends DialogPadrao {
 
-	protected JButton		cancelButton;
 	protected JButton		saveButton;
+	private JPanel			buttonPane;
 
 	private final Class<T>	classe;
 	private boolean			didRequestedFocus;
@@ -37,6 +37,18 @@ public class Form<T extends Entity> extends DialogPadrao {
 
 		this.parseFields();
 		this.buildButtons();
+	}
+
+	public void addSaveButton() {
+		this.saveButton = new JButton( "SALVAR" );
+		this.saveButton.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+		this.buttonPane.add( this.saveButton );
+		this.getRootPane().setDefaultButton( this.saveButton );
+	}
+
+	protected void addButton( final JButton button ) {
+		button.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+		this.buttonPane.add( button );
 	}
 
 	protected void clear() {
@@ -74,53 +86,44 @@ public class Form<T extends Entity> extends DialogPadrao {
 		return alterado;
 	}
 
-	protected void updateTextFieldsWithEntity( T entity ) {
+	protected void updateTextFieldsWithEntity( final T entity ) {
 		try {
-			entity = this.classe.newInstance();
 			for ( final Field f : this.classe.getDeclaredFields() ) {
 				if ( f.isAnnotationPresent( Input.class ) ) {
 					final Input in = f.getAnnotation( Input.class );
 
 					f.setAccessible( true );
-					final Object txtField = this.getTextFieldValue( in.name() );
-					f.set( entity, this.parseToType( txtField, f.getType() ) );
+					final JTextField txtField = this.getTextField( in.name() );
+					System.out.println( in.name() + " value " + f.get( entity ) );
+					txtField.setText( String.valueOf( f.get( entity ) ) );
 				}
 			}
-		} catch ( final InstantiationException e ) {
-			e.printStackTrace();
 		} catch ( final IllegalAccessException e ) {
 			e.printStackTrace();
 		}
 	}
 
-	private void addCancelButton( final JPanel buttonPane ) {
-		this.cancelButton = new JButton( "CANCELAR" );
-		this.cancelButton.addActionListener( new ActionListener() {
+	private void addCancelButton() {
+		final JButton cancelButton = new JButton( "CANCELAR" );
+		cancelButton.addActionListener( new ActionListener() {
 			@Override
-			public void actionPerformed( final ActionEvent e ) {
+			public void actionPerformed( final ActionEvent arg0 ) {
 				Form.this.dispose();
 			}
 		} );
 
-		this.cancelButton.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
-		buttonPane.add( this.cancelButton );
-	}
-
-	private void addSaveButton( final JPanel buttonPane ) {
-		this.saveButton = new JButton( "SALVAR" );
-		this.saveButton.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
-		buttonPane.add( this.saveButton );
-		this.getRootPane().setDefaultButton( this.saveButton );
+		cancelButton.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+		this.buttonPane.add( cancelButton );
 	}
 
 	private void buildButtons() {
-		final JPanel buttonPane = new JPanel();
-		buttonPane.setBackground( Color.DARK_GRAY );
-		buttonPane.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
-		this.getContentPane().add( buttonPane, BorderLayout.SOUTH );
+		this.buttonPane = new JPanel();
+		this.buttonPane.setBackground( Color.DARK_GRAY );
+		this.buttonPane.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		this.getContentPane().add( this.buttonPane, BorderLayout.SOUTH );
 
-		this.addSaveButton( buttonPane );
-		this.addCancelButton( buttonPane );
+		this.addSaveButton();
+		this.addCancelButton();
 	}
 
 	private void clearAllTextFields( final Container pane ) {
@@ -142,6 +145,29 @@ public class Form<T extends Entity> extends DialogPadrao {
 		}
 
 		this.didRequestedFocus = false;
+	}
+
+	private JTextField getTextField( final String txtName ) {
+		final JTextField result = this.getTextFieldOnPane( txtName, this.getContentPane() );
+		return result;
+	}
+
+	private JTextField getTextFieldOnPane( final String tf, final Container pane ) {
+
+		for ( int i = 0; i < pane.getComponentCount(); i++ ) {
+			final Component c = pane.getComponent( i );
+
+			if ( c instanceof JTextField ) {
+				if ( ( ( JTextField ) c ).getName().equals( tf ) ) return ( JTextField ) c;
+			}
+
+			else if ( c instanceof Container ) {
+				final JTextField result = this.getTextFieldOnPane( tf, ( Container ) c );
+				if ( result != null ) return result;
+			}
+		}
+
+		return null;
 	}
 
 	private Object getTextFieldValue( final String txtName ) {

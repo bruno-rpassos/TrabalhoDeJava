@@ -1,23 +1,23 @@
 package view.tablemodel;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import model.Listener;
 import model.Produto;
-import controller.ProdutosController;
+import model.Venda;
 import dao.ProdutoDAO;
 
 @SuppressWarnings( "serial" )
-public class ProdutosTableModel extends TableModelPadrao<Produto> {
+public class ItensVendaTableModel extends TableModelPadrao<Produto> {
+	private Venda	venda;
 
-	public ProdutosTableModel() {
+	public ItensVendaTableModel() {
 		TableModelPadrao.COLUNAS = new String[] { "Id", "Descricao", "Quantidade", "Valor" };
 
 		ProdutoDAO.getInstance().addListener( new Listener() {
 			@Override
 			public void actionPerformed() {
-				ProdutosTableModel.this.atualizarDados();
+				ItensVendaTableModel.this.atualizarDados();
 			}
 		} );
 
@@ -60,7 +60,7 @@ public class ProdutosTableModel extends TableModelPadrao<Produto> {
 
 	@Override
 	protected void atualizarDados() {
-		this.lista = new ArrayList<Produto>( ProdutosController.getInstance().getAll() );
+		this.lista = this.venda.getProdutos();
 		this.fireTableDataChanged();
 	}
 }

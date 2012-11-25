@@ -6,8 +6,8 @@ import annotation.Persistence;
 public class Produto extends Entity {
 	public static final int	DESCRICAO	= 1;
 	public static final int	ID			= 0;
-	public static final int	QUANTIDADE	= 3;
-	public static final int	VALOR		= 4;
+	public static final int	QUANTIDADE	= 2;
+	public static final int	VALOR		= 3;
 
 	@Persistence
 	@Input( label = "Descricao", name = "descricao" )

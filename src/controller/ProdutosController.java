@@ -34,9 +34,20 @@ public class ProdutosController implements Controller<Produto> {
 	public void edit( final Integer id ) throws TypeNotFoundException {
 		try {
 			final Produto produto = ProdutoDAO.getInstance().getById( id );
+			System.out.println( "Produto found: " );
+			System.out.println( "  > id " + produto.getId() );
+			System.out.println( "  > ds " + produto.getDescricao() );
+			System.out.println( "  > qt " + produto.getQuantidade() );
+			System.out.println( "  > vl " + produto.getValor() );
+
 			final JDialog view = new view.produto.EditProduto( produto );
 			view.setVisible( true );
 		} catch ( final ProdutoInvalidException e ) {} catch ( final ProdutoNotFoundException e ) {}
+	}
+
+	public void edit( final Produto p ) throws TypeNotFoundException, ProdutoNotFoundException {
+		final JDialog view = new view.produto.EditProduto( p );
+		view.setVisible( true );
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 
 import controller.ProdutosController;
 import controller.UserController;
+import controller.VendasController;
 
 public class MainFrame {
 
@@ -54,6 +55,12 @@ public class MainFrame {
 				{
 					final JMenuItem mntmVenda = new JMenuItem( "Venda" );
 					mntmVenda.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+					mntmVenda.addActionListener( new ActionListener() {
+						@Override
+						public void actionPerformed( final ActionEvent e ) {
+							VendasController.getInstance().newResource();
+						}
+					} );
 					mnNovo.add( mntmVenda );
 				}
 				// FIM << MENUITEM VENDA
@@ -100,6 +107,12 @@ public class MainFrame {
 				{
 					final JMenuItem mntmVendas = new JMenuItem( "Vendas" );
 					mntmVendas.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+					mntmVendas.addActionListener( new ActionListener() {
+						@Override
+						public void actionPerformed( final ActionEvent e ) {
+							VendasController.getInstance().list();
+						}
+					} );
 					mnRelatorio.add( mntmVendas );
 				}
 				// FIM << MENUITEM VENDAS

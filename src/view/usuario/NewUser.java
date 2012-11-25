@@ -30,6 +30,8 @@ public class NewUser extends FormUser {
 				NewUser.this.salvarUser();
 			}
 		} );
+
+		super.setBounds( 100, 100, 450, 200 );
 	}
 
 	private void initializeRadioButtons() {

@@ -10,16 +10,24 @@ import model.Produto;
 import model.Venda;
 import view.produto.ListaProduto;
 import controller.ProdutosController;
+import controller.Sessao;
 import controller.VendasController;
 import dao.VendaDAO;
+import exception.PermissaoNegadaException;
 import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class NewVenda extends FormVenda {
 	public NewVenda() throws Exception {
 		super( new Venda() );
-		this.setTitle( "NOVA VENDA" );
 
+		try {
+			Sessao.getInstance().temPermissaoCriarVenda();
+		} catch ( final PermissaoNegadaException e1 ) {
+			this.dispose();
+		}
+
+		this.setTitle( "NOVA VENDA" );
 		this.saveButton.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed( final ActionEvent e ) {
@@ -35,8 +43,6 @@ public class NewVenda extends FormVenda {
 			}
 		} );
 		this.addButton( searchProduto );
-
-		super.setBounds( 100, 100, 450, 400 );
 	}
 
 	private void adicionarProduto() {

@@ -27,12 +27,42 @@ public class Sessao {
 			return;
 		}
 
-		throw new PermissaoNegadaException( "logar" );
+		throw new PermissaoNegadaException( "LOGAR" );
+	}
+
+	public void temPermissaoCriarUser() throws PermissaoNegadaException {
+		if ( this.isAdmin() ) return;
+
+		throw new PermissaoNegadaException( "CRIAR NOVO USUARIO" );
+	}
+
+	public void temPermissaoCriarVenda() throws PermissaoNegadaException {
+		if ( this.isAdmin() || this.isVendedor() ) return;
+
+		throw new PermissaoNegadaException( "CRIAR NOVA VENDA" );
+	}
+
+	public void temPermissaoEditarVenda() throws PermissaoNegadaException {
+		if ( this.isAdmin() ) return;
+
+		throw new PermissaoNegadaException( "ALTERAR VENDA SALVA" );
+	}
+
+	public void temPermissaoListarVenda() throws PermissaoNegadaException {
+		if ( this.isAdmin() || this.isVendedor() ) return;
+
+		throw new PermissaoNegadaException( "LISTAR VENDAS CADASTRADAS" );
+	}
+
+	private boolean isAdmin() {
+		return PermissaoController.getInstance().isAdmin( this.user );
+	}
+
+	private boolean isVendedor() {
+		return PermissaoController.getInstance().isVendedor( this.user );
 	}
 
 	private boolean temPermissaoLogar( final User user ) {
-		if ( PermissaoController.getInstance().isAdmin( user ) || PermissaoController.getInstance().isVendedor( user ) ) return true;
-
-		return false;
+		return PermissaoController.getInstance().isAdmin( user ) || PermissaoController.getInstance().isVendedor( user );
 	}
 }

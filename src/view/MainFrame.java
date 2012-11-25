@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import controller.PessoaController;
 import controller.ProdutosController;
 import controller.UserController;
 import controller.VendasController;
@@ -92,6 +93,21 @@ public class MainFrame {
 					mnNovo.add( mntmProduto );
 				}
 				// FIM << MENUITEM USER
+
+				// INICIO >> MENUITEM CLIENTE
+				{
+					final JMenuItem mntmProduto = new JMenuItem( "Cliente" );
+					mntmProduto.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+					mntmProduto.addActionListener( new ActionListener() {
+						@Override
+						public void actionPerformed( final ActionEvent e ) {
+							PessoaController.getInstance().newResource();
+						}
+					} );
+					mnNovo.add( mntmProduto );
+				}
+				// FIM << MENUITEM CLIENTE
+
 			}
 			// FIM << MENU NOVO
 
@@ -125,6 +141,20 @@ public class MainFrame {
 						@Override
 						public void actionPerformed( final ActionEvent e ) {
 							ProdutosController.getInstance().list();
+						}
+					} );
+					mnRelatorio.add( mntmProdutos );
+				}
+				// FIM << MENUITEM VENDAS
+
+				// INICIO >> MENUITEM PRODUTOS
+				{
+					final JMenuItem mntmProdutos = new JMenuItem( "Clientes" );
+					mntmProdutos.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+					mntmProdutos.addActionListener( new ActionListener() {
+						@Override
+						public void actionPerformed( final ActionEvent e ) {
+							PessoaController.getInstance().list();
 						}
 					} );
 					mnRelatorio.add( mntmProdutos );

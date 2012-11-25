@@ -203,7 +203,7 @@ public class Form<T extends Entity> extends DialogPadrao {
 				{
 					final JPanel panel = new JPanel();
 					panel.setBackground( Color.DARK_GRAY );
-					panel.setPreferredSize( new Dimension( 400, 40 ) );
+					panel.setPreferredSize( new Dimension( 550, 40 ) );
 					panel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
 					this.contentPanel.add( panel );
 

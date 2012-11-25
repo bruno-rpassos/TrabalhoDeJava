@@ -7,13 +7,21 @@ import javax.swing.JOptionPane;
 
 import model.Produto;
 import model.Venda;
+import controller.Sessao;
 import controller.VendasController;
+import exception.PermissaoNegadaException;
 import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class EditVenda extends FormVenda {
 	public EditVenda( final Venda v ) throws TypeNotFoundException {
 		super( v );
+		try {
+			Sessao.getInstance().temPermissaoEditarVenda();
+		} catch ( final PermissaoNegadaException e1 ) {
+			this.dispose();
+		}
+
 		this.setTitle( "ATUALIZAR VENDA" );
 		this.saveButton.addActionListener( new ActionListener() {
 			@Override
@@ -25,8 +33,6 @@ public class EditVenda extends FormVenda {
 		if ( v != null ) {
 			this.updateTextFieldsWithEntity( v );
 		}
-
-		super.setBounds( 100, 100, 450, 400 );
 	}
 
 	private void alterarVenda( final Venda v ) {

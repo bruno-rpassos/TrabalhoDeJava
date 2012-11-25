@@ -15,6 +15,7 @@ public class FormVenda extends Form<Venda> {
 
 	public FormVenda( final Venda venda ) throws TypeNotFoundException {
 		super( Venda.class, "VENDA" );
+		super.setBounds( 100, 100, 450, 400 );
 
 		this.initizalize( venda );
 	}

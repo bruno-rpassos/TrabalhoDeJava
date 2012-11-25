@@ -11,27 +11,32 @@ import javax.swing.JRadioButton;
 import model.Permissao;
 import model.User;
 import controller.PermissaoController;
+import controller.Sessao;
 import controller.UserController;
+import exception.PermissaoNegadaException;
+import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class NewUser extends FormUser {
 
 	private Integer	tipoPermissao	= Permissao.VENDEDOR;
 
-	public NewUser() throws Exception {
+	public NewUser() throws TypeNotFoundException {
 		super();
+		try {
+			Sessao.getInstance().temPermissaoCriarUser();
+		} catch ( final PermissaoNegadaException e1 ) {
+			this.dispose();
+		}
+
 		this.setTitle( "NOVO USER" );
-
 		this.initializeRadioButtons();
-
 		this.saveButton.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed( final ActionEvent e ) {
 				NewUser.this.salvarUser();
 			}
 		} );
-
-		super.setBounds( 100, 100, 450, 200 );
 	}
 
 	private void initializeRadioButtons() {

@@ -5,10 +5,13 @@ import java.lang.reflect.Field;
 import model.Entity;
 
 public class BeanUtils {
-	public static void setProperty( final Entity bean, final String field, final Object value ) {
+	public static void setProperty( final Entity bean, final String field, Object value ) {
 		try {
 			final Field f = bean.getClass().getDeclaredField( field );
 			f.setAccessible( true );
+			if(f.getType() == Integer.class) {
+				value = Integer.valueOf(value.toString());
+			}
 			f.set( bean, value );
 			f.setAccessible( false );
 		} catch ( final NoSuchFieldException e ) {

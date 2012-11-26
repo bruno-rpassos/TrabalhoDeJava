@@ -1,5 +1,9 @@
 package dao;
 
+import java.util.List;
+
+import exception.PermissaoNotFoundException;
+
 import model.Permissao;
 
 public class PermissaoDAO extends AbstractDAO<Permissao> {
@@ -18,7 +22,9 @@ public class PermissaoDAO extends AbstractDAO<Permissao> {
 	}
 
 	public Permissao getByType( final Integer tipo ) throws Exception {
-		return super.getByField("tipo", tipo.toString()).get(0);
+		List<Permissao> permissoes = super.getByField("tipo", tipo);
+		if(permissoes.size() == 0) throw new PermissaoNotFoundException();
+		return permissoes.get(0);
 	}
 
 }

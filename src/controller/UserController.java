@@ -6,11 +6,9 @@ import java.util.List;
 import javax.swing.JDialog;
 
 import model.User;
-import repository.UserRepository;
 import dao.UserDAO;
 import exception.NotImplementedYet;
 import exception.PassNotFoundException;
-import exception.UserNotFoundException;
 
 public class UserController implements Controller<User> {
 
@@ -91,8 +89,8 @@ public class UserController implements Controller<User> {
 		}
 	}
 
-	public void validarLogin( final String user, final String pass ) throws PassNotFoundException, UserNotFoundException {
-		final User u = UserRepository.getInstance().getUser( user );
+	public void validarLogin( final String user, final String pass ) throws Exception {
+		final User u =  UserDAO.getInstance().getByLogin( user );
 
 		if ( !u.getSenha().equals( pass ) ) throw new PassNotFoundException();
 	}

@@ -28,7 +28,7 @@ public class UserDAO extends AbstractDAO<User> {
 	}
 
 	public User getByLogin( final String login ) throws Exception {
-		return super.getByField("login", login).get(0);
+		return super.getByField("nome", login).get(0);
 	}
 
 	@Override

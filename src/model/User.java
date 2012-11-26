@@ -1,13 +1,18 @@
 package model;
 
+import annotation.Entity;
 import annotation.Id;
 import annotation.Input;
-import annotation.Entity;
+import annotation.Table;
+import annotation.Transient;
 
 @Entity
+@Table(name = "usuario")
 public class User extends model.Entity {
-
+	
+	@Transient
 	public static final int	ID		= 0;
+	@Transient
 	public static final int	NOME	= 1;
 	
 	@Id

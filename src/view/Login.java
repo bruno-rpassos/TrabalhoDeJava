@@ -127,6 +127,9 @@ public class Login extends JDialog {
 			System.out.println( "fail senha" );
 		} catch ( final PermissaoNegadaException e1 ) {
 			System.out.println( "fail permissao" );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

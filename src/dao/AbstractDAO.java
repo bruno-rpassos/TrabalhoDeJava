@@ -10,17 +10,29 @@ import java.util.List;
 import model.Entity;
 import util.BeanUtils;
 import util.StringUtils;
+import annotation.Table;
 import connection.SingleConnection;
 import exception.MissingAnnotationException;
 
 public class AbstractDAO<T extends Entity> implements DAO<T> {
 	private final SingleConnection conn;
 	private final Class<T> entityClass;
+	private final String entityName;
 
 	public AbstractDAO(final Class<T> clazz) throws Exception {
 		this.entityClass = clazz;
-		if (!this.entityClass.isAnnotationPresent(annotation.Entity.class))
+		if (!this.entityClass.isAnnotationPresent(annotation.Entity.class)) {
 			throw new MissingAnnotationException("Entity");
+		}
+
+		if (this.entityClass.isAnnotationPresent(annotation.Table.class)) {
+			Table t = this.entityClass.getAnnotation(annotation.Table.class);
+			this.entityName = t.name();
+		} else {
+			this.entityName = StringUtils
+					.camelCaseToUnderscore(this.entityClass.getSimpleName()
+							.toLowerCase());
+		}
 
 		this.conn = SingleConnection.getInstance();
 	}
@@ -42,9 +54,7 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 
 	@Override
 	public List<T> list() throws Exception {
-		final String query = "SELECT * FROM "
-				+ StringUtils.camelCaseToUnderscore(this.entityClass
-						.getSimpleName().toLowerCase());
+		final String query = "SELECT * FROM " + this.entityName;
 		final PreparedStatement ps = this.conn.prepareStatement(query);
 
 		final ResultSet rs = ps.executeQuery();
@@ -62,17 +72,17 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 		return this.entityClass.getDeclaredFields();
 	}
 
-	protected List<T> getByField(String field, String value) throws Exception {
+	protected List<T> getByField(String field, Object value) throws Exception {
 		String query = "SELECT * FROM "
-				+ StringUtils.camelCaseToUnderscore(this.entityClass
-						.getSimpleName()) + " WHERE "
-				+ StringUtils.camelCaseToUnderscore(field)
-				+ " = (?)";
+				+ this.entityName + " WHERE "
+				+ StringUtils.camelCaseToUnderscore(field) + " = (?)";
+		System.out.println(query);
 		PreparedStatement ps = this.conn.prepareStatement(query);
 		ps.setObject(1, value);
-		
+
 		ResultSet rs = ps.executeQuery();
 		List<T> results = getListOfBeansFromResultSet(rs);
+
 		return results;
 	}
 
@@ -92,7 +102,7 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 
 					for (final Field field : this.getEntityDeclaredFields())
 						if (field.getName().equalsIgnoreCase(columnName)
-								&& columnValue != null) {
+								&& columnValue != null && !field.isAnnotationPresent(annotation.Transient.class)) {
 							BeanUtils.setProperty(bean, field.getName(),
 									columnValue);
 							break;

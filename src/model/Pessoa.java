@@ -1,8 +1,11 @@
 package model;
 
+import annotation.Id;
 import annotation.Input;
+import annotation.Entity;
 
-public class Pessoa extends Entity {
+@Entity
+public class Pessoa extends model.Entity {
 	public static final int	CIDADE		= 4;
 	public static final int	CPF			= 2;
 	public static final int	ENDERECO	= 3;
@@ -14,6 +17,7 @@ public class Pessoa extends Entity {
 	private String			cidadeEstado;
 
 	@Input( label = "CPF", name = "cpf" )
+	@Id
 	private String			cpf;
 
 	@Input( label = "Locadouro", name = "endereco" )

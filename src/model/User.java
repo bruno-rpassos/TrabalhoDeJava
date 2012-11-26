@@ -1,11 +1,25 @@
 package model;
 
+import annotation.Id;
 import annotation.Input;
+import annotation.Entity;
 
-public class User extends Entity {
+@Entity
+public class User extends model.Entity {
 
 	public static final int	ID		= 0;
 	public static final int	NOME	= 1;
+	
+	@Id
+	private Integer id;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	@Input( label = "Nome", name = "nome" )
 	private String			nome;

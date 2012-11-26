@@ -11,7 +11,7 @@ import dao.VendaDAO;
 public class ItensVendaTableModel extends TableModelPadrao<Produto> {
 	private Venda	venda;
 
-	public ItensVendaTableModel( final Venda venda ) {
+	public ItensVendaTableModel( final Venda venda ) throws Exception {
 		TableModelPadrao.COLUNAS = new String[] { "Id", "Descricao", "Quantidade", "Valor" };
 		this.venda = venda;
 

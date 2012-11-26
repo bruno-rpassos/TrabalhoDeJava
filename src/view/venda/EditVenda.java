@@ -14,7 +14,7 @@ import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class EditVenda extends FormVenda {
-	public EditVenda( final Venda v ) throws TypeNotFoundException {
+	public EditVenda( final Venda v ) throws Exception {
 		super( v );
 		try {
 			Sessao.getInstance().temPermissaoEditarVenda();

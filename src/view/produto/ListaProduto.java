@@ -12,7 +12,7 @@ public class ListaProduto extends view.Lista<ProdutosTableModel> {
 	}
 
 	@Override
-	protected void doubleClicked() throws TypeNotFoundException {
+	protected void doubleClicked() throws TypeNotFoundException, Exception {
 		final Integer id = ( Integer ) this.table.getValueAt( this.table.getSelectedRow(), 0 );
 		System.out.println( "looking for produto with id " + id );
 		ProdutosController.getInstance().edit( id );

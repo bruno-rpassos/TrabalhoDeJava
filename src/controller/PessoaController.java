@@ -1,12 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
 
 import model.Pessoa;
 import dao.PessoaDAO;
-import exception.PessoaNotFoundException;
 import exception.ProdutoNotFoundException;
 import exception.TypeNotFoundException;
 
@@ -34,7 +34,9 @@ public class PessoaController implements Controller<Pessoa> {
 			final Pessoa pessoa = PessoaDAO.getInstance().getById( id );
 			final JDialog view = new view.pessoa.EditPessoa( pessoa );
 			view.setVisible( true );
-		} catch ( final PessoaNotFoundException e ) {}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void edit( final Pessoa p ) throws TypeNotFoundException, ProdutoNotFoundException {
@@ -48,14 +50,22 @@ public class PessoaController implements Controller<Pessoa> {
 
 		try {
 			p = PessoaDAO.getInstance().getById( id );
-		} catch ( final PessoaNotFoundException e ) {}
+		} catch ( final Exception e ) {
+			e.printStackTrace();
+		}
 
 		return p;
 	}
 
 	@Override
 	public List<Pessoa> getAll() {
-		return PessoaDAO.getInstance().list();
+		List<Pessoa> lista = new ArrayList<Pessoa>();
+		try {
+			lista = PessoaDAO.getInstance().list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 	@Override

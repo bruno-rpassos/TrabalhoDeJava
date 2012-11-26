@@ -1,6 +1,9 @@
 package model;
 
-public class Permissao extends Entity {
+import annotation.Entity;
+
+@Entity
+public class Permissao extends model.Entity {
 
 	public static final Integer	ADMIN		= 9;
 	public static final Integer	VENDEDOR	= 15;

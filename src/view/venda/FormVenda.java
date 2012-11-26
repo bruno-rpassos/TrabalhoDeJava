@@ -13,7 +13,7 @@ public class FormVenda extends Form<Venda> {
 	protected Venda			venda;
 	private ListaItemVenda	lista;
 
-	public FormVenda( final Venda venda ) throws TypeNotFoundException {
+	public FormVenda( final Venda venda ) throws Exception {
 		super( Venda.class, "VENDA" );
 
 		this.initizalize( venda );
@@ -27,7 +27,7 @@ public class FormVenda extends Form<Venda> {
 		super.setValueToField( value, field );
 	}
 
-	private void initizalize( final Venda venda ) {
+	private void initizalize( final Venda venda ) throws Exception {
 		try {
 			this.venda = venda;
 			this.lista = new view.venda.ListaItemVenda( venda );

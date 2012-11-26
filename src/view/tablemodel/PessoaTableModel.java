@@ -10,7 +10,7 @@ import dao.ProdutoDAO;
 @SuppressWarnings( "serial" )
 public class PessoaTableModel extends TableModelPadrao<Pessoa> {
 
-	public PessoaTableModel() {
+	public PessoaTableModel() throws Exception {
 		TableModelPadrao.COLUNAS = new String[] { "Id", "Nome", "CPF", "Endereço", "Cidade / Estado", "Limite de Renda" };
 
 		ProdutoDAO.getInstance().addListener( new Listener() {

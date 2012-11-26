@@ -5,20 +5,21 @@ import java.util.List;
 
 import model.Listener;
 import model.Pessoa;
-import repository.PessoaRepository;
-import exception.PessoaNotFoundException;
 
-public class PessoaDAO implements DAO<Pessoa> {
+public class PessoaDAO extends AbstractDAO<Pessoa> {
 	private static PessoaDAO	instance;
 
-	public static PessoaDAO getInstance() {
-		if ( PessoaDAO.instance == null ) PessoaDAO.instance = new PessoaDAO();
+	public static PessoaDAO getInstance() throws Exception {
+		if ( PessoaDAO.instance == null ) {
+			PessoaDAO.instance = new PessoaDAO();
+		}
 		return PessoaDAO.instance;
 	}
 
 	private final List<Listener>	listeners;
 
-	private PessoaDAO() {
+	private PessoaDAO() throws Exception {
+		super(Pessoa.class);
 		this.listeners = new ArrayList<Listener>();
 	}
 
@@ -27,19 +28,8 @@ public class PessoaDAO implements DAO<Pessoa> {
 	}
 
 	@Override
-	public Pessoa getById( final Integer id ) throws PessoaNotFoundException {
-		return PessoaRepository.getInstance().getById( id );
-	}
-
-	@Override
-	public List<Pessoa> list() {
-		return PessoaRepository.getInstance().getAll();
-	}
-
-	@Override
 	public void saveOrUpdate( final Pessoa pessoa ) throws Exception {
-		pessoa.setNome( pessoa.getNome().toUpperCase() );
-		PessoaRepository.getInstance().add( pessoa );
+		super.saveOrUpdate(pessoa);
 		this.dataChanged();
 	}
 

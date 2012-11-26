@@ -1,12 +1,18 @@
 package model;
 
+import annotation.Id;
 import annotation.Input;
+import annotation.Entity;
 
-public class Produto extends Entity {
+@Entity
+public class Produto extends model.Entity {
 	public static final int	DESCRICAO	= 1;
 	public static final int	ID			= 0;
 	public static final int	QUANTIDADE	= 2;
 	public static final int	VALOR		= 3;
+
+	@Id
+	private Integer id;
 
 	@Input( label = "Descricao", name = "descricao" )
 	private String			descricao;
@@ -39,5 +45,13 @@ public class Produto extends Entity {
 
 	public void setValor( final Double valor ) {
 		this.valor = valor;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

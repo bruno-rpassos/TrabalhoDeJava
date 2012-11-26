@@ -10,7 +10,7 @@ import dao.VendaDAO;
 @SuppressWarnings( "serial" )
 public class VendasTableModel extends TableModelPadrao<Venda> {
 
-	public VendasTableModel() {
+	public VendasTableModel() throws Exception {
 		TableModelPadrao.COLUNAS = new String[] { "Id", "Descricao", "Valor Total (R$)", "Desconto (%)", "Valor com Desconto (R$)", "Cliente" };
 
 		VendaDAO.getInstance().addListener( new Listener() {

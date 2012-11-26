@@ -1,13 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
 
 import model.Venda;
 import dao.VendaDAO;
-import exception.TypeNotFoundException;
-import exception.VendaNotFoundException;
 
 public class VendasController implements Controller<Venda> {
 	private static VendasController	instance;
@@ -32,7 +31,9 @@ public class VendasController implements Controller<Venda> {
 			final Venda venda = VendaDAO.getInstance().getById( id );
 			final JDialog view = new view.venda.EditVenda( venda );
 			view.setVisible( true );
-		} catch ( final VendaNotFoundException e ) {} catch ( final TypeNotFoundException e ) {}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -40,13 +41,21 @@ public class VendasController implements Controller<Venda> {
 		Venda v = null;
 		try {
 			v = VendaDAO.getInstance().getById( id );
-		} catch ( final VendaNotFoundException e ) {}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return v;
 	}
 
 	@Override
 	public List<Venda> getAll() {
-		return VendaDAO.getInstance().list();
+		List<Venda> lista = new ArrayList<Venda>();
+		try {
+			lista =  VendaDAO.getInstance().list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 	@Override

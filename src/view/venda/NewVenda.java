@@ -17,7 +17,6 @@ import controller.Sessao;
 import controller.VendasController;
 import dao.VendaDAO;
 import exception.PermissaoNegadaException;
-import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class NewVenda extends FormVenda {
@@ -34,7 +33,11 @@ public class NewVenda extends FormVenda {
 		this.saveButton.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed( final ActionEvent e ) {
-				NewVenda.this.salvarVenda();
+				try {
+					NewVenda.this.salvarVenda();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		} );
 
@@ -62,7 +65,7 @@ public class NewVenda extends FormVenda {
 		try {
 			final ListaProduto lista = new ListaProduto() {
 				@Override
-				protected void doubleClicked() throws TypeNotFoundException {
+				protected void doubleClicked() throws Exception {
 					final Integer id = ( Integer ) this.table.getValueAt( this.table.getSelectedRow(), 0 );
 					final Produto p = new Produto();
 					final Produto copia = ProdutosController.getInstance().get( id );
@@ -85,13 +88,13 @@ public class NewVenda extends FormVenda {
 		}
 	}
 
-	private void clearVenda() {
+	private void clearVenda() throws Exception {
 		NewVenda.this.venda = new Venda();
 		this.NewVenda();
 		VendaDAO.getInstance().refresh();
 	}
 
-	private void salvarVenda() {
+	private void salvarVenda() throws Exception {
 		try {
 			final Venda v = this.parseEntity();
 			v.setProdutos( this.venda.getProdutos() );
@@ -122,7 +125,7 @@ public class NewVenda extends FormVenda {
 		try {
 			final ListaPessoa lista = new ListaPessoa() {
 				@Override
-				protected void doubleClicked() throws TypeNotFoundException {
+				protected void doubleClicked() throws Exception {
 					final Integer id = ( Integer ) this.table.getValueAt( this.table.getSelectedRow(), 0 );
 					final Pessoa pessoa = PessoaController.getInstance().get( id );
 					NewVenda.this.venda.setCliente( pessoa );

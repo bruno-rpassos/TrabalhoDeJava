@@ -11,7 +11,7 @@ import dao.ProdutoDAO;
 @SuppressWarnings( "serial" )
 public class ProdutosTableModel extends TableModelPadrao<Produto> {
 
-	public ProdutosTableModel() {
+	public ProdutosTableModel() throws Exception {
 		TableModelPadrao.COLUNAS = new String[] { "Id", "Descricao", "Quantidade", "Valor" };
 
 		ProdutoDAO.getInstance().addListener( new Listener() {

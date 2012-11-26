@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -31,7 +32,12 @@ public class ProdutosController implements Controller<Produto> {
 	@Override
 	public void edit( final Integer id ) throws TypeNotFoundException {
 		try {
-			final Produto produto = ProdutoDAO.getInstance().getById( id );
+			Produto produto = null;
+			try {
+				produto = ProdutoDAO.getInstance().getById( id );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			System.out.println( "Produto found: " );
 			System.out.println( "  > id " + produto.getId() );
 			System.out.println( "  > ds " + produto.getDescricao() );
@@ -40,7 +46,7 @@ public class ProdutosController implements Controller<Produto> {
 
 			final JDialog view = new view.produto.EditProduto( produto );
 			view.setVisible( true );
-		} catch ( final ProdutoInvalidException e ) {} catch ( final ProdutoNotFoundException e ) {}
+		} catch ( Exception e ) {}
 	}
 
 	public void edit( final Produto p ) throws TypeNotFoundException, ProdutoNotFoundException {
@@ -54,14 +60,22 @@ public class ProdutosController implements Controller<Produto> {
 
 		try {
 			p = ProdutoDAO.getInstance().getById( id );
-		} catch ( final ProdutoInvalidException e ) {} catch ( final ProdutoNotFoundException e ) {}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return p;
 	}
 
 	@Override
 	public List<Produto> getAll() {
-		return ProdutoDAO.getInstance().list();
+		List<Produto> lista = new ArrayList<Produto>();
+		try {
+			lista = ProdutoDAO.getInstance().list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 	@Override

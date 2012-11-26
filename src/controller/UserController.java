@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -47,7 +48,13 @@ public class UserController implements Controller<User> {
 
 	@Override
 	public List<User> getAll() {
-		return UserDAO.getInstance().list();
+		List<User> lista = new ArrayList<User>();
+		try {
+			lista = UserDAO.getInstance().list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 	public User getByName( final String name ) {
@@ -77,7 +84,11 @@ public class UserController implements Controller<User> {
 
 	@Override
 	public void update( final User u ) {
-		UserDAO.getInstance().saveOrUpdate( u );
+		try {
+			UserDAO.getInstance().saveOrUpdate( u );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void validarLogin( final String user, final String pass ) throws PassNotFoundException, UserNotFoundException {

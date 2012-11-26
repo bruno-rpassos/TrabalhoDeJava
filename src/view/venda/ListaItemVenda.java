@@ -5,7 +5,7 @@ import view.tablemodel.ItensVendaTableModel;
 
 @SuppressWarnings( "serial" )
 public class ListaItemVenda extends ItensVendaTableModel {
-	public ListaItemVenda( final Venda venda ) throws InstantiationException, IllegalAccessException {
+	public ListaItemVenda( final Venda venda ) throws Exception {
 		super( venda );
 	}
 }

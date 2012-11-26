@@ -1,12 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Permissao;
 import model.User;
 import dao.PermissaoDAO;
 import exception.NotImplementedYet;
-import exception.PermissaoNotFoundException;
 import exception.TypeNotFoundException;
 
 public class PermissaoController implements Controller<Permissao> {
@@ -40,14 +40,22 @@ public class PermissaoController implements Controller<Permissao> {
 
 		try {
 			p = PermissaoDAO.getInstance().getByType( id );
-		} catch ( final Exception e ) {}
+		} catch ( final Exception e ) {
+			e.printStackTrace();
+		}
 
 		return p;
 	}
 
 	@Override
 	public List<Permissao> getAll() {
-		return PermissaoDAO.getInstance().list();
+		List<Permissao> lista = new ArrayList<Permissao>();
+		try {
+			lista = PermissaoDAO.getInstance().list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 	public boolean isAdmin( final User user ) {
@@ -72,7 +80,9 @@ public class PermissaoController implements Controller<Permissao> {
 	public void update( final Permissao p ) {
 		try {
 			PermissaoDAO.getInstance().saveOrUpdate( p );
-		} catch ( final PermissaoNotFoundException e ) {}
+		} catch ( final Exception e ) {
+			e.printStackTrace();
+		}
 	}
 
 	private boolean isPermitido( final User user, final Integer permissao ) {

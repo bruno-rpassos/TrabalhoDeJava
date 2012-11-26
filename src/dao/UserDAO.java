@@ -5,21 +5,21 @@ import java.util.List;
 
 import model.Listener;
 import model.User;
-import repository.UserRepository;
-import exception.PassNotFoundException;
-import exception.UserNotFoundException;
 
-public class UserDAO implements DAO<User> {
+public class UserDAO extends AbstractDAO<User> {
 	private static UserDAO	instance;
 
-	public static UserDAO getInstance() {
-		if ( UserDAO.instance == null ) UserDAO.instance = new UserDAO();
+	public static UserDAO getInstance() throws Exception {
+		if ( UserDAO.instance == null ) {
+			UserDAO.instance = new UserDAO();
+		}
 		return UserDAO.instance;
 	}
 
 	private final List<Listener>	listeners;
 
-	private UserDAO() {
+	private UserDAO() throws Exception {
+		super(User.class);
 		this.listeners = new ArrayList<Listener>();
 	}
 
@@ -27,25 +27,13 @@ public class UserDAO implements DAO<User> {
 		this.listeners.add( l );
 	}
 
-	@Override
-	public User getById( final Integer id ) throws UserNotFoundException {
-		return UserRepository.getInstance().getById( id );
-	}
-
-	public User getByLogin( final String login ) throws UserNotFoundException, PassNotFoundException {
-		final User user = UserRepository.getInstance().getUser( login );
-
-		return user;
+	public User getByLogin( final String login ) throws Exception {
+		return super.getByField("login", login).get(0);
 	}
 
 	@Override
-	public List<User> list() {
-		return UserRepository.getInstance().getAll();
-	}
-
-	@Override
-	public void saveOrUpdate( final User user ) {
-		UserRepository.getInstance().add( user );
+	public void saveOrUpdate( final User user ) throws Exception {
+		super.saveOrUpdate(user);
 		this.dataChanged();
 	}
 

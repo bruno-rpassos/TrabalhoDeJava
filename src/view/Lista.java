@@ -77,15 +77,17 @@ public abstract class Lista<T extends TableModel> extends JDialog {
 
 		this.table.addMouseListener( new MouseAdapter() {
 			@Override
-			public void mouseClicked( final MouseEvent e ) {
-				if ( e.getClickCount() == 2 ) try {
+			public void mouseClicked( final MouseEvent evt ) {
+				if ( evt.getClickCount() == 2 ) try {
 					Lista.this.doubleClicked();
-				} catch ( final TypeNotFoundException ex ) {}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			};
 		} );
 	}
 
-	protected abstract void doubleClicked() throws TypeNotFoundException;
+	protected abstract void doubleClicked() throws TypeNotFoundException, Exception;
 
 	private void newFilter() {
 		RowFilter<T, Object> rf = null;

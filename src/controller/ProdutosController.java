@@ -15,9 +15,7 @@ public class ProdutosController implements Controller<Produto> {
 	private static ProdutosController	instance;
 
 	public static ProdutosController getInstance() {
-		if ( ProdutosController.instance == null ) {
-			ProdutosController.instance = new ProdutosController();
-		}
+		if ( ProdutosController.instance == null ) ProdutosController.instance = new ProdutosController();
 		return ProdutosController.instance;
 	}
 

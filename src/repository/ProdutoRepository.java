@@ -12,9 +12,7 @@ public class ProdutoRepository {
 	private static ProdutoRepository	instance;
 
 	public static ProdutoRepository getInstance() {
-		if ( ProdutoRepository.instance == null ) {
-			ProdutoRepository.instance = new ProdutoRepository();
-		}
+		if ( ProdutoRepository.instance == null ) ProdutoRepository.instance = new ProdutoRepository();
 		return ProdutoRepository.instance;
 	}
 
@@ -25,13 +23,10 @@ public class ProdutoRepository {
 	}
 
 	public void add( final Produto produto ) throws ProdutoNotFoundException, ProdutoInvalidException {
-		if ( produto.getId() == null ) {
-			produto.setId( new Integer( ProdutoRepository.ID++ ) );
-		} else {
+		if ( produto.getId() == null ) produto.setId( new Integer( ProdutoRepository.ID++ ) );
+		else {
 			final Produto existente = this.getById( produto.getId() );
-			if ( existente != null ) {
-				this.produtos.remove( existente );
-			}
+			if ( existente != null ) this.produtos.remove( existente );
 		}
 
 		this.produtos.add( produto );
@@ -42,9 +37,8 @@ public class ProdutoRepository {
 	}
 
 	public Produto getById( final Integer id ) throws ProdutoNotFoundException, ProdutoInvalidException {
-		for ( final Produto p : this.produtos ) {
+		for ( final Produto p : this.produtos )
 			if ( p.getId().equals( id ) ) return p;
-		}
 		throw new ProdutoNotFoundException();
 	}
 

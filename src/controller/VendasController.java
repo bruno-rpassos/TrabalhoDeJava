@@ -13,9 +13,7 @@ public class VendasController implements Controller<Venda> {
 	private static VendasController	instance;
 
 	public static VendasController getInstance() {
-		if ( VendasController.instance == null ) {
-			VendasController.instance = new VendasController();
-		}
+		if ( VendasController.instance == null ) VendasController.instance = new VendasController();
 		return VendasController.instance;
 	}
 

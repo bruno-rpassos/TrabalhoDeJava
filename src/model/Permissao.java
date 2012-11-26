@@ -1,12 +1,9 @@
 package model;
 
-import annotation.Persistence;
-
 public class Permissao extends Entity {
 
-	public static final Integer	ADMIN		= 0;
-	public static final Integer	VENDEDOR	= 1;
-	@Persistence
+	public static final Integer	ADMIN		= 9;
+	public static final Integer	VENDEDOR	= 15;
 	private final Integer		tipo;
 
 	public Permissao( final Integer tipo ) {

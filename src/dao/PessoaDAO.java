@@ -12,9 +12,7 @@ public class PessoaDAO implements DAO<Pessoa> {
 	private static PessoaDAO	instance;
 
 	public static PessoaDAO getInstance() {
-		if ( PessoaDAO.instance == null ) {
-			PessoaDAO.instance = new PessoaDAO();
-		}
+		if ( PessoaDAO.instance == null ) PessoaDAO.instance = new PessoaDAO();
 		return PessoaDAO.instance;
 	}
 
@@ -46,9 +44,8 @@ public class PessoaDAO implements DAO<Pessoa> {
 	}
 
 	private void dataChanged() {
-		for ( final Listener l : this.listeners ) {
+		for ( final Listener l : this.listeners )
 			l.actionPerformed();
-		}
 	}
 
 }

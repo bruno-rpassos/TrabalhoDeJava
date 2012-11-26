@@ -5,19 +5,19 @@ import java.lang.reflect.Field;
 import model.Entity;
 
 public class BeanUtils {
-	public static void setProperty(Entity bean, String field, Object value) {
+	public static void setProperty( final Entity bean, final String field, final Object value ) {
 		try {
-			Field f = bean.getClass().getDeclaredField(field);
-			f.setAccessible(true);
-			f.set(bean, value);
-			f.setAccessible(false);
-		} catch (NoSuchFieldException e) {
+			final Field f = bean.getClass().getDeclaredField( field );
+			f.setAccessible( true );
+			f.set( bean, value );
+			f.setAccessible( false );
+		} catch ( final NoSuchFieldException e ) {
 			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch ( final SecurityException e ) {
 			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
+		} catch ( final IllegalArgumentException e ) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch ( final IllegalAccessException e ) {
 			e.printStackTrace();
 		}
 	}

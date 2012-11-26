@@ -7,9 +7,7 @@ public class Sessao {
 	private static Sessao	instance;
 
 	public static Sessao getInstance() {
-		if ( Sessao.instance == null ) {
-			Sessao.instance = new Sessao();
-		}
+		if ( Sessao.instance == null ) Sessao.instance = new Sessao();
 		return Sessao.instance;
 	}
 

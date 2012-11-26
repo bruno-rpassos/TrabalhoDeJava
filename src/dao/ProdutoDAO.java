@@ -13,9 +13,7 @@ public class ProdutoDAO implements DAO<Produto> {
 	private static ProdutoDAO	instance;
 
 	public static ProdutoDAO getInstance() {
-		if ( ProdutoDAO.instance == null ) {
-			ProdutoDAO.instance = new ProdutoDAO();
-		}
+		if ( ProdutoDAO.instance == null ) ProdutoDAO.instance = new ProdutoDAO();
 		return ProdutoDAO.instance;
 	}
 
@@ -47,9 +45,8 @@ public class ProdutoDAO implements DAO<Produto> {
 	}
 
 	private void dataChanged() {
-		for ( final Listener l : this.listeners ) {
+		for ( final Listener l : this.listeners )
 			l.actionPerformed();
-		}
 	}
 
 }

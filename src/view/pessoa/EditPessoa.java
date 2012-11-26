@@ -21,9 +21,7 @@ public class EditPessoa extends FormPessoa {
 			}
 		} );
 
-		if ( p != null ) {
-			this.updateTextFieldsWithEntity( p );
-		}
+		if ( p != null ) this.updateTextFieldsWithEntity( p );
 	}
 
 	private void alterarPessoa( final Pessoa p ) {

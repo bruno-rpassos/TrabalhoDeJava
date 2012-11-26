@@ -15,9 +15,7 @@ public class PessoaController implements Controller<Pessoa> {
 	private static PessoaController	instance;
 
 	public static PessoaController getInstance() {
-		if ( PessoaController.instance == null ) {
-			PessoaController.instance = new PessoaController();
-		}
+		if ( PessoaController.instance == null ) PessoaController.instance = new PessoaController();
 		return PessoaController.instance;
 	}
 

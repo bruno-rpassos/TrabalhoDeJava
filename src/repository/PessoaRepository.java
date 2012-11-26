@@ -11,9 +11,7 @@ public class PessoaRepository {
 	private static PessoaRepository	instance;
 
 	public static PessoaRepository getInstance() {
-		if ( PessoaRepository.instance == null ) {
-			PessoaRepository.instance = new PessoaRepository();
-		}
+		if ( PessoaRepository.instance == null ) PessoaRepository.instance = new PessoaRepository();
 		return PessoaRepository.instance;
 	}
 
@@ -24,13 +22,10 @@ public class PessoaRepository {
 	}
 
 	public void add( final Pessoa pessoa ) throws PessoaNotFoundException {
-		if ( pessoa.getId() == null ) {
-			pessoa.setId( new Integer( PessoaRepository.ID++ ) );
-		} else {
+		if ( pessoa.getId() == null ) pessoa.setId( new Integer( PessoaRepository.ID++ ) );
+		else {
 			final Pessoa existente = this.getById( pessoa.getId() );
-			if ( existente != null ) {
-				this.pessoas.remove( existente );
-			}
+			if ( existente != null ) this.pessoas.remove( existente );
 		}
 
 		this.pessoas.add( pessoa );
@@ -41,9 +36,8 @@ public class PessoaRepository {
 	}
 
 	public Pessoa getById( final Integer id ) throws PessoaNotFoundException {
-		for ( final Pessoa p : this.pessoas ) {
+		for ( final Pessoa p : this.pessoas )
 			if ( p.getId().equals( id ) ) return p;
-		}
 		throw new PessoaNotFoundException();
 	}
 

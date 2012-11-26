@@ -1,7 +1,6 @@
 package model;
 
 import annotation.Input;
-import annotation.Persistence;
 
 public class Pessoa extends Entity {
 	public static final int	CIDADE		= 4;
@@ -11,23 +10,18 @@ public class Pessoa extends Entity {
 	public static final int	LIMITE		= 5;
 	public static final int	NOME		= 1;
 
-	@Persistence
 	@Input( label = "Cidade / Estado", name = "cidadeestado" )
 	private String			cidadeEstado;
 
-	@Persistence
 	@Input( label = "CPF", name = "cpf" )
 	private String			cpf;
 
-	@Persistence
 	@Input( label = "Locadouro", name = "endereco" )
 	private String			endereco;
 
-	@Persistence
 	@Input( label = "Limite de Crédito", name = "limitedecredito" )
 	private Double			limiteCredito;
 
-	@Persistence
 	@Input( label = "Nome", name = "nome" )
 	private String			nome;
 

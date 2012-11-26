@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import annotation.Input;
-import annotation.Persistence;
 import exception.ProdutoNotFoundException;
 
 public class Venda extends Entity {
@@ -16,22 +15,17 @@ public class Venda extends Entity {
 	public static final int	VALOR_COM_DESCONTO	= 4;
 	public static final int	VALOR_TOTAL			= 2;
 
-	@Persistence
 	@Input( label = "Cliente", name = "cliente", parse = false )
 	private Pessoa			cliente;
 
-	@Persistence
 	@Input( label = "Desconto %", name = "desconto" )
 	private Double			desconto;
 
-	@Persistence
 	@Input( label = "Descricao", name = "descricao" )
 	private String			descricao;
 
-	@Persistence
 	private List<Produto>	produtos;
 
-	@Persistence
 	private Double			valorTotal;
 
 	public Venda() {
@@ -55,9 +49,8 @@ public class Venda extends Entity {
 	}
 
 	public Produto getProduto( final Integer id ) throws ProdutoNotFoundException {
-		for ( final Produto p : this.produtos ) {
+		for ( final Produto p : this.produtos )
 			if ( p.getId().equals( id ) ) return p;
-		}
 
 		throw new ProdutoNotFoundException();
 	}

@@ -1,20 +1,17 @@
 package model;
 
 import annotation.Input;
-import annotation.Persistence;
 
 public class User extends Entity {
 
 	public static final int	ID		= 0;
 	public static final int	NOME	= 1;
 
-	@Persistence
 	@Input( label = "Nome", name = "nome" )
 	private String			nome;
 
 	private Permissao		permissao;
 
-	@Persistence
 	@Input( label = "Senha", name = "senha", type = "PASSWORD" )
 	private String			senha;
 

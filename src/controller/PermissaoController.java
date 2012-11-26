@@ -14,9 +14,7 @@ public class PermissaoController implements Controller<Permissao> {
 	private static PermissaoController	instance;
 
 	public static PermissaoController getInstance() {
-		if ( PermissaoController.instance == null ) {
-			PermissaoController.instance = new PermissaoController();
-		}
+		if ( PermissaoController.instance == null ) PermissaoController.instance = new PermissaoController();
 		return PermissaoController.instance;
 	}
 

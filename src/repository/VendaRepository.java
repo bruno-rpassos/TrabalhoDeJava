@@ -11,9 +11,7 @@ public class VendaRepository {
 	private static VendaRepository	instance;
 
 	public static VendaRepository getInstance() {
-		if ( VendaRepository.instance == null ) {
-			VendaRepository.instance = new VendaRepository();
-		}
+		if ( VendaRepository.instance == null ) VendaRepository.instance = new VendaRepository();
 		return VendaRepository.instance;
 	}
 
@@ -24,13 +22,10 @@ public class VendaRepository {
 	}
 
 	public void add( final Venda venda ) throws VendaNotFoundException {
-		if ( venda.getId() == null ) {
-			venda.setId( new Integer( VendaRepository.ID++ ) );
-		} else {
+		if ( venda.getId() == null ) venda.setId( new Integer( VendaRepository.ID++ ) );
+		else {
 			final Venda existente = this.getById( venda.getId() );
-			if ( existente != null ) {
-				this.vendas.remove( existente );
-			}
+			if ( existente != null ) this.vendas.remove( existente );
 		}
 
 		this.vendas.add( venda );
@@ -41,9 +36,8 @@ public class VendaRepository {
 	}
 
 	public Venda getById( final Integer id ) throws VendaNotFoundException {
-		for ( final Venda v : this.vendas ) {
+		for ( final Venda v : this.vendas )
 			if ( v.getId().equals( id ) ) return v;
-		}
 		throw new VendaNotFoundException();
 	}
 

@@ -1,9 +1,9 @@
 package model;
 
-import annotation.Persistence;
+import annotation.Id;
 
 public abstract class Entity {
-	@Persistence
+	@Id
 	protected Integer	id;
 
 	public Integer getId() {

@@ -16,9 +16,7 @@ public class UserController implements Controller<User> {
 	private static UserController	instance;
 
 	public static UserController getInstance() {
-		if ( UserController.instance == null ) {
-			UserController.instance = new UserController();
-		}
+		if ( UserController.instance == null ) UserController.instance = new UserController();
 		return UserController.instance;
 	}
 

@@ -22,9 +22,7 @@ public class EditProduto extends FormProduto {
 			}
 		} );
 
-		if ( p != null ) {
-			this.updateTextFieldsWithEntity( p );
-		}
+		if ( p != null ) this.updateTextFieldsWithEntity( p );
 	}
 
 	private void alterarProduto( final Produto p ) {

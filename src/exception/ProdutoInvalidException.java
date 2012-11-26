@@ -1,6 +1,5 @@
 package exception;
 
-
 @SuppressWarnings( "serial" )
 public class ProdutoInvalidException extends DefaultException {
 

@@ -1,7 +1,6 @@
 package model;
 
 import annotation.Input;
-import annotation.Persistence;
 
 public class Produto extends Entity {
 	public static final int	DESCRICAO	= 1;
@@ -9,15 +8,12 @@ public class Produto extends Entity {
 	public static final int	QUANTIDADE	= 2;
 	public static final int	VALOR		= 3;
 
-	@Persistence
 	@Input( label = "Descricao", name = "descricao" )
 	private String			descricao;
 
-	@Persistence
 	@Input( label = "Quantidade", name = "quantidade" )
 	private Integer			quantidade;
 
-	@Persistence
 	@Input( label = "Valor R$", name = "valor" )
 	private Double			valor;
 

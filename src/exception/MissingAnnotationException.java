@@ -1,10 +1,10 @@
 package exception;
 
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 public class MissingAnnotationException extends DefaultException {
 
-	public MissingAnnotationException(String annotationName) {
-		super("Annotation obrigatória não encontrada("+ annotationName +"");
+	public MissingAnnotationException( final String annotationName ) {
+		super( "Annotation obrigatï¿½ria nï¿½o encontrada(" + annotationName + "" );
 	}
-	
+
 }

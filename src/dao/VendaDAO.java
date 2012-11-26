@@ -12,9 +12,7 @@ public class VendaDAO implements DAO<Venda> {
 	private static VendaDAO	instance;
 
 	public static VendaDAO getInstance() {
-		if ( VendaDAO.instance == null ) {
-			VendaDAO.instance = new VendaDAO();
-		}
+		if ( VendaDAO.instance == null ) VendaDAO.instance = new VendaDAO();
 		return VendaDAO.instance;
 	}
 
@@ -50,9 +48,8 @@ public class VendaDAO implements DAO<Venda> {
 	}
 
 	private void dataChanged() {
-		for ( final Listener l : this.listeners ) {
+		for ( final Listener l : this.listeners )
 			l.actionPerformed();
-		}
 	}
 
 }

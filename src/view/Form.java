@@ -47,25 +47,16 @@ public class Form<T extends Entity> extends DialogPadrao {
 	}
 
 	public void setValueToField( final Object value, final String fieldName ) {
-		T entity = null;
-		try {
-			entity = this.classe.newInstance();
-			for ( final Field f : this.classe.getDeclaredFields() ) {
-				if ( f.isAnnotationPresent( Input.class ) ) {
-					final Input in = f.getAnnotation( Input.class );
+		for ( final Field f : this.classe.getDeclaredFields() )
+			if ( f.isAnnotationPresent( Input.class ) ) {
+				final Input in = f.getAnnotation( Input.class );
 
-					if ( in.name().equals( fieldName ) ) {
-						f.setAccessible( true );
-						final JTextField txtField = this.getTextField( in.name() );
-						txtField.setText( String.valueOf( value ) );
-					}
+				if ( in.name().equals( fieldName ) ) {
+					f.setAccessible( true );
+					final JTextField txtField = this.getTextField( in.name() );
+					txtField.setText( String.valueOf( value ) );
 				}
 			}
-		} catch ( final InstantiationException e ) {
-			e.printStackTrace();
-		} catch ( final IllegalAccessException e ) {
-			e.printStackTrace();
-		}
 	}
 
 	protected void addButton( final JButton button ) {
@@ -81,7 +72,7 @@ public class Form<T extends Entity> extends DialogPadrao {
 		T entity = null;
 		try {
 			entity = this.classe.newInstance();
-			for ( final Field f : this.classe.getDeclaredFields() ) {
+			for ( final Field f : this.classe.getDeclaredFields() )
 				if ( f.isAnnotationPresent( Input.class ) ) {
 					final Input in = f.getAnnotation( Input.class );
 
@@ -91,7 +82,6 @@ public class Form<T extends Entity> extends DialogPadrao {
 						f.set( entity, this.parseToType( txtField, f.getType() ) );
 					}
 				}
-			}
 		} catch ( final InstantiationException e ) {
 			e.printStackTrace();
 		} catch ( final IllegalAccessException e ) {
@@ -112,7 +102,7 @@ public class Form<T extends Entity> extends DialogPadrao {
 
 	protected void updateTextFieldsWithEntity( final T entity ) {
 		try {
-			for ( final Field f : this.classe.getDeclaredFields() ) {
+			for ( final Field f : this.classe.getDeclaredFields() )
 				if ( f.isAnnotationPresent( Input.class ) ) {
 					final Input in = f.getAnnotation( Input.class );
 
@@ -123,7 +113,6 @@ public class Form<T extends Entity> extends DialogPadrao {
 						txtField.setText( String.valueOf( f.get( entity ) ) );
 					}
 				}
-			}
 		} catch ( final IllegalAccessException e ) {
 			e.printStackTrace();
 		}
@@ -222,7 +211,7 @@ public class Form<T extends Entity> extends DialogPadrao {
 	private void parseFields() throws TypeNotFoundException {
 		final Field[] fields = this.classe.getDeclaredFields();
 
-		for ( final Field f : fields ) {
+		for ( final Field f : fields )
 			if ( f.isAnnotationPresent( Input.class ) ) {
 				final Input in = f.getAnnotation( Input.class );
 				{
@@ -248,7 +237,6 @@ public class Form<T extends Entity> extends DialogPadrao {
 					}
 				}
 			}
-		}
 	}
 
 	private Component parseFieldType( final String type ) throws TypeNotFoundException {

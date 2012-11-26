@@ -13,9 +13,7 @@ public class UserDAO implements DAO<User> {
 	private static UserDAO	instance;
 
 	public static UserDAO getInstance() {
-		if ( UserDAO.instance == null ) {
-			UserDAO.instance = new UserDAO();
-		}
+		if ( UserDAO.instance == null ) UserDAO.instance = new UserDAO();
 		return UserDAO.instance;
 	}
 
@@ -52,8 +50,7 @@ public class UserDAO implements DAO<User> {
 	}
 
 	private void dataChanged() {
-		for ( final Listener l : this.listeners ) {
+		for ( final Listener l : this.listeners )
 			l.actionPerformed();
-		}
 	}
 }

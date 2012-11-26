@@ -11,9 +11,7 @@ public class PermissaoDAO implements DAO<Permissao> {
 	private static PermissaoDAO	instance;
 
 	public static PermissaoDAO getInstance() {
-		if ( PermissaoDAO.instance == null ) {
-			PermissaoDAO.instance = new PermissaoDAO();
-		}
+		if ( PermissaoDAO.instance == null ) PermissaoDAO.instance = new PermissaoDAO();
 		return PermissaoDAO.instance;
 	}
 

@@ -10,11 +10,10 @@ import java.util.List;
 import model.Entity;
 import util.BeanUtils;
 import util.StringUtils;
-import util.TypeReference;
 import connection.SingleConnection;
 import exception.MissingAnnotationException;
 
-public class AbstractDAO<T extends Entity> extends TypeReference<T> implements
+public class AbstractDAO<T extends Entity> implements
 		DAO<T> {
 	private Class<T> entityClass;
 	private SingleConnection conn;

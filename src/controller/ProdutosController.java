@@ -7,7 +7,6 @@ import javax.swing.JDialog;
 
 import model.Produto;
 import dao.ProdutoDAO;
-import exception.ProdutoInvalidException;
 import exception.ProdutoNotFoundException;
 import exception.TypeNotFoundException;
 

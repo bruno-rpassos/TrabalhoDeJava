@@ -1,5 +1,6 @@
 package model;
 
+import annotation.BelongsTo;
 import annotation.Entity;
 import annotation.Id;
 import annotation.Input;
@@ -28,7 +29,8 @@ public class User extends model.Entity {
 
 	@Input( label = "Nome", name = "nome" )
 	private String			nome;
-
+	
+	@BelongsTo
 	private Permissao		permissao;
 
 	@Input( label = "Senha", name = "senha", type = "PASSWORD" )

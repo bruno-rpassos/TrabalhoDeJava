@@ -6,7 +6,6 @@ import java.util.List;
 import model.Permissao;
 import model.User;
 import dao.PermissaoDAO;
-import exception.DefaultException;
 import exception.NotImplementedYet;
 import exception.TypeNotFoundException;
 

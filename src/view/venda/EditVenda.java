@@ -10,7 +10,6 @@ import model.Venda;
 import controller.Sessao;
 import controller.VendasController;
 import exception.PermissaoNegadaException;
-import exception.TypeNotFoundException;
 
 @SuppressWarnings( "serial" )
 public class EditVenda extends FormVenda {

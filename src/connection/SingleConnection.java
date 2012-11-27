@@ -30,11 +30,16 @@ public class SingleConnection {
 		return this.conn.createStatement();
 	}
 
-	public PreparedStatement prepareStatement( final String sql ) throws SQLException {
+	public PreparedStatement prepareStatement( final String sql  ) throws SQLException {
 		return this.conn.prepareStatement( sql );
 	}
 
 	public void rollback() throws SQLException {
 		this.conn.rollback();
+	}
+
+	public PreparedStatement prepareStatement(String sql,
+			int returnGeneratedKeys) throws SQLException {
+		return this.conn.prepareStatement( sql, returnGeneratedKeys );
 	}
 }

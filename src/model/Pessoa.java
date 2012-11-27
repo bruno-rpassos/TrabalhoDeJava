@@ -1,23 +1,33 @@
 package model;
 
+import annotation.Entity;
 import annotation.Id;
 import annotation.Input;
-import annotation.Entity;
+import annotation.Transient;
 
 @Entity
 public class Pessoa extends model.Entity {
+	
+	@Transient
 	public static final int	CIDADE		= 4;
+	@Transient
 	public static final int	CPF			= 2;
+	@Transient
 	public static final int	ENDERECO	= 3;
+	@Transient
 	public static final int	ID			= 0;
+	@Transient
 	public static final int	LIMITE		= 5;
+	@Transient
 	public static final int	NOME		= 1;
 
 	@Input( label = "Cidade / Estado", name = "cidadeestado" )
 	private String			cidadeEstado;
 
-	@Input( label = "CPF", name = "cpf" )
 	@Id
+	private Integer id;
+	
+	@Input( label = "CPF", name = "cpf" )
 	private String			cpf;
 
 	@Input( label = "Locadouro", name = "endereco" )
@@ -28,6 +38,14 @@ public class Pessoa extends model.Entity {
 
 	@Input( label = "Nome", name = "nome" )
 	private String			nome;
+	
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId( final Integer id ) {
+		this.id = id;
+	}
 
 	public String getCidadeEstado() {
 		return this.cidadeEstado;

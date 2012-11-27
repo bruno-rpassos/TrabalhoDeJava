@@ -3,19 +3,28 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import annotation.Entity;
 import annotation.Id;
 import annotation.Input;
-import annotation.Entity;
+import annotation.JoinTable;
+import annotation.ManyToMany;
+import annotation.Transient;
 import exception.ProdutoNotFoundException;
 
 @Entity
 public class Venda extends model.Entity {
-
+	
+	@Transient
 	public static final int	CLIENTE				= 5;
+	@Transient
 	public static final int	DESCONTO			= 3;
+	@Transient
 	public static final int	DESCRICAO			= 1;
+	@Transient
 	public static final int	ID					= 0;
+	@Transient
 	public static final int	VALOR_COM_DESCONTO	= 4;
+	@Transient
 	public static final int	VALOR_TOTAL			= 2;
 
 	@Id
@@ -38,6 +47,8 @@ public class Venda extends model.Entity {
 	@Input( label = "Descricao", name = "descricao" )
 	private String			descricao;
 
+	@ManyToMany
+	@JoinTable(name="item_venda")
 	private List<Produto>	produtos;
 
 	private Double			valorTotal;

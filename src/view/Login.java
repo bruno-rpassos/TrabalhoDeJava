@@ -16,7 +16,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import controller.Sessao;
 import controller.UserController;
 import exception.PassNotFoundException;
 import exception.PermissaoNegadaException;
@@ -101,10 +100,7 @@ public class Login extends JDialog {
 
 	private void doLogin( final String user, final char[] pass ) {
 		try {
-			System.out.println( "trying to login [" + user + ", " + new String( pass ) + " ]" );
-
 			UserController.getInstance().validarLogin( user, new String( pass ) );
-			Sessao.getInstance().setLogado( UserController.getInstance().getByName( user ) );
 
 			System.out.println( " >> LOGOU com " + user );
 
@@ -128,7 +124,6 @@ public class Login extends JDialog {
 		} catch ( final PermissaoNegadaException e1 ) {
 			System.out.println( "fail permissao" );
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

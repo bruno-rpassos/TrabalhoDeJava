@@ -3,12 +3,17 @@ package model;
 import annotation.Id;
 import annotation.Input;
 import annotation.Entity;
+import annotation.Transient;
 
 @Entity
 public class Produto extends model.Entity {
+	@Transient
 	public static final int	DESCRICAO	= 1;
+	@Transient
 	public static final int	ID			= 0;
+	@Transient
 	public static final int	QUANTIDADE	= 2;
+	@Transient
 	public static final int	VALOR		= 3;
 
 	@Id

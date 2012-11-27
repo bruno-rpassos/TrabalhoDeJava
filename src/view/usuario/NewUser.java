@@ -25,6 +25,7 @@ public class NewUser extends FormUser {
 		super();
 		try {
 			Sessao.getInstance().temPermissaoCriarUser();
+			setVisible( true );
 		} catch ( final PermissaoNegadaException e1 ) {
 			this.dispose();
 		}

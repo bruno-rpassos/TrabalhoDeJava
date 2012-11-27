@@ -3,8 +3,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JDialog;
-
 import model.User;
 import dao.UserDAO;
 import exception.NotImplementedYet;
@@ -73,8 +71,7 @@ public class UserController implements Controller<User> {
 	@Override
 	public void newResource() {
 		try {
-			final JDialog view = new view.usuario.NewUser();
-			view.setVisible( true );
+			new view.usuario.NewUser();
 		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
@@ -91,8 +88,8 @@ public class UserController implements Controller<User> {
 
 	public void validarLogin( final String user, final String pass ) throws Exception {
 		final User u =  UserDAO.getInstance().getByLogin( user );
-
 		if ( !u.getSenha().equals( pass ) ) throw new PassNotFoundException();
+		Sessao.getInstance().setLogado( u );
 	}
 
 }

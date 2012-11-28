@@ -11,6 +11,8 @@ public class BeanUtils {
 			f.setAccessible( true );
 			if(f.getType() == Integer.class) {
 				value = Integer.valueOf(value.toString());
+			} else if(f.getType() == Double.class) {
+				value = Double.valueOf(value.toString());
 			}
 			f.set( bean, value );
 			f.setAccessible( false );

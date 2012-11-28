@@ -3,6 +3,7 @@ package view.tablemodel;
 import java.util.ArrayList;
 
 import model.Listener;
+import model.Pessoa;
 import model.Venda;
 import controller.VendasController;
 import dao.VendaDAO;

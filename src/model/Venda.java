@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import annotation.BelongsTo;
 import annotation.Entity;
 import annotation.Id;
 import annotation.Input;
@@ -38,6 +39,7 @@ public class Venda extends model.Entity {
 		this.id = id;
 	}
 
+	@BelongsTo
 	@Input( label = "Cliente", name = "cliente", parse = false )
 	private Pessoa			cliente;
 

@@ -59,11 +59,12 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 	@Override
 	public List<T> list() throws Exception {
 		final String query = "SELECT * FROM " + this.entityName;
-		final PreparedStatement ps = this.conn.prepareStatement(query);
+		PreparedStatement ps = this.conn.prepareStatement(query);
+		
+		System.out.println(query);
+		ResultSet rs = ps.executeQuery();
 
-		final ResultSet rs = ps.executeQuery();
-
-		final List<T> results = this.getListOfBeansFromResultSet(rs);
+		List<T> results = this.getListOfBeansFromResultSet(rs);
 
 		return results;
 	}
@@ -125,6 +126,8 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 		} else {
 			throw new SQLException("Houve um erro ao recuperar a chave o registro");
 		}
+		
+		PreparedStatement associationPs = null;
 
 		for (Field f : fields) {
 			if (f.isAnnotationPresent(annotation.ManyToMany.class)) {
@@ -146,10 +149,16 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 									+ e.getClass().getSimpleName()
 											.toLowerCase() + "_id ) values ( "
 									+ obj.getId() + ", " + e.getId() + " )");
-					System.out.println(associateQuery);
+					associationPs = this.conn.prepareStatement(associateQuery.toString());
+					int affectedAssociationRows = associationPs.executeUpdate();
+					if(affectedAssociationRows == 0) {
+						throw new SQLException("Houve um erro ao gravar as associações");
+					}
 				}
 			}
 		}
+		
+		if(associationPs != null) ps.close();
 		
 		if(ps != null) ps.close();
 		if(generatedKeys != null) generatedKeys.close();

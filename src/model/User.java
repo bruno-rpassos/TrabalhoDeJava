@@ -2,7 +2,6 @@ package model;
 
 import annotation.BelongsTo;
 import annotation.Entity;
-import annotation.Id;
 import annotation.Input;
 import annotation.Table;
 import annotation.Transient;
@@ -15,18 +14,6 @@ public class User extends model.Entity {
 	public static final int	ID		= 0;
 	@Transient
 	public static final int	NOME	= 1;
-	
-	@Id
-	private Integer id;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	@Input( label = "Nome", name = "nome" )
 	private String			nome;
 	

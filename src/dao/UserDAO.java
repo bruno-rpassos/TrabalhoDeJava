@@ -5,20 +5,28 @@ import java.util.List;
 
 import model.Listener;
 import model.User;
+import exception.MissingAnnotationException;
+import exception.SQLException;
 
 public class UserDAO extends AbstractDAO<User> {
 	private static UserDAO	instance;
 
-	public static UserDAO getInstance() throws Exception {
+	public static UserDAO getInstance() throws SQLException {
 		if ( UserDAO.instance == null ) {
-			UserDAO.instance = new UserDAO();
+				try {
+					UserDAO.instance = new UserDAO();
+				} catch (MissingAnnotationException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
 		}
 		return UserDAO.instance;
 	}
 
 	private final List<Listener>	listeners;
 
-	private UserDAO() throws Exception {
+	private UserDAO() throws MissingAnnotationException, ClassNotFoundException, SQLException {
 		super(User.class);
 		this.listeners = new ArrayList<Listener>();
 	}
@@ -27,12 +35,12 @@ public class UserDAO extends AbstractDAO<User> {
 		this.listeners.add( l );
 	}
 
-	public User getByLogin( final String login ) throws Exception {
+	public User getByLogin( final String login ) throws SQLException {
 		return super.getByField("nome", login).get(0);
 	}
 
 	@Override
-	public void saveOrUpdate( final User user ) throws Exception {
+	public void saveOrUpdate( final User user ) throws SQLException {
 		super.saveOrUpdate(user);
 		this.dataChanged();
 	}

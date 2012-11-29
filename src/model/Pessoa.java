@@ -1,7 +1,6 @@
 package model;
 
 import annotation.Entity;
-import annotation.Id;
 import annotation.Input;
 import annotation.Transient;
 
@@ -23,9 +22,6 @@ public class Pessoa extends model.Entity {
 
 	@Input( label = "Cidade / Estado", name = "cidadeestado" )
 	private String			cidadeEstado;
-
-	@Id
-	private Integer id;
 	
 	@Input( label = "CPF", name = "cpf" )
 	private String			cpf;
@@ -38,14 +34,6 @@ public class Pessoa extends model.Entity {
 
 	@Input( label = "Nome", name = "nome" )
 	private String			nome;
-	
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId( final Integer id ) {
-		this.id = id;
-	}
 
 	public String getCidadeEstado() {
 		return this.cidadeEstado;

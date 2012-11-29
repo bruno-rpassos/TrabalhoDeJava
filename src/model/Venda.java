@@ -5,7 +5,6 @@ import java.util.List;
 
 import annotation.BelongsTo;
 import annotation.Entity;
-import annotation.Id;
 import annotation.Input;
 import annotation.JoinTable;
 import annotation.ManyToMany;
@@ -27,17 +26,6 @@ public class Venda extends model.Entity {
 	public static final int	VALOR_COM_DESCONTO	= 4;
 	@Transient
 	public static final int	VALOR_TOTAL			= 2;
-
-	@Id
-	private Integer id;
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	@BelongsTo
 	@Input( label = "Cliente", name = "cliente", parse = false )

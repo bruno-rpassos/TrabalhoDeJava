@@ -17,6 +17,7 @@ import controller.Sessao;
 import controller.VendasController;
 import dao.VendaDAO;
 import exception.PermissaoNegadaException;
+import exception.SQLException;
 
 @SuppressWarnings( "serial" )
 public class NewVenda extends FormVenda {
@@ -125,7 +126,7 @@ public class NewVenda extends FormVenda {
 		try {
 			final ListaPessoa lista = new ListaPessoa() {
 				@Override
-				protected void doubleClicked() throws Exception {
+				protected void doubleClicked() throws SQLException {
 					final Integer id = ( Integer ) this.table.getValueAt( this.table.getSelectedRow(), 0 );
 					final Pessoa pessoa = PessoaController.getInstance().get( id );
 					NewVenda.this.venda.setCliente( pessoa );

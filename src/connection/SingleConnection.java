@@ -9,14 +9,14 @@ import java.sql.Statement;
 public class SingleConnection {
 	private static SingleConnection	instance;
 
-	public static SingleConnection getInstance() throws Exception {
+	public static SingleConnection getInstance() throws SQLException, ClassNotFoundException {
 		if ( SingleConnection.instance == null ) SingleConnection.instance = new SingleConnection();
 		return SingleConnection.instance;
 	}
 
 	private final Connection	conn;
 
-	private SingleConnection() throws Exception {
+	private SingleConnection() throws SQLException, ClassNotFoundException {
 		Class.forName( "org.postgresql.Driver" );
 		this.conn = DriverManager.getConnection( "jdbc:postgresql://localhost:5432/postgres", "postgresql", "postgresql" );
 		this.conn.setAutoCommit( false );

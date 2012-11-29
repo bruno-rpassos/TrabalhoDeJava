@@ -5,20 +5,28 @@ import java.util.List;
 
 import model.Listener;
 import model.Pessoa;
+import exception.MissingAnnotationException;
+import exception.SQLException;
 
 public class PessoaDAO extends AbstractDAO<Pessoa> {
 	private static PessoaDAO	instance;
 
-	public static PessoaDAO getInstance() throws Exception {
+	public static PessoaDAO getInstance() throws SQLException {
 		if ( PessoaDAO.instance == null ) {
-			PessoaDAO.instance = new PessoaDAO();
+			try {
+				PessoaDAO.instance = new PessoaDAO();
+			} catch (MissingAnnotationException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 		return PessoaDAO.instance;
 	}
 
 	private final List<Listener>	listeners;
 
-	private PessoaDAO() throws Exception {
+	private PessoaDAO() throws SQLException, MissingAnnotationException, ClassNotFoundException {
 		super(Pessoa.class);
 		this.listeners = new ArrayList<Listener>();
 	}
@@ -28,7 +36,7 @@ public class PessoaDAO extends AbstractDAO<Pessoa> {
 	}
 
 	@Override
-	public void saveOrUpdate( final Pessoa pessoa ) throws Exception {
+	public void saveOrUpdate( final Pessoa pessoa ) throws SQLException {
 		super.saveOrUpdate(pessoa);
 		this.dataChanged();
 	}

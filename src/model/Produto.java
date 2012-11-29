@@ -1,8 +1,7 @@
 package model;
 
-import annotation.Id;
-import annotation.Input;
 import annotation.Entity;
+import annotation.Input;
 import annotation.Transient;
 
 @Entity
@@ -15,9 +14,6 @@ public class Produto extends model.Entity {
 	public static final int	QUANTIDADE	= 2;
 	@Transient
 	public static final int	VALOR		= 3;
-
-	@Id
-	private Integer id;
 
 	@Input( label = "Descricao", name = "descricao" )
 	private String			descricao;
@@ -50,13 +46,5 @@ public class Produto extends model.Entity {
 
 	public void setValor( final Double valor ) {
 		this.valor = valor;
-	}
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 }

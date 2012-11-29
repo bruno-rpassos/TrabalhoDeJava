@@ -52,7 +52,7 @@ public class PermissaoController implements Controller<Permissao> {
 		List<Permissao> lista = new ArrayList<Permissao>();
 		try {
 			lista = PermissaoDAO.getInstance().list();
-		} catch (Exception e) {
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 		return lista;

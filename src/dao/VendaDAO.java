@@ -12,14 +12,12 @@ public class VendaDAO extends AbstractDAO<Venda> {
 	private static VendaDAO	instance;
 
 	public static VendaDAO getInstance() throws SQLException {
-		if ( VendaDAO.instance == null ) {
-			try {
-				VendaDAO.instance = new VendaDAO();
-			} catch (MissingAnnotationException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+		if ( VendaDAO.instance == null ) try {
+			VendaDAO.instance = new VendaDAO();
+		} catch ( final MissingAnnotationException e ) {
+			e.printStackTrace();
+		} catch ( final ClassNotFoundException e ) {
+			e.printStackTrace();
 		}
 		return VendaDAO.instance;
 	}
@@ -27,7 +25,7 @@ public class VendaDAO extends AbstractDAO<Venda> {
 	private final List<Listener>	listeners;
 
 	private VendaDAO() throws MissingAnnotationException, ClassNotFoundException, SQLException {
-		super(Venda.class);
+		super( Venda.class );
 		this.listeners = new ArrayList<Listener>();
 	}
 
@@ -41,7 +39,7 @@ public class VendaDAO extends AbstractDAO<Venda> {
 
 	@Override
 	public void saveOrUpdate( final Venda venda ) throws SQLException {
-		super.saveOrUpdate(venda);
+		super.saveOrUpdate( venda );
 		this.dataChanged();
 	}
 

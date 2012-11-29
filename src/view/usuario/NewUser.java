@@ -1,9 +1,12 @@
 package view.usuario;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -25,12 +28,13 @@ public class NewUser extends FormUser {
 		super();
 		try {
 			Sessao.getInstance().temPermissaoCriarUser();
-			setVisible( true );
+			this.setVisible( true );
 		} catch ( final PermissaoNegadaException e1 ) {
 			this.dispose();
 		}
 
 		this.setTitle( "NOVO USER" );
+
 		this.initializeRadioButtons();
 		this.saveButton.addActionListener( new ActionListener() {
 			@Override
@@ -41,18 +45,14 @@ public class NewUser extends FormUser {
 	}
 
 	private void initializeRadioButtons() {
-		final JPanel panel = new JPanel();
-
 		final JRadioButton rdbtnAdministrador = new JRadioButton( "Administrador" );
-		panel.add( rdbtnAdministrador );
-
-		final JRadioButton rdbtnVendedor = new JRadioButton( "Vendedor" );
-		rdbtnVendedor.setEnabled( true );
-		panel.add( rdbtnVendedor );
+		final JRadioButton rdbtnVendedor = new JRadioButton( "Vendedor", true );
 
 		final ButtonGroup group = new ButtonGroup();
 		group.add( rdbtnAdministrador );
 		group.add( rdbtnVendedor );
+
+		final JPanel panel = new JPanel();
 
 		rdbtnAdministrador.addActionListener( new ActionListener() {
 			@Override
@@ -67,7 +67,16 @@ public class NewUser extends FormUser {
 			}
 		} );
 
-		super.contentPanel.add( panel );
+		this.getContentPane().add( panel, BorderLayout.NORTH );
+		final GroupLayout gl_panel = new GroupLayout( panel );
+		gl_panel.setHorizontalGroup( gl_panel.createParallelGroup( Alignment.LEADING ).addGroup(
+						gl_panel.createSequentialGroup().addGap( 116 ).addComponent( rdbtnAdministrador ).addGap( 6 ).addComponent( rdbtnVendedor ) ) );
+		gl_panel.setVerticalGroup( gl_panel.createParallelGroup( Alignment.LEADING ).addGroup(
+						gl_panel.createSequentialGroup()
+										.addGap( 5 )
+										.addGroup( gl_panel.createParallelGroup( Alignment.LEADING ).addComponent( rdbtnAdministrador )
+														.addComponent( rdbtnVendedor ) ) ) );
+		panel.setLayout( gl_panel );
 	}
 
 	private void salvarUser() {

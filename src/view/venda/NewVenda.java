@@ -36,7 +36,7 @@ public class NewVenda extends FormVenda {
 			public void actionPerformed( final ActionEvent e ) {
 				try {
 					NewVenda.this.salvarVenda();
-				} catch (Exception e1) {
+				} catch ( final Exception e1 ) {
 					e1.printStackTrace();
 				}
 			}

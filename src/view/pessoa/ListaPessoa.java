@@ -13,7 +13,7 @@ public class ListaPessoa extends view.Lista<PessoaTableModel> {
 	}
 
 	@Override
-protected void doubleClicked() throws TypeNotFoundException, SQLException {
+	protected void doubleClicked() throws TypeNotFoundException, SQLException {
 		final Integer id = ( Integer ) this.table.getValueAt( this.table.getSelectedRow(), 0 );
 		System.out.println( "looking for pessoa with id " + id );
 		PessoaController.getInstance().edit( id );

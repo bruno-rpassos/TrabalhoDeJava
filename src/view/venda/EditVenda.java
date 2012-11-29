@@ -32,6 +32,7 @@ public class EditVenda extends FormVenda {
 		if ( v != null ) {
 			this.updateTextFieldsWithEntity( v );
 			this.parseCliente( v.getCliente().getNome(), "cliente" );
+			this.setVenda( v );
 		}
 	}
 

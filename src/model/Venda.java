@@ -13,7 +13,7 @@ import exception.ProdutoNotFoundException;
 
 @Entity
 public class Venda extends model.Entity {
-	
+
 	@Transient
 	public static final int	CLIENTE				= 5;
 	@Transient
@@ -38,7 +38,7 @@ public class Venda extends model.Entity {
 	private String			descricao;
 
 	@ManyToMany
-	@JoinTable(name="item_venda")
+	@JoinTable( name = "item_venda" )
 	private List<Produto>	produtos;
 
 	private Double			valorTotal;

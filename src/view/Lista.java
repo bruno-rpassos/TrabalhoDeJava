@@ -80,7 +80,7 @@ public abstract class Lista<T extends TableModel> extends JDialog {
 			public void mouseClicked( final MouseEvent evt ) {
 				if ( evt.getClickCount() == 2 ) try {
 					Lista.this.doubleClicked();
-				} catch (Exception e) {
+				} catch ( final Exception e ) {
 					e.printStackTrace();
 				}
 			};

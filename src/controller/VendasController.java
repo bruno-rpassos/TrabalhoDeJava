@@ -31,7 +31,7 @@ public class VendasController implements Controller<Venda> {
 			final Venda venda = VendaDAO.getInstance().getById( id );
 			final JDialog view = new view.venda.EditVenda( venda );
 			view.setVisible( true );
-		} catch (Exception e) {
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 	}
@@ -41,7 +41,7 @@ public class VendasController implements Controller<Venda> {
 		Venda v = null;
 		try {
 			v = VendaDAO.getInstance().getById( id );
-		} catch (Exception e) {
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 		return v;
@@ -51,8 +51,8 @@ public class VendasController implements Controller<Venda> {
 	public List<Venda> getAll() {
 		List<Venda> lista = new ArrayList<Venda>();
 		try {
-			lista =  VendaDAO.getInstance().list();
-		} catch (Exception e) {
+			lista = VendaDAO.getInstance().list();
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 		return lista;

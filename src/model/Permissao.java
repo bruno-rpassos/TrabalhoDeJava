@@ -11,10 +11,10 @@ public class Permissao extends model.Entity {
 	@Transient
 	public static final Integer	VENDEDOR	= 15;
 
-	private Integer		tipo;
-	
+	private final Integer		tipo;
+
 	public Permissao() {
-		this.tipo = VENDEDOR;
+		this.tipo = Permissao.VENDEDOR;
 	}
 
 	public Permissao( final Integer tipo ) {

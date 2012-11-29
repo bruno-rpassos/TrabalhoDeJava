@@ -47,7 +47,7 @@ public class UserController implements Controller<User> {
 		List<User> lista = new ArrayList<User>();
 		try {
 			lista = UserDAO.getInstance().list();
-		} catch (Exception e) {
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 		return lista;
@@ -81,13 +81,13 @@ public class UserController implements Controller<User> {
 	public void update( final User u ) {
 		try {
 			UserDAO.getInstance().saveOrUpdate( u );
-		} catch (Exception e) {
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 	}
 
 	public void validarLogin( final String user, final String pass ) throws Exception {
-		final User u =  UserDAO.getInstance().getByLogin( user );
+		final User u = UserDAO.getInstance().getByLogin( user );
 		if ( !u.getSenha().equals( pass ) ) throw new PassNotFoundException();
 		Sessao.getInstance().setLogado( u );
 	}

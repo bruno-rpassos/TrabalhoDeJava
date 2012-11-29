@@ -18,7 +18,7 @@ public class SingleConnection {
 
 	private SingleConnection() throws SQLException, ClassNotFoundException {
 		Class.forName( "org.postgresql.Driver" );
-		this.conn = DriverManager.getConnection( "jdbc:postgresql://localhost:5432/postgres", "postgresql", "postgresql" );
+		this.conn = DriverManager.getConnection( "jdbc:postgresql://localhost:5432/tiagocouto", "tiagocouto", "ingrid9" );
 		this.conn.setAutoCommit( false );
 	}
 
@@ -30,16 +30,15 @@ public class SingleConnection {
 		return this.conn.createStatement();
 	}
 
-	public PreparedStatement prepareStatement( final String sql  ) throws SQLException {
+	public PreparedStatement prepareStatement( final String sql ) throws SQLException {
 		return this.conn.prepareStatement( sql );
+	}
+
+	public PreparedStatement prepareStatement( final String sql, final int returnGeneratedKeys ) throws SQLException {
+		return this.conn.prepareStatement( sql, returnGeneratedKeys );
 	}
 
 	public void rollback() throws SQLException {
 		this.conn.rollback();
-	}
-
-	public PreparedStatement prepareStatement(String sql,
-			int returnGeneratedKeys) throws SQLException {
-		return this.conn.prepareStatement( sql, returnGeneratedKeys );
 	}
 }

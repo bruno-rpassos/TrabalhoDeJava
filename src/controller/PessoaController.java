@@ -13,45 +13,41 @@ import exception.TypeNotFoundException;
 
 public class PessoaController implements Controller<Pessoa> {
 
-	private static PessoaController instance;
+	private static PessoaController	instance;
 
 	public static PessoaController getInstance() {
-		if (PessoaController.instance == null)
-			PessoaController.instance = new PessoaController();
+		if ( PessoaController.instance == null ) PessoaController.instance = new PessoaController();
 		return PessoaController.instance;
 	}
 
-	private PessoaController() {
-	}
+	private PessoaController() {}
 
 	@Override
-	public void create(final Pessoa p) {
+	public void create( final Pessoa p ) {
 		try {
-			PessoaDAO.getInstance().saveOrUpdate(p);
-		} catch (final Exception e) {
-		}
+			PessoaDAO.getInstance().saveOrUpdate( p );
+		} catch ( final Exception e ) {}
 	}
 
 	@Override
-	public void edit(final Integer id) throws SQLException, TypeNotFoundException {
-		final Pessoa pessoa = PessoaDAO.getInstance().getById(id);
-		final JDialog view = new view.pessoa.EditPessoa(pessoa);
-		view.setVisible(true);
+	public void edit( final Integer id ) throws SQLException, TypeNotFoundException {
+		final Pessoa pessoa = PessoaDAO.getInstance().getById( id );
+		final JDialog view = new view.pessoa.EditPessoa( pessoa );
+		view.setVisible( true );
 	}
 
-	public void edit(final Pessoa p) throws TypeNotFoundException,
-			ProdutoNotFoundException {
-		final JDialog view = new view.pessoa.EditPessoa(p);
-		view.setVisible(true);
+	public void edit( final Pessoa p ) throws TypeNotFoundException, ProdutoNotFoundException {
+		final JDialog view = new view.pessoa.EditPessoa( p );
+		view.setVisible( true );
 	}
 
 	@Override
-	public Pessoa get(final Integer id) {
+	public Pessoa get( final Integer id ) {
 		Pessoa p = null;
 
 		try {
-			p = PessoaDAO.getInstance().getById(id);
-		} catch (final Exception e) {
+			p = PessoaDAO.getInstance().getById( id );
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 
@@ -63,7 +59,7 @@ public class PessoaController implements Controller<Pessoa> {
 		List<Pessoa> lista = new ArrayList<Pessoa>();
 		try {
 			lista = PessoaDAO.getInstance().list();
-		} catch (Exception e) {
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 		return lista;
@@ -73,10 +69,10 @@ public class PessoaController implements Controller<Pessoa> {
 	public void list() {
 		try {
 			final JDialog view = new view.pessoa.ListaPessoa();
-			view.setVisible(true);
-		} catch (final InstantiationException e) {
+			view.setVisible( true );
+		} catch ( final InstantiationException e ) {
 			e.printStackTrace();
-		} catch (final IllegalAccessException e) {
+		} catch ( final IllegalAccessException e ) {
 			e.printStackTrace();
 		}
 	}
@@ -85,17 +81,17 @@ public class PessoaController implements Controller<Pessoa> {
 	public void newResource() {
 		try {
 			final JDialog view = new view.pessoa.NewPessoa();
-			view.setVisible(true);
-		} catch (final Exception e) {
+			view.setVisible( true );
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void update(final Pessoa p) {
+	public void update( final Pessoa p ) {
 		try {
-			PessoaDAO.getInstance().saveOrUpdate(p);
-		} catch (final Exception e) {
+			PessoaDAO.getInstance().saveOrUpdate( p );
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 	}

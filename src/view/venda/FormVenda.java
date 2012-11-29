@@ -5,6 +5,7 @@ import javax.swing.JTable;
 
 import model.Venda;
 import view.Form;
+import dao.VendaDAO;
 
 @SuppressWarnings( "serial" )
 public class FormVenda extends Form<Venda> {
@@ -24,6 +25,16 @@ public class FormVenda extends Form<Venda> {
 
 	protected void parseCliente( final Object value, final String field ) {
 		super.setValueToField( value, field );
+	}
+
+	protected void setVenda( final Venda venda ) {
+
+		try {
+			this.initizalize( venda );
+			VendaDAO.getInstance().refresh();
+		} catch ( final Exception e1 ) {
+			e1.printStackTrace();
+		}
 	}
 
 	private void initizalize( final Venda venda ) throws Exception {

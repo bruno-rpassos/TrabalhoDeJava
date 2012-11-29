@@ -12,14 +12,12 @@ public class ProdutoDAO extends AbstractDAO<Produto> {
 	private static ProdutoDAO	instance;
 
 	public static ProdutoDAO getInstance() throws SQLException {
-		if ( ProdutoDAO.instance == null ) {
-			try {
-				ProdutoDAO.instance = new ProdutoDAO();
-			} catch (MissingAnnotationException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+		if ( ProdutoDAO.instance == null ) try {
+			ProdutoDAO.instance = new ProdutoDAO();
+		} catch ( final MissingAnnotationException e ) {
+			e.printStackTrace();
+		} catch ( final ClassNotFoundException e ) {
+			e.printStackTrace();
 		}
 		return ProdutoDAO.instance;
 	}
@@ -27,7 +25,7 @@ public class ProdutoDAO extends AbstractDAO<Produto> {
 	private final List<Listener>	listeners;
 
 	private ProdutoDAO() throws MissingAnnotationException, ClassNotFoundException, SQLException {
-		super(Produto.class);
+		super( Produto.class );
 		this.listeners = new ArrayList<Listener>();
 	}
 
@@ -37,7 +35,7 @@ public class ProdutoDAO extends AbstractDAO<Produto> {
 
 	@Override
 	public void saveOrUpdate( final Produto produto ) throws SQLException {
-		super.saveOrUpdate(produto);
+		super.saveOrUpdate( produto );
 		this.dataChanged();
 	}
 

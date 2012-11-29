@@ -6,7 +6,7 @@ import annotation.Transient;
 
 @Entity
 public class Pessoa extends model.Entity {
-	
+
 	@Transient
 	public static final int	CIDADE		= 4;
 	@Transient
@@ -22,7 +22,7 @@ public class Pessoa extends model.Entity {
 
 	@Input( label = "Cidade / Estado", name = "cidadeestado" )
 	private String			cidadeEstado;
-	
+
 	@Input( label = "CPF", name = "cpf" )
 	private String			cpf;
 

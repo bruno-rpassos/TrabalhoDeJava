@@ -34,7 +34,7 @@ public class ProdutosController implements Controller<Produto> {
 			Produto produto = null;
 			try {
 				produto = ProdutoDAO.getInstance().getById( id );
-			} catch (Exception e) {
+			} catch ( final Exception e ) {
 				e.printStackTrace();
 			}
 			System.out.println( "Produto found: " );
@@ -45,7 +45,7 @@ public class ProdutosController implements Controller<Produto> {
 
 			final JDialog view = new view.produto.EditProduto( produto );
 			view.setVisible( true );
-		} catch ( Exception e ) {}
+		} catch ( final Exception e ) {}
 	}
 
 	public void edit( final Produto p ) throws TypeNotFoundException, ProdutoNotFoundException {
@@ -59,7 +59,7 @@ public class ProdutosController implements Controller<Produto> {
 
 		try {
 			p = ProdutoDAO.getInstance().getById( id );
-		} catch (Exception e) {
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 
@@ -71,7 +71,7 @@ public class ProdutosController implements Controller<Produto> {
 		List<Produto> lista = new ArrayList<Produto>();
 		try {
 			lista = ProdutoDAO.getInstance().list();
-		} catch (Exception e) {
+		} catch ( final Exception e ) {
 			e.printStackTrace();
 		}
 		return lista;

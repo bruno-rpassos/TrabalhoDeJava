@@ -7,16 +7,16 @@ import annotation.Table;
 import annotation.Transient;
 
 @Entity
-@Table(name = "usuario")
+@Table( name = "usuario" )
 public class User extends model.Entity {
-	
+
 	@Transient
 	public static final int	ID		= 0;
 	@Transient
 	public static final int	NOME	= 1;
 	@Input( label = "Nome", name = "nome" )
 	private String			nome;
-	
+
 	@BelongsTo
 	private Permissao		permissao;
 

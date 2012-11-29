@@ -12,14 +12,12 @@ public class PessoaDAO extends AbstractDAO<Pessoa> {
 	private static PessoaDAO	instance;
 
 	public static PessoaDAO getInstance() throws SQLException {
-		if ( PessoaDAO.instance == null ) {
-			try {
-				PessoaDAO.instance = new PessoaDAO();
-			} catch (MissingAnnotationException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+		if ( PessoaDAO.instance == null ) try {
+			PessoaDAO.instance = new PessoaDAO();
+		} catch ( final MissingAnnotationException e ) {
+			e.printStackTrace();
+		} catch ( final ClassNotFoundException e ) {
+			e.printStackTrace();
 		}
 		return PessoaDAO.instance;
 	}
@@ -27,7 +25,7 @@ public class PessoaDAO extends AbstractDAO<Pessoa> {
 	private final List<Listener>	listeners;
 
 	private PessoaDAO() throws SQLException, MissingAnnotationException, ClassNotFoundException {
-		super(Pessoa.class);
+		super( Pessoa.class );
 		this.listeners = new ArrayList<Listener>();
 	}
 
@@ -37,7 +35,7 @@ public class PessoaDAO extends AbstractDAO<Pessoa> {
 
 	@Override
 	public void saveOrUpdate( final Pessoa pessoa ) throws SQLException {
-		super.saveOrUpdate(pessoa);
+		super.saveOrUpdate( pessoa );
 		this.dataChanged();
 	}
 

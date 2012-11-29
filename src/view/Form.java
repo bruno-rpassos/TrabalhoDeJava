@@ -154,9 +154,7 @@ public class Form<T extends Entity> extends DialogPadrao {
 				( ( JTextField ) c ).setText( null );
 			}
 
-			else if ( c instanceof Container ) {
-				this.clearAllTextFields( ( Container ) c );
-			}
+			else if ( c instanceof Container ) this.clearAllTextFields( ( Container ) c );
 		}
 
 		this.didRequestedFocus = false;
@@ -230,9 +228,7 @@ public class Form<T extends Entity> extends DialogPadrao {
 					{
 						final Component c = this.parseFieldType( in.type() );
 						c.setName( in.name() );
-						if ( !in.parse() ) {
-							c.setEnabled( false );
-						}
+						if ( !in.parse() ) c.setEnabled( false );
 						panel.add( c );
 					}
 				}

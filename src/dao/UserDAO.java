@@ -12,14 +12,12 @@ public class UserDAO extends AbstractDAO<User> {
 	private static UserDAO	instance;
 
 	public static UserDAO getInstance() throws SQLException {
-		if ( UserDAO.instance == null ) {
-				try {
-					UserDAO.instance = new UserDAO();
-				} catch (MissingAnnotationException e) {
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				}
+		if ( UserDAO.instance == null ) try {
+			UserDAO.instance = new UserDAO();
+		} catch ( final MissingAnnotationException e ) {
+			e.printStackTrace();
+		} catch ( final ClassNotFoundException e ) {
+			e.printStackTrace();
 		}
 		return UserDAO.instance;
 	}
@@ -27,7 +25,7 @@ public class UserDAO extends AbstractDAO<User> {
 	private final List<Listener>	listeners;
 
 	private UserDAO() throws MissingAnnotationException, ClassNotFoundException, SQLException {
-		super(User.class);
+		super( User.class );
 		this.listeners = new ArrayList<Listener>();
 	}
 
@@ -36,12 +34,12 @@ public class UserDAO extends AbstractDAO<User> {
 	}
 
 	public User getByLogin( final String login ) throws SQLException {
-		return super.getByField("nome", login).get(0);
+		return super.getByField( "nome", login ).get( 0 );
 	}
 
 	@Override
 	public void saveOrUpdate( final User user ) throws SQLException {
-		super.saveOrUpdate(user);
+		super.saveOrUpdate( user );
 		this.dataChanged();
 	}
 

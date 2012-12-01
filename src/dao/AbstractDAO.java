@@ -94,7 +94,7 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 
 			ResultSet generatedKeys = ps.getGeneratedKeys();
 			if (generatedKeys.next()) {
-				if (obj.getId() != generatedKeys.getInt("id")) {
+				if (obj.getId() == null || obj.getId() != generatedKeys.getInt("id")) {
 					obj.setId(generatedKeys.getInt("id"));
 					persistAssociations(obj);
 				}

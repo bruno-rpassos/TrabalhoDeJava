@@ -114,6 +114,7 @@ public class NewVenda extends FormVenda {
 			VendasController.getInstance().create( v );
 			JOptionPane.showMessageDialog( this, "Venda cadastrado!" );
 		} catch ( final Exception ex ) {
+			ex.printStackTrace();
 			JOptionPane.showMessageDialog( this, ">> ERRO AO CADASTRAR VENDA" );
 		}
 

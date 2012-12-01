@@ -3,9 +3,9 @@
         |                                                                               |
         |                      CESUMAR - MARINGA PR                                     |
         |                                                                               |
-        |                          2º SISTEMAS DE INFORMACAO                            |
+        |                          2º SISTEMAS DE INFORMACAO                           |
         |                                                                               |
-        |                              Programação II - 4º BIMESTRE                     |
+        |                              Programação II - 4º BIMESTRE                  |
         |                                                                               |
         |                                                                               |
         |                                                                               |

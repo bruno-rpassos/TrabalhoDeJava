@@ -1,124 +1,144 @@
-/*
- Navicat Premium Backup
+﻿-- Usuário/role = postgresql, caso necessário é só dar um replace all (:
 
- Source Server         : MBP - PostgreSQL
- Source Server Type    : PostgreSQL
- Source Server Version : 90104
- Source Host           : localhost
- Source Database       : TrabalhoDeJava
- Source Schema         : public
+CREATE TABLE item_venda (
+    produto_id bigint NOT NULL,
+    venda_id bigint NOT NULL
+);
 
- Target Server Type    : PostgreSQL
- Target Server Version : 90104
- File Encoding         : utf-8
 
- Date: 11/25/2012 23:11:18 PM
-*/
+ALTER TABLE public.item_venda OWNER TO postgres;
 
--- ----------------------------
---  Table structure for "User"
--- ----------------------------
-DROP TABLE IF EXISTS "User" CASCADE;
-CREATE TABLE "User" (
-	"id" int8 NOT NULL,
-	"nome" varchar NOT NULL,
-	"permissao_id" int8 NOT NULL,
-	"senha" varchar NOT NULL
-)
-WITH (OIDS=FALSE);
-ALTER TABLE "User" OWNER TO "tiagocouto";
+CREATE SEQUENCE permissao_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
--- ----------------------------
---  Table structure for "Permissao"
--- ----------------------------
-DROP TABLE IF EXISTS "Permissao" CASCADE;
-CREATE TABLE "Permissao" (
-	"id" int8 NOT NULL,
-	"tipo" int8 NOT NULL
-)
-WITH (OIDS=FALSE);
-ALTER TABLE "Permissao" OWNER TO "tiagocouto";
 
--- ----------------------------
---  Table structure for "Item_Venda"
--- ----------------------------
-DROP TABLE IF EXISTS "Item_Venda" CASCADE;
-CREATE TABLE "Item_Venda" (
-	"produto_id" int8 NOT NULL,
-	"venda_id" int8 NOT NULL
-)
-WITH (OIDS=FALSE);
-ALTER TABLE "Item_Venda" OWNER TO "tiagocouto";
+ALTER TABLE public.permissao_id_seq OWNER TO postgres;
 
--- ----------------------------
---  Table structure for "Pessoa"
--- ----------------------------
-DROP TABLE IF EXISTS "Pessoa" CASCADE;
-CREATE TABLE "Pessoa" (
-	"id" int8 NOT NULL,
-	"cidade_estado" varchar,
-	"cpf" varchar NOT NULL,
-	"endereco" varchar,
-	"limite_credito" float8 NOT NULL,
-	"nome" varchar NOT NULL
-)
-WITH (OIDS=FALSE);
-ALTER TABLE "Pessoa" OWNER TO "tiagocouto";
+SELECT pg_catalog.setval('permissao_id_seq', 2, true);
 
--- ----------------------------
---  Table structure for "Produto"
--- ----------------------------
-DROP TABLE IF EXISTS "Produto" CASCADE;
-CREATE TABLE "Produto" (
-	"id" int8 NOT NULL,
-	"descricao" varchar NOT NULL,
-	"quantidade" int8 NOT NULL,
-	"valor" float8 NOT NULL
-)
-WITH (OIDS=FALSE);
-ALTER TABLE "Produto" OWNER TO "tiagocouto";
+CREATE TABLE permissao (
+    id bigint DEFAULT nextval('permissao_id_seq'::regclass) NOT NULL,
+    tipo bigint NOT NULL
+);
 
--- ----------------------------
---  Table structure for "Venda"
--- ----------------------------
-DROP TABLE IF EXISTS "Venda" CASCADE;
-CREATE TABLE "Venda" (
-	"desconto" float4,
-	"id" int8 NOT NULL,
-	"descricao" varchar,
-	"cliente_id" int2 NOT NULL,
-	"valor_total" float4
-)
-WITH (OIDS=FALSE);
-ALTER TABLE "Venda" OWNER TO "tiagocouto";
 
--- ----------------------------
---  Primary key structure for table "User"
--- ----------------------------
-ALTER TABLE "User" ADD CONSTRAINT "User_pkey" PRIMARY KEY ("id") NOT DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE public.permissao OWNER TO postgres;
 
--- ----------------------------
---  Primary key structure for table "Permissao"
--- ----------------------------
-ALTER TABLE "Permissao" ADD CONSTRAINT "Permissao_pkey" PRIMARY KEY ("id") NOT DEFERRABLE INITIALLY IMMEDIATE;
+CREATE SEQUENCE pessoa_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
--- ----------------------------
---  Primary key structure for table "Item_Venda"
--- ----------------------------
-ALTER TABLE "Item_Venda" ADD CONSTRAINT "Item_Venda_pkey" PRIMARY KEY ("produto_id", "venda_id") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
--- ----------------------------
---  Primary key structure for table "Pessoa"
--- ----------------------------
-ALTER TABLE "Pessoa" ADD CONSTRAINT "Pessoa_pkey" PRIMARY KEY ("id") NOT DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE public.pessoa_id_seq OWNER TO postgres;
 
--- ----------------------------
---  Primary key structure for table "Produto"
--- ----------------------------
-ALTER TABLE "Produto" ADD CONSTRAINT "Produto_pkey" PRIMARY KEY ("id") NOT DEFERRABLE INITIALLY IMMEDIATE;
+SELECT pg_catalog.setval('pessoa_id_seq', 5, true);
 
--- ----------------------------
---  Primary key structure for table "Venda"
--- ----------------------------
-ALTER TABLE "Venda" ADD CONSTRAINT "Venda_pkey" PRIMARY KEY ("id") NOT DEFERRABLE INITIALLY IMMEDIATE;
+CREATE TABLE pessoa (
+    id bigint DEFAULT nextval('pessoa_id_seq'::regclass) NOT NULL,
+    cidade_estado character varying,
+    cpf character varying NOT NULL,
+    endereco character varying,
+    limite_credito double precision NOT NULL,
+    nome character varying NOT NULL
+);
+
+
+ALTER TABLE public.pessoa OWNER TO postgres;
+
+CREATE SEQUENCE produto_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.produto_id_seq OWNER TO postgres;
+
+SELECT pg_catalog.setval('produto_id_seq', 2, true);
+
+CREATE TABLE produto (
+    id bigint DEFAULT nextval('produto_id_seq'::regclass) NOT NULL,
+    descricao character varying NOT NULL,
+    quantidade bigint NOT NULL,
+    valor double precision NOT NULL
+);
+
+
+ALTER TABLE public.produto OWNER TO postgres;
+
+CREATE SEQUENCE usuario_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.usuario_id_seq OWNER TO postgres;
+
+SELECT pg_catalog.setval('usuario_id_seq', 1, false);
+
+CREATE TABLE usuario (
+    id bigint DEFAULT nextval('usuario_id_seq'::regclass) NOT NULL,
+    nome character varying NOT NULL,
+    permissao_id bigint NOT NULL,
+    senha character varying NOT NULL
+);
+
+
+ALTER TABLE public.usuario OWNER TO postgres;
+
+CREATE SEQUENCE venda_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.venda_id_seq OWNER TO postgres;
+
+SELECT pg_catalog.setval('venda_id_seq', 56, true);
+
+CREATE TABLE venda (
+    desconto real,
+    id bigint DEFAULT nextval('venda_id_seq'::regclass) NOT NULL,
+    descricao character varying,
+    cliente_id smallint NOT NULL,
+    valor_total real
+);
+
+
+ALTER TABLE public.venda OWNER TO postgres;
+
+ALTER TABLE ONLY item_venda
+    ADD CONSTRAINT "Item_Venda_pkey" PRIMARY KEY (produto_id, venda_id);
+
+ALTER TABLE ONLY permissao
+    ADD CONSTRAINT "Permissao_pkey" PRIMARY KEY (id);
+
+ALTER TABLE ONLY pessoa
+    ADD CONSTRAINT "Pessoa_pkey" PRIMARY KEY (id);
+
+ALTER TABLE ONLY produto
+    ADD CONSTRAINT "Produto_pkey" PRIMARY KEY (id);
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT "User_pkey" PRIMARY KEY (id);
+
+ALTER TABLE ONLY venda
+    ADD CONSTRAINT "Venda_pkey" PRIMARY KEY (id);
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
 

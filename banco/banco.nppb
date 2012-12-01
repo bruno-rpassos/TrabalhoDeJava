@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<BackupProfile Ver="1.0">
-  <General ConnectionName="MBP - PostgreSQL" DatabaseName="TrabalhoDeJava" SchemaName="public" LockAllTables="False" UseSingleTransaction="False" UseSpecifiedFileName="False" FileName=""/>
-  <Tables SelectAll="True"/>
-  <Views SelectAll="True"/>
-  <Functions SelectAll="True"/>
-  <Sequences SelectAll="True"/>
-</BackupProfile>

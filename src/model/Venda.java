@@ -37,18 +37,18 @@ public class Venda extends model.Entity {
 	@Input( label = "Descricao", name = "descricao" )
 	private String			descricao;
 
-	@ManyToMany
+	@ManyToMany(associationClass=Produto.class)
 	@JoinTable(name="item_venda")
-	private List<Produto>	produtos;
+	private List<Produto>	produto;
 
 	private Double			valorTotal;
 
 	public Venda() {
-		this.produtos = new ArrayList<Produto>();
+		this.produto = new ArrayList<Produto>();
 	}
 
 	public void addProduto( final Produto produto ) {
-		this.produtos.add( produto );
+		this.produto.add( produto );
 	}
 
 	public Pessoa getCliente() {
@@ -64,14 +64,18 @@ public class Venda extends model.Entity {
 	}
 
 	public Produto getProduto( final Integer id ) throws ProdutoNotFoundException {
-		for ( final Produto p : this.produtos )
+		for ( final Produto p : this.produto )
 			if ( p.getId().equals( id ) ) return p;
 
 		throw new ProdutoNotFoundException();
 	}
 
+	public List<Produto> getProduto() {
+		return produto;
+	}
+
 	public List<Produto> getProdutos() {
-		return this.produtos;
+		return this.produto;
 	}
 
 	public Double getValorTotal() {
@@ -91,7 +95,7 @@ public class Venda extends model.Entity {
 	}
 
 	public void setProdutos( final List<Produto> produtos ) {
-		this.produtos = produtos;
+		this.produto = produtos;
 	}
 
 	public void setValorTotal( final Double valorTotal ) {

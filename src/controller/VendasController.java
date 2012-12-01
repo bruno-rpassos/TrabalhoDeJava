@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 
 import model.Venda;
 import dao.VendaDAO;
+import exception.SQLException;
 
 public class VendasController implements Controller<Venda> {
 	private static VendasController	instance;
@@ -20,9 +21,11 @@ public class VendasController implements Controller<Venda> {
 
 	@Override
 	public void create( final Venda v ) {
-		try {
-			VendaDAO.getInstance().saveOrUpdate( v );
-		} catch ( final Exception e ) {}
+			try {
+				VendaDAO.getInstance().saveOrUpdate( v );
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 	}
 
 	@Override

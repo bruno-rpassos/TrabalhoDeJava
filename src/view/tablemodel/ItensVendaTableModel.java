@@ -7,59 +7,76 @@ import model.Produto;
 import model.Venda;
 import dao.VendaDAO;
 
-@SuppressWarnings( "serial" )
+@SuppressWarnings("serial")
 public class ItensVendaTableModel extends TableModelPadrao<Produto> {
-	private Venda	venda;
+	private Venda venda;
 
-	public ItensVendaTableModel( final Venda venda ) throws Exception {
-		TableModelPadrao.COLUNAS = new String[] { "Id", "Descricao", "Quantidade", "Valor" };
+	public ItensVendaTableModel(final Venda venda) throws Exception {
+		TableModelPadrao.COLUNAS = new String[] { "Id", "Descricao",
+				"Quantidade", "Valor" };
 		this.venda = venda;
 
-		VendaDAO.getInstance().addListener( new Listener() {
+		VendaDAO.getInstance().addListener(new Listener() {
 			@Override
 			public void actionPerformed() {
 				ItensVendaTableModel.this.atualizarDados();
 			}
-		} );
+		});
 
 		this.atualizarDados();
 	}
 
-	public void addProduto( final Produto p ) {
-		this.venda.addProduto( p );
+	public void addProduto(final Produto p) {
+		this.venda.addProduto(p);
 	}
 
 	@Override
-	public Class<?> getColumnClass( final int column ) {
-		switch ( column ) {
+	public String getColumnName(int column) {
+		switch (column) {
 			case Produto.ID:
-				return Integer.class;
+				return "ID";
 			case Produto.DESCRICAO:
-				return String.class;
+				return "DESCRICAO";
 			case Produto.QUANTIDADE:
-				return Integer.class;
+				return "QUANTIDADE";
 			case Produto.VALOR:
-				return BigDecimal.class;
+				return "VALOR";
 			default:
-				return Object.class;
+				return "";
 		}
 	}
 
 	@Override
-	public Object getValueAt( final int row, final int column ) {
-		final Produto p = this.lista.get( row );
+	public Class<?> getColumnClass(final int column) {
+		switch (column) {
+		case Produto.ID:
+			return Integer.class;
+		case Produto.DESCRICAO:
+			return String.class;
+		case Produto.QUANTIDADE:
+			return Integer.class;
+		case Produto.VALOR:
+			return BigDecimal.class;
+		default:
+			return Object.class;
+		}
+	}
 
-		switch ( column ) {
-			case Produto.ID:
-				return p.getId();
-			case Produto.DESCRICAO:
-				return p.getDescricao();
-			case Produto.QUANTIDADE:
-				return p.getQuantidade();
-			case Produto.VALOR:
-				return p.getValor();
-			default:
-				return "";
+	@Override
+	public Object getValueAt(final int row, final int column) {
+		final Produto p = this.lista.get(row);
+
+		switch (column) {
+		case Produto.ID:
+			return p.getId();
+		case Produto.DESCRICAO:
+			return p.getDescricao();
+		case Produto.QUANTIDADE:
+			return p.getQuantidade();
+		case Produto.VALOR:
+			return p.getValor();
+		default:
+			return "";
 		}
 	}
 

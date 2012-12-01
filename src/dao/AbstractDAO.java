@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.Entity;
+import model.reflection.EntityField;
 import util.BeanUtils;
 import util.StringUtils;
 import annotation.Table;
@@ -56,7 +57,6 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 		final String query = "SELECT * FROM " + this.entityName;
 		PreparedStatement ps = this.conn.prepareStatement(query);
 
-		System.out.println(query);
 		ResultSet rs = ps.executeQuery();
 
 		List<T> results = this.getListOfBeansFromResultSet(rs);
@@ -66,6 +66,7 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 
 	@Override
 	public void saveOrUpdate(final T obj) throws SQLException {
+
 		try {
 			Map<String, Object> columNamesWithValues = obj
 					.getAllColumnsWithValue();
@@ -82,6 +83,7 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 				ps.setObject(parametroAtual, entry.getValue());
 				parametroAtual++;
 			}
+
 			if (!obj.isNew())
 				ps.setObject(parametroAtual, obj.getId());
 
@@ -92,28 +94,41 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 
 			ResultSet generatedKeys = ps.getGeneratedKeys();
 			if (generatedKeys.next()) {
-				obj.setId(generatedKeys.getInt(1));
+				if (obj.getId() != generatedKeys.getInt("id")) {
+					obj.setId(generatedKeys.getInt("id"));
+					persistAssociations(obj);
+				}
 			} else {
 				throw new SQLException(
 						"Houve um erro ao recuperar a chave o registro");
-			}
-
-			if (obj.isNew()) {
-				persistAssociations(obj);
 			}
 
 			if (ps != null)
 				ps.close();
 			if (generatedKeys != null)
 				generatedKeys.close();
-
+		} catch (java.sql.SQLException e) {
+			rollback();
+			throw new SQLException(e.getMessage());
+		} catch (IllegalArgumentException e) {
+			rollback();
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			rollback();
+			e.printStackTrace();
+		}
+		try {
 			this.conn.commit();
 		} catch (java.sql.SQLException e) {
 			throw new SQLException(e.getMessage());
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+		}
+	}
+
+	private void rollback() throws SQLException {
+		try {
+			conn.rollback();
+		} catch (java.sql.SQLException e1) {
+			throw new SQLException(e1.getMessage());
 		}
 	}
 
@@ -269,6 +284,37 @@ public class AbstractDAO<T extends Entity> implements DAO<T> {
 							}
 						}
 					}
+
+					for (final Field field : this.getEntityDeclaredFields()) {
+						List columnValue = new ArrayList();
+						if (field
+								.isAnnotationPresent(annotation.ManyToMany.class)
+								&& !field
+										.isAnnotationPresent(annotation.Transient.class)) {
+
+							EntityField eField = new EntityField(field);
+							String query = "SELECT produto_id FROM "
+									+ eField.getJoinTableName() + " WHERE "
+									+ this.entityName + "_id = (?)";
+
+							PreparedStatement ps = this.conn
+									.prepareStatement(query);
+							ps.setObject(1, rs.getInt("id"));
+
+							ResultSet rsRel = ps.executeQuery();
+
+							while (rsRel.next()) {
+								AbstractDAO absDAORel = new AbstractDAO(
+										eField.getAssociationClass());
+								((List) columnValue).add(absDAORel
+										.getById(rsRel.getInt("produto_id")));
+							}
+
+							BeanUtils.setProperty(bean, field.getName(),
+									columnValue);
+						}
+					}
+
 					list.add(bean);
 				}
 			}

@@ -1,6 +1,7 @@
 package view.venda;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import model.Venda;
@@ -32,9 +33,10 @@ public class FormVenda extends Form<Venda> {
 			this.lista = new view.venda.ListaItemVenda( venda );
 
 			final JTable table = new JTable( this.lista );
+			final JScrollPane jsp = new JScrollPane(table);
 
 			final JPanel panel = new JPanel();
-			panel.add( table );
+			panel.add( jsp );
 
 			super.contentPanel.add( panel );
 

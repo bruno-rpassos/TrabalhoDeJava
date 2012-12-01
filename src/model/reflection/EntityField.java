@@ -50,4 +50,8 @@ public class EntityField {
 	public String getJoinTableName() {
 		return field.getAnnotation(annotation.JoinTable.class).name();
 	}
+	
+	public Class getAssociationClass() {
+		return field.getAnnotation(annotation.ManyToMany.class).associationClass();
+	}
 }

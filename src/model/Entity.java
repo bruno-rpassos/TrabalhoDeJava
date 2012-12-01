@@ -63,7 +63,7 @@ public abstract class Entity {
 				@SuppressWarnings("unchecked")
 				Collection<Entity> associationObjects = (Collection<Entity>) f
 						.get(this);
-				allFieldsWithValue.put(StringUtils.camelCaseToUnderscore(f.getName()), associationObjects);
+				allFieldsWithValue.put(f.getJoinTableName(), associationObjects);
 			}
 		}
 

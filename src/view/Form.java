@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import util.BeanUtils;
+
 import model.Entity;
 import annotation.Input;
 import exception.TypeNotFoundException;
@@ -47,7 +49,7 @@ public class Form<T extends Entity> extends DialogPadrao {
 	}
 
 	public void setValueToField( final Object value, final String fieldName ) {
-		for ( final Field f : this.classe.getDeclaredFields() )
+		for ( final Field f : BeanUtils.getDeclaredFieldsFromClassAndSuperclass(this.classe) )
 			if ( f.isAnnotationPresent( Input.class ) ) {
 				final Input in = f.getAnnotation( Input.class );
 
@@ -72,7 +74,7 @@ public class Form<T extends Entity> extends DialogPadrao {
 		T entity = null;
 		try {
 			entity = this.classe.newInstance();
-			for ( final Field f : this.classe.getDeclaredFields() )
+			for ( final Field f : BeanUtils.getDeclaredFieldsFromClassAndSuperclass(this.classe) )
 				if ( f.isAnnotationPresent( Input.class ) ) {
 					final Input in = f.getAnnotation( Input.class );
 
@@ -102,14 +104,13 @@ public class Form<T extends Entity> extends DialogPadrao {
 
 	protected void updateTextFieldsWithEntity( final T entity ) {
 		try {
-			for ( final Field f : this.classe.getDeclaredFields() )
+			for ( final Field f : BeanUtils.getDeclaredFieldsFromClassAndSuperclass(this.classe) )
 				if ( f.isAnnotationPresent( Input.class ) ) {
 					final Input in = f.getAnnotation( Input.class );
 
 					if ( in.parse() ) {
 						f.setAccessible( true );
 						final JTextField txtField = this.getTextField( in.name() );
-						System.out.println( in.name() + " value " + f.get( entity ) );
 						txtField.setText( String.valueOf( f.get( entity ) ) );
 					}
 				}
@@ -209,7 +210,7 @@ public class Form<T extends Entity> extends DialogPadrao {
 	}
 
 	private void parseFields() throws TypeNotFoundException {
-		final Field[] fields = this.classe.getDeclaredFields();
+		final Field[] fields = BeanUtils.getDeclaredFieldsFromClassAndSuperclass(this.classe);
 
 		for ( final Field f : fields )
 			if ( f.isAnnotationPresent( Input.class ) ) {
